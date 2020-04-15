@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.com.diegosilva.automation";
+option java_outer_classname = "AutomationProto";
+
+service DeviceService {
+    rpc AddDevice (AddDeviceRequest) returns (AddDeviceReply) {}
+}
+
+message AddDeviceRequest {
+    string name = 1;
+}
+
+message AddDeviceReply {
+    string message = 1;
+}

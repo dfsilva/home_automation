@@ -22,7 +22,7 @@ void setup(){
 
     radio.openReadingPipe(1,pipe_spot1);  
     radio.startListening();
-    //radio.printDetails();
+    radio.printDetails();
 }
 
 void loop(){

@@ -12,8 +12,8 @@ import com.typesafe.config.ConfigFactory;
 import java.time.Duration;
 
 public class Main {
-
     public static void main(String[] args) throws Exception {
+//        Kamon.init();
         ActorSystem.create(Guardian.create(), "Automation", ConfigFactory.load());
     }
 }
@@ -25,6 +25,7 @@ class Guardian {
             AutomationServer.start(new AutomationRoutes(system).routes(), system.settings().config().getInt("automation.http.port"), system);
 
             boolean isReceptor = system.settings().config().getBoolean("serial.receptor");
+
             if (isReceptor) {
                 ActorRef<Receptor.Command> receptor = context.spawn(Behaviors.supervise(Receptor.create())
                         .onFailure(SupervisorStrategy.restartWithBackoff(Duration.ofSeconds(1), Duration.ofSeconds(5), 0.5)), "receptor");

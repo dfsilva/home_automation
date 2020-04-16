@@ -1,7 +1,6 @@
 package br.com.diegosilva.automation.actors;
 
 import akka.actor.Cancellable;
-import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.PreRestart;
 import akka.actor.typed.javadsl.AbstractBehavior;
@@ -16,14 +15,11 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 
 import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Receptor extends AbstractBehavior<Receptor.Command> {
 
     private SerialPort serialPort;
     private Cancellable cancellable;
-//    private Map<String, ActorRef<Device.Command>> devices = new HashMap<>();
 
     public static Behavior<Command> create() {
         return Behaviors.setup(context -> new Receptor(context));
@@ -66,7 +62,7 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
                 try {
                     byte buffer[] = serialPort.readBytes(event.getEventValue());
                     String msg = new String(buffer);
-                    getContext().getLog().debug("Valor recebido {}", msg);
+                    getContext().getLog().info("Valor recebido {}", msg);
                     IOTMessage message = IOTMessage.decode(msg);
                     if (message != null)
                         getDevice(message.id).tell(new Device.Process(message));
@@ -90,12 +86,6 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
     EntityRef<Device.Command> getDevice(String id) {
         ClusterSharding sharding = ClusterSharding.get(getContext().getSystem());
         return sharding.entityRefFor(Device.TypeKey, id);
-
-//        if (!devices.containsKey(id)) {
-//            devices.put(id, getContext().spawn(Behaviors.supervise(Device.create())
-//                    .onFailure(SupervisorStrategy.restartWithBackoff(Duration.ofSeconds(1), Duration.ofSeconds(5), 0.5)), "device_" + id));
-//        }
-//        return devices.get(id);
     }
 
 

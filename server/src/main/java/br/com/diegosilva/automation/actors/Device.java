@@ -43,7 +43,7 @@ public class Device extends AbstractBehavior<Device.Command> {
     public Receive<Command> createReceive() {
         return newReceiveBuilder()
                 .onMessage(Process.class, (msg) -> {
-                    getContext().getLog().debug("Processando mensagem IOT {}", msg.message);
+                    getContext().getLog().info("Processando mensagem IOT {}", msg.message);
                     return this;
                 })
                 .build();

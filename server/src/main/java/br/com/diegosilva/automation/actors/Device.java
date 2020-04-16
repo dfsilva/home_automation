@@ -4,6 +4,7 @@ import akka.actor.Cancellable;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.ActorSystem;
 import akka.actor.typed.Behavior;
+import akka.actor.typed.PreRestart;
 import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
@@ -13,7 +14,10 @@ import akka.cluster.sharding.typed.javadsl.Entity;
 import akka.cluster.sharding.typed.javadsl.EntityTypeKey;
 import br.com.diegosilva.automation.CborSerializable;
 import br.com.diegosilva.automation.dto.IOTMessage;
+import br.com.diegosilva.automation.utils.SerialPortFactory;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
 import java.time.Duration;
 
@@ -21,6 +25,7 @@ public class Device extends AbstractBehavior<Device.Command> {
 
     private Cancellable cancellable;
     private final String deviceId;
+    private SerialPort serialPort;
 
 
     public static final EntityTypeKey<Command> TypeKey =
@@ -36,9 +41,10 @@ public class Device extends AbstractBehavior<Device.Command> {
         return Behaviors.setup(context -> new Device(context, deviceid));
     }
 
-    private Device(ActorContext<Command> context, String deviceId) {
+    private Device(ActorContext<Command> context, String deviceId) throws SerialPortException {
         super(context);
         this.deviceId = deviceId;
+        this.serialPort = SerialPortFactory.get(context.getSystem().settings().config().getString("serial.port"));
     }
 
     @Override
@@ -50,9 +56,17 @@ public class Device extends AbstractBehavior<Device.Command> {
                 })
                 .onMessage(Send.class, (msg) -> {
                     getContext().getLog().info("Enviando mensagem para  {}", msg.message.id);
+                    serialPort.writeString(msg.message.encode());
                     msg.replyTo.tell(new SendResponse("Mensagem enviada"));
                     return this;
                 })
+                .onSignal(
+                        PreRestart.class,
+                        signal -> {
+                            getContext().getLog().debug("Reiniciando de recebimento de leituras");
+                            this.serialPort = SerialPortFactory.get(getContext().getSystem().settings().config().getString("serial.port"));
+                            return this;
+                        })
                 .build();
     }
 

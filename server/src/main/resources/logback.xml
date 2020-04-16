@@ -7,7 +7,6 @@
 
     <logger name="com.datastax.driver.core.Connection" level="WARN"/>
     <logger name="com.codahale.metrics" level="INFO"/>
-    <logger name="akka" level="WARN"/>
 
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <queueSize>8192</queueSize>
@@ -15,7 +14,7 @@
         <appender-ref ref="STDOUT" />
     </appender>
 
-    <root level="INFO">
+    <root level="TRACE">
         <appender-ref ref="ASYNC"/>
     </root>
 

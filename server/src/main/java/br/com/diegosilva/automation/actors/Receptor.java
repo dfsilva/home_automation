@@ -11,6 +11,7 @@ import akka.cluster.sharding.typed.javadsl.ClusterSharding;
 import akka.cluster.sharding.typed.javadsl.EntityRef;
 import br.com.diegosilva.automation.CborSerializable;
 import br.com.diegosilva.automation.dto.IOTMessage;
+import br.com.diegosilva.automation.utils.SerialPortFactory;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
@@ -25,8 +26,9 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
         return Behaviors.setup(context -> new Receptor(context));
     }
 
-    private Receptor(ActorContext<Command> context) {
+    private Receptor(ActorContext<Command> context) throws SerialPortException {
         super(context);
+        this.serialPort = SerialPortFactory.get(context.getSystem().settings().config().getString("serial.port"));
     }
 
     @Override
@@ -41,6 +43,7 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
                         PreRestart.class,
                         signal -> {
                             getContext().getLog().debug("Reiniciando de recebimento de leituras");
+                            this.serialPort = SerialPortFactory.get(getContext().getSystem().settings().config().getString("serial.port"));
                             retry(Duration.ofSeconds(5), new Receptor.Start());
                             return this;
                         })
@@ -48,16 +51,7 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
     }
 
     public void startReceive() {
-        serialPort = new SerialPort(getContext().getSystem().settings().config().getString("serial.port"));
         try {
-            serialPort.openPort();
-            serialPort.setParams(SerialPort.BAUDRATE_57600,
-                    SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
-                    SerialPort.PARITY_NONE);
-
-            int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS
-                    + SerialPort.MASK_DSR;
-            serialPort.setEventsMask(mask);
             serialPort.addEventListener(event -> {
                 try {
                     byte buffer[] = serialPort.readBytes(event.getEventValue());
@@ -87,7 +81,6 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
         ClusterSharding sharding = ClusterSharding.get(getContext().getSystem());
         return sharding.entityRefFor(Device.TypeKey, id);
     }
-
 
     public interface Command extends CborSerializable {
     }

@@ -14,7 +14,7 @@ public class IOTMessage implements CborSerializable {
     public String value;
 
     @JsonCreator
-    public IOTMessage(){
+    public IOTMessage() {
 
     }
 
@@ -47,6 +47,10 @@ public class IOTMessage implements CborSerializable {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public String encode() {
+        return "id:" + this.id + "," + "T:" + this.tipo + "," + "value:" + value;
     }
 
     @Override

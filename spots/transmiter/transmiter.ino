@@ -22,14 +22,14 @@ void loop() {
   radio.openWritingPipe(w_pipes[last_pipe]);
   transmitTemperature();
   last_pipe = (last_pipe == 0) ? 1 : 0;
-  delay(500);
+  delay(200);
 }
 
 void transmitTemperature(){
-    float t = 55.55f;
-    char temp[10];
+    int t = random(50, 50000);
+    char temp[7];
     dtostrf(t,6,2,temp);
-    char msg[40];
+    char msg[20];
     int id = random(1, 10);
     sprintf(msg, "id:temp_%d,T:temp,value:%s",id,temp);
     Serial.println(msg); 

@@ -65,6 +65,7 @@ public class AutomationRoutes {
 
 
     private CompletionStage<Device.Response> sendMessage(IOTMessage data) {
+        system.log().info("Enviando mensagem para entity {}", data.id);
         EntityRef<Device.Command> entityRef =
                 sharding.entityRefFor(Device.TypeKey, data.id);
         return entityRef.ask(replyTo -> new Device.Send(data, replyTo), timeout);

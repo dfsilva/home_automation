@@ -1,11 +1,15 @@
 package br.com.diegosilva.automation.actors;
 
 import akka.actor.Cancellable;
+import akka.actor.typed.ActorSystem;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
+import akka.cluster.sharding.typed.javadsl.ClusterSharding;
+import akka.cluster.sharding.typed.javadsl.Entity;
+import akka.cluster.sharding.typed.javadsl.EntityTypeKey;
 import br.com.diegosilva.automation.CborSerializable;
 import br.com.diegosilva.automation.dto.IOTMessage;
 
@@ -14,13 +18,25 @@ import java.time.Duration;
 public class Device extends AbstractBehavior<Device.Command> {
 
     private Cancellable cancellable;
+    private final String deviceId;
 
-    public static Behavior<Command> create() {
-        return Behaviors.setup(context -> new Device(context));
+
+    public static final EntityTypeKey<Command> TypeKey =
+            EntityTypeKey.create(Device.Command.class, "Device");
+
+    public static void initSharding(ActorSystem<?> system) {
+        ClusterSharding.get(system).init(Entity.of(TypeKey, entityContext ->
+                Device.create(entityContext.getEntityId())
+        ));
     }
 
-    private Device(ActorContext<Command> context) {
+    public static Behavior<Command> create(String deviceid) {
+        return Behaviors.setup(context -> new Device(context, deviceid));
+    }
+
+    private Device(ActorContext<Command> context, String deviceId) {
         super(context);
+        this.deviceId = deviceId;
     }
 
     @Override

@@ -4,11 +4,12 @@ import akka.actor.Cancellable;
 import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.PreRestart;
-import akka.actor.typed.SupervisorStrategy;
 import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
+import akka.cluster.sharding.typed.javadsl.ClusterSharding;
+import akka.cluster.sharding.typed.javadsl.EntityRef;
 import br.com.diegosilva.automation.CborSerializable;
 import br.com.diegosilva.automation.dto.IOTMessage;
 import jssc.SerialPort;
@@ -22,7 +23,7 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
 
     private SerialPort serialPort;
     private Cancellable cancellable;
-    private Map<String, ActorRef<Device.Command>> devices = new HashMap<>();
+//    private Map<String, ActorRef<Device.Command>> devices = new HashMap<>();
 
     public static Behavior<Command> create() {
         return Behaviors.setup(context -> new Receptor(context));
@@ -86,12 +87,15 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
         this.cancellable = getContext().scheduleOnce(duration, getContext().getSelf(), cmd);
     }
 
-    ActorRef<Device.Command> getDevice(String id) {
-        if (!devices.containsKey(id)) {
-            devices.put(id, getContext().spawn(Behaviors.supervise(Device.create())
-                    .onFailure(SupervisorStrategy.restartWithBackoff(Duration.ofSeconds(1), Duration.ofSeconds(5), 0.5)), "device_" + id));
-        }
-        return devices.get(id);
+    EntityRef<Device.Command> getDevice(String id) {
+        ClusterSharding sharding = ClusterSharding.get(getContext().getSystem());
+        return sharding.entityRefFor(Device.TypeKey, id);
+
+//        if (!devices.containsKey(id)) {
+//            devices.put(id, getContext().spawn(Behaviors.supervise(Device.create())
+//                    .onFailure(SupervisorStrategy.restartWithBackoff(Duration.ofSeconds(1), Duration.ofSeconds(5), 0.5)), "device_" + id));
+//        }
+//        return devices.get(id);
     }
 
 

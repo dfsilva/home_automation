@@ -17,7 +17,7 @@ void setup(){
     radio.setRetries(15,15);
     radio.setCRCLength(RF24_CRC_16);
 
-    radio.openReadingPipe(1,r_pipes[0]);  
+    radio.openReadingPipe(1,r_pipes[1]);  
     radio.startListening();
 }
 

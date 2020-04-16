@@ -1,14 +1,29 @@
 package br.com.diegosilva.automation.dto;
 
+import br.com.diegosilva.automation.CborSerializable;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class IOTMessage {
+public class IOTMessage implements CborSerializable {
 
     public String id;
     public String tipo;
     public String value;
+
+    @JsonCreator
+    public IOTMessage(){
+
+    }
+
+    @JsonCreator
+    public IOTMessage(String id, String tipo, String value) {
+        this.id = id;
+        this.tipo = tipo;
+        this.value = value;
+    }
 
     public static IOTMessage decode(String message) {
         try {

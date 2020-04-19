@@ -7,7 +7,7 @@ RF24 radio(9,10);
 const uint64_t r_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t t_pipe = 0xABCDABCD71AA;
 
-const int IDX_PIPE = 0;
+const int IDX_PIPE = 1;
 
 void setup(){
     Serial.begin(57600);
@@ -47,7 +47,7 @@ void readSerial(){
       String serialMsg = Serial.readString();
       char out_msg[40] = "";
       serialMsg.toCharArray(out_msg, 40);
-      Serial.println(out_msg);
+//      Serial.println(out_msg);
       radio.write(&out_msg,strlen(out_msg));
       radio.startListening();
     }

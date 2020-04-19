@@ -55,6 +55,8 @@ public class Device extends AbstractBehavior<Device.Command> {
                     return this;
                 })
                 .onMessage(Send.class, (msg) -> {
+                    if(this.cancellable != null)
+                        this.cancellable.cancel();
                     getContext().getLog().info("Escrevendo mensagem na serial {}", msg.message.encode());
                     serialPort.writeString(msg.message.encode() + "\n");
                     if(msg.times < 3)

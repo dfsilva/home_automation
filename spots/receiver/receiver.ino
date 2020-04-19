@@ -14,38 +14,59 @@ void setup(){
     printf_begin();
     radio.begin();
     radio.enableDynamicPayloads();
-
     radio.setChannel(55);
-
     radio.setRetries(15,15);
+    radio.setAutoAck(true);
     radio.setCRCLength(RF24_CRC_16);
 
     radio.openWritingPipe(t_pipe);
     radio.openReadingPipe(1,r_pipes[IDX_PIPE]);  
+    radio.powerUp();
     radio.startListening();
 }
 
 void loop(){
     readWifi();
+    delay(500);
     readSerial();
 }
 
 void readWifi(){
   if (radio.available()) {
         int len = radio.getDynamicPayloadSize();
-        char msg[40] = "";
-        radio.read(&msg,len);
-        Serial.println(msg);  
+        char inc_msg[40] = "";
+        radio.read(&inc_msg,len);
+        Serial.write((byte*)&inc_msg, sizeof(inc_msg)); 
+        Serial.flush();
    }
 }
 
 void readSerial(){
-  String serialMsg = Serial.readString();
-  if(serialMsg != ""){
-     Serial.println("Mensagem serial: "+serialMsg); 
-     radio.openWritingPipe(r_pipe);
-     char msg[20];
-     serialMsg.toCharArray(msg, strlen(msg));
-     radio.write(&msg,strlen(msg));
-  }
+  if(Serial.available() > 1){
+      radio.stopListening();
+      String serialMsg = Serial.readString();
+      char out_msg[40] = "";
+      serialMsg.toCharArray(out_msg, 40);
+      Serial.println(out_msg);
+      radio.write(&out_msg,strlen(out_msg));
+      radio.startListening();
+    }
+  
+  
+//   char out_msg[40] = "";
+//   int availableBytes = Serial.available(); 
+//   char first = Serial.read();
+//
+//   if(availableBytes > 0 && first == '*'){
+//     radio.stopListening();
+//     for(int i = 0; i < availableBytes; i++){
+//         out_msg[i] = Serial.read();
+//         if(out_msg[i] == '\n'){
+//            Serial.println("env");
+//            radio.write(&out_msg,strlen(out_msg));
+//         }
+//     }
+//     radio.startListening();
+//   }
+   
 }

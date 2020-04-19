@@ -6,11 +6,11 @@ public class SerialPortFactory {
 
     private static jssc.SerialPort _instance = null;
 
-    private SerialPortFactory(){}
-
+    private SerialPortFactory() {
+    }
 
     public static jssc.SerialPort get(String portName) throws SerialPortException {
-        if (_instance == null || !_instance.isOpened()) {
+        if (_instance == null) {
             _instance = new jssc.SerialPort(portName);
             _instance.openPort();
             _instance.setParams(jssc.SerialPort.BAUDRATE_57600,

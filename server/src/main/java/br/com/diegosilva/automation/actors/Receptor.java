@@ -52,16 +52,27 @@ public class Receptor extends AbstractBehavior<Receptor.Command> {
 
     public void startReceive() {
         try {
+            StringBuilder message = new StringBuilder();
             serialPort.addEventListener(event -> {
-                try {
-                    byte buffer[] = serialPort.readBytes(event.getEventValue());
-                    String msg = new String(buffer);
-                    getContext().getLog().info("Valor recebido {}", msg);
-                    IOTMessage message = IOTMessage.decode(msg);
-                    if (message != null)
-                        getDevice(message.id).tell(new Device.Process(message));
-                } catch (SerialPortException e) {
-                    throw new RuntimeException(e);
+                if (event.isRXCHAR() && event.getEventValue() > 0) {
+                    try {
+                        byte buffer[] = serialPort.readBytes();
+                        for (byte b : buffer) {
+                            if ((b == '\n') && message.length() > 0) {
+                                String toProcess = message.toString().replaceAll("[^a-zA-Z0-9:,;._]", "");;
+                                getContext().getLog().info("Valor recebido {}", toProcess);
+                                message.setLength(0);
+                                IOTMessage iotMessage = IOTMessage.decode(toProcess);
+                                if (iotMessage != null)
+                                    getDevice(iotMessage.id).tell(new Device.Process(iotMessage));
+                            } else {
+                                message.append((char) b);
+                            }
+                        }
+                    } catch (SerialPortException ex) {
+                        System.out.println(ex);
+                        System.out.println("serialEvent");
+                    }
                 }
             });
         } catch (SerialPortException ex) {

@@ -55,9 +55,12 @@ public class Device extends AbstractBehavior<Device.Command> {
                     return this;
                 })
                 .onMessage(Send.class, (msg) -> {
-                    getContext().getLog().info("Enviando mensagem para  {}", msg.message.id);
-                    serialPort.writeString(msg.message.encode());
-                    msg.replyTo.tell(new SendResponse("Mensagem enviada"));
+                    getContext().getLog().info("Escrevendo mensagem na serial {}", msg.message.encode());
+                    serialPort.writeString(msg.message.encode() + "\n");
+                    if(msg.times < 3)
+                        retry(Duration.ofSeconds(2), new Send(msg.message, msg.times+1, null));
+                    if (msg.replyTo != null)
+                        msg.replyTo.tell(new SendResponse("Mensagem enviada"));
                     return this;
                 })
                 .onSignal(
@@ -97,12 +100,14 @@ public class Device extends AbstractBehavior<Device.Command> {
 
     public static class Send implements Command {
         final IOTMessage message;
-        public final ActorRef<Response> replyTo;
+        final ActorRef<Response> replyTo;
+        final int times;
 
         @JsonCreator
-        public Send(IOTMessage message, ActorRef<Response> replyTo) {
+        public Send(IOTMessage message, int times, ActorRef<Response> replyTo) {
             this.message = message;
             this.replyTo = replyTo;
+            this.times = times;
         }
     }
 

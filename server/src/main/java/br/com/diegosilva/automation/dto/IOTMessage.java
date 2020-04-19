@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class IOTMessage implements CborSerializable {
 
     public String id;
-    public String tipo;
     public String value;
 
     @JsonCreator
@@ -21,7 +20,6 @@ public class IOTMessage implements CborSerializable {
     @JsonCreator
     public IOTMessage(String id, String tipo, String value) {
         this.id = id;
-        this.tipo = tipo;
         this.value = value;
     }
 
@@ -35,10 +33,7 @@ public class IOTMessage implements CborSerializable {
                 retorno.id = map.get("id");
             else
                 return null;
-            if (map.containsKey("T"))
-                retorno.tipo = map.get("T");
-            else
-                return null;
+
             if (map.containsKey("value"))
                 retorno.value = map.get("value");
             else
@@ -50,14 +45,13 @@ public class IOTMessage implements CborSerializable {
     }
 
     public String encode() {
-        return "id:" + this.id + "," + "T:" + this.tipo + "," + "value:" + value;
+        return "id:" + this.id + "," + "value:" + value;
     }
 
     @Override
     public String toString() {
         return "IOTMessage{" +
                 "id='" + id + '\'' +
-                ", tipo='" + tipo + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }

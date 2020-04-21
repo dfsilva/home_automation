@@ -7,7 +7,7 @@ RF24 radio(9,10);
 const uint64_t r_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t t_pipe = 0xABCDABCD71AA;
 
-const int IDX_PIPE = 0;
+const int IDX_PIPE = 1;
 
 void setup(){
     Serial.begin(57600);
@@ -34,7 +34,7 @@ void loop(){
 void readWifi(){
   if (radio.available()) {
         int len = radio.getDynamicPayloadSize();
-        char inc_msg[40] = "";
+        char inc_msg[len] = "";
         radio.read(&inc_msg,len);
         Serial.write((byte*)&inc_msg, sizeof(inc_msg)); 
         Serial.flush();
@@ -47,26 +47,8 @@ void readSerial(){
       String serialMsg = Serial.readString();
       char out_msg[40] = "";
       serialMsg.toCharArray(out_msg, 40);
-      Serial.println(out_msg);
+//      Serial.println(out_msg);
       radio.write(&out_msg,strlen(out_msg));
       radio.startListening();
-    }
-  
-  
-//   char out_msg[40] = "";
-//   int availableBytes = Serial.available(); 
-//   char first = Serial.read();
-//
-//   if(availableBytes > 0 && first == '*'){
-//     radio.stopListening();
-//     for(int i = 0; i < availableBytes; i++){
-//         out_msg[i] = Serial.read();
-//         if(out_msg[i] == '\n'){
-//            Serial.println("env");
-//            radio.write(&out_msg,strlen(out_msg));
-//         }
-//     }
-//     radio.startListening();
-//   }
-   
+    } 
 }

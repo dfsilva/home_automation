@@ -68,7 +68,7 @@ public class AutomationRoutes {
         system.log().info("Enviando mensagem para entity {}", data.id);
         EntityRef<Device.Command> entityRef =
                 sharding.entityRefFor(Device.TypeKey, data.id);
-        return entityRef.ask(replyTo -> new Device.Send(data, replyTo), timeout);
+        return entityRef.ask(replyTo -> new Device.Send(data, 0, replyTo), timeout);
     }
 
 

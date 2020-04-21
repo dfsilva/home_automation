@@ -61,7 +61,7 @@ void sendTest(){
     char temp[10];
     dtostrf(t,6,2,temp);
     char msg[20] = "";
-    int id = random(1, 10);
+    int id = random(11, 20);
     sprintf(msg, "id:temp_%d,value:%s\n",id,temp);
     
     Serial.println(msg); 

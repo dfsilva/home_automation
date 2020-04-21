@@ -27,7 +27,6 @@ public class Device extends AbstractBehavior<Device.Command> {
     private final String deviceId;
     private SerialPort serialPort;
 
-
     public static final EntityTypeKey<Command> TypeKey =
             EntityTypeKey.create(Device.Command.class, "Device");
 

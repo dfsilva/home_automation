@@ -45,6 +45,12 @@
 
         <dependency>
             <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-stream-typed_2.13</artifactId>
+            <version>${akka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-http_2.13</artifactId>
             <version>${akka-http.version}</version>
         </dependency>

@@ -63,6 +63,7 @@ class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command]
             iotMessage match {
               case Some(iotMessage) =>
                 getDevice(iotMessage.id) ! Device.Processar(iotMessage)
+              case _ =>
             }
           }
           else message.append(b.toChar)

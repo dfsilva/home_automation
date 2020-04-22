@@ -26,7 +26,7 @@ class UserWs(val userName: String, var actorRef: ActorRef[Command] = null) {
   def create(): Behavior[Command] = Behaviors.setup { context =>
     Behaviors.receiveMessage[Command] {
       case Calculate(val1, val2) =>
-        actorRef ! Calculated("resposta", Some(val1+val2), userName)
+        actorRef ! Calculated("resposta", Some(val1 + val2), userName)
         Behaviors.same
       case ConnectWsHandle(actorRef) =>
         this.actorRef = actorRef

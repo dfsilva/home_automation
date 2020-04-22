@@ -24,9 +24,7 @@ import scala.concurrent.duration._
 
 
 object AutomationRoutes {
-
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
-
 }
 
 

@@ -9,8 +9,12 @@ import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration._
 
-object Main extends App {
-  val system = ActorSystem[Nothing](Guardian(), "Automation", ConfigFactory.load)
+object Main {
+
+  def main(args: Array[String]): Unit = {
+    val system = ActorSystem[Nothing](Guardian(), "Automation", ConfigFactory.load)
+  }
+
 
   object Guardian {
     def apply(): Behavior[Nothing] = {

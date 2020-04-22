@@ -18,7 +18,7 @@ public class Guardian {
 
             Device.initSharding(system);
 
-            AutomationServer.start(new AutomationRoutes(system).routes(), system.settings().config().getInt("automation.http.port"), system);
+            AutomationServer.start(new AutomationRoutes(system, context).routes(), system.settings().config().getInt("automation.http.port"), system);
 
             boolean isReceptor = system.settings().config().getBoolean("serial.receptor");
 

@@ -7,46 +7,74 @@ import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
-import akka.actor.typed.pubsub.Topic;
 import akka.cluster.sharding.typed.javadsl.ClusterSharding;
 import akka.cluster.sharding.typed.javadsl.Entity;
 import akka.cluster.sharding.typed.javadsl.EntityTypeKey;
 import br.com.diegosilva.automation.CborSerializable;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 
-public class UserActor extends AbstractBehavior<UserActor.UserCommand> {
+public class UserActor extends AbstractBehavior<UserActor.Command> {
 
 
     private final String uid;
-    private ActorRef<Topic.Command<UserCommand>> topic;
 
-    public static final EntityTypeKey<UserCommand> TypeKey =
-            EntityTypeKey.create(UserCommand.class, "User");
-
-    public static void initSharding(ActorSystem<?> system) {
-        ClusterSharding.get(system).init(Entity.of(TypeKey, entityContext ->
-                UserActor.create(entityContext.getEntityId())
-        ));
-    }
-
-    public static Behavior<UserCommand> create(String uid) {
+    public static Behavior<Command> create(String uid) {
         return Behaviors.setup(context -> new UserActor(context, uid));
     }
 
-    private UserActor(ActorContext<UserCommand> context, String uid) {
+    private UserActor(ActorContext<Command> context, String uid) {
         super(context);
         this.uid = uid;
-        topic = context.spawn(Topic.create(UserCommand.class, "user_" + uid), "User" + uid);
-        topic.tell(Topic.subscribe(getContext().getSelf()));
     }
 
     @Override
-    public Receive<UserCommand> createReceive() {
+    public Receive<Command> createReceive() {
         return null;
     }
 
-    public interface UserCommand extends CborSerializable {
+    public interface Command extends CborSerializable {
     }
 
+    public static class Conectar implements Command {
+        final ActorRef<Object> actorRef;
+        public Conectar(ActorRef<Object> actorRef) {
+            this.actorRef = actorRef;
+        }
+    }
+
+    public static class Desconectado implements Command {
+    }
+
+    public static class Falhou implements Command {
+        private final Throwable ex;
+
+        public Falhou(Throwable ex) {
+            this.ex = ex;
+        }
+    }
+
+
+    public static class Soma implements  Command{
+        final Integer valor1;
+        final Integer valor2;
+
+        public Soma(Integer valor1, Integer valor2) {
+            this.valor1 = valor1;
+            this.valor2 = valor2;
+        }
+    }
+
+    public interface Response extends CborSerializable {
+    }
+
+    public static class Resultado implements Response {
+        public final String message;
+
+        @JsonCreator
+        public Resultado(String message) {
+            this.message = message;
+        }
+    }
 
 }

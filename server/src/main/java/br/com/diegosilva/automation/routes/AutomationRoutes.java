@@ -12,15 +12,17 @@ import akka.http.javadsl.model.StatusCodes;
 import akka.http.javadsl.model.ws.Message;
 import akka.http.javadsl.model.ws.TextMessage;
 import akka.http.javadsl.server.Route;
+import akka.japi.JavaPartialFunction;
 import akka.serialization.jackson.JacksonObjectMapperProvider;
 import akka.stream.OverflowStrategy;
+
 import akka.stream.javadsl.Flow;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.stream.typed.javadsl.ActorSink;
 import akka.stream.typed.javadsl.ActorSource;
 import br.com.diegosilva.automation.actors.Device;
-import br.com.diegosilva.automation.actors.UserActor;
+import br.com.diegosilva.automation.actors.UserWsActor;
 import br.com.diegosilva.automation.dto.IOTMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -53,25 +55,25 @@ public class AutomationRoutes {
 
 
 //        EntityRef<UserActor.Command> ref = sharding.entityRefFor(UserActor.TypeKey, uid);
-        ActorRef<UserActor.Command> actorRef = context.spawn(UserActor.create(uid), "user-" + uid);
-//        Sink<UserActor.Command, NotUsed> sink = ;
-
+        ActorRef<UserWsActor.Command> actorRef = context.spawn(UserWsActor.create(uid), "user-" + uid);
 
         Sink<Message, NotUsed> sink = Flow.create()
-                .map((o1)-> new UserActor.Soma(1, 2))
-//                .collect((message) -> {
-//                    return new UserActor.Soma(1, 2);
-//                })
-                .to(ActorSink.actorRef(actorRef, new UserActor.Desconectado(), UserActor.Falhou::new));
+                .collect(new JavaPartialFunction<Object, UserWsActor.Command>() {
+                    @Override
+                    public UserWsActor.Command apply(Object x, boolean isCheck) {
+                        return new UserWsActor.Soma(1, 2);
+                    }
+                })
+                .to(ActorSink.actorRef(actorRef, new UserWsActor.Desconectado(), UserWsActor.Falhou::new));
 
 
         Source<Message, NotUsed> source =
-                ActorSource.actorRef((m) -> m instanceof UserActor.Response, (p) -> Optional.empty(), 8, OverflowStrategy.dropBuffer())
+                ActorSource.actorRef((m) -> m instanceof UserWsActor.Response, (p) -> Optional.empty(), 8, OverflowStrategy.dropBuffer())
                         .map((m) -> {
-                            return TextMessage.create("fasdfasd");
+                            return new TextMessage.
                         })
                         .mapMaterializedValue((wsHandler) -> {
-                            actorRef.tell(new UserActor.Conectar(wsHandler));
+                            actorRef.tell(new UserWsActor.Conectar(wsHandler));
                             return NotUsed.getInstance();
                         })
                         .keepAlive(Duration.ofSeconds(10), () -> TextMessage.create("Keep alive message"));

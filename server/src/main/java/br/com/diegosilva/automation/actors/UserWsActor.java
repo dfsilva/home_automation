@@ -1,29 +1,25 @@
 package br.com.diegosilva.automation.actors;
 
 import akka.actor.typed.ActorRef;
-import akka.actor.typed.ActorSystem;
 import akka.actor.typed.Behavior;
 import akka.actor.typed.javadsl.AbstractBehavior;
 import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
-import akka.cluster.sharding.typed.javadsl.ClusterSharding;
-import akka.cluster.sharding.typed.javadsl.Entity;
-import akka.cluster.sharding.typed.javadsl.EntityTypeKey;
 import br.com.diegosilva.automation.CborSerializable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 
-public class UserActor extends AbstractBehavior<UserActor.Command> {
+public class UserWsActor extends AbstractBehavior<UserWsActor.Command> {
 
 
     private final String uid;
 
     public static Behavior<Command> create(String uid) {
-        return Behaviors.setup(context -> new UserActor(context, uid));
+        return Behaviors.setup(context -> new UserWsActor(context, uid));
     }
 
-    private UserActor(ActorContext<Command> context, String uid) {
+    private UserWsActor(ActorContext<Command> context, String uid) {
         super(context);
         this.uid = uid;
     }
@@ -38,6 +34,7 @@ public class UserActor extends AbstractBehavior<UserActor.Command> {
 
     public static class Conectar implements Command {
         final ActorRef<Object> actorRef;
+
         public Conectar(ActorRef<Object> actorRef) {
             this.actorRef = actorRef;
         }
@@ -54,8 +51,7 @@ public class UserActor extends AbstractBehavior<UserActor.Command> {
         }
     }
 
-
-    public static class Soma implements  Command{
+    public static class Soma implements Command {
         final Integer valor1;
         final Integer valor2;
 

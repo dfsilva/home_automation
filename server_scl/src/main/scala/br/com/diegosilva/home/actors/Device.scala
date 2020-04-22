@@ -1,6 +1,5 @@
 package br.com.diegosilva.home.actors
 
-
 import akka.actor.Cancellable
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, ActorSystem, Behavior, PreRestart, Signal}
@@ -45,17 +44,20 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
   private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
 
   override def onMessage(msg: Command): Behavior[Command] = {
-    case msg: Processar => {
-      context.log.info("Processando mensagem IOT {}", msg.message)
-      Behaviors.same
-    }
-    case msg: Send => {
-      if (cancellable != null)
-        cancellable.cancel()
-      context.log.info("Escrevendo mensagem na serial {}", msg.message.encode())
-      serialPort.writeString(msg.message.encode + "\n")
-      if (msg.times < 3) retry(2.seconds, Device.Send(msg.message, null, msg.times + 1))
-      if (msg.replyTo != null) msg.replyTo ! Device.SendResponse("Mensagem enviada")
+    msg match {
+      case Processar(message) => {
+        context.log.info("Processando mensagem IOT {}", message)
+        Behaviors.same
+      }
+      case Send(message, replyTo, times) => {
+        if (cancellable != null)
+          cancellable.cancel()
+        context.log.info("Escrevendo mensagem na serial {}", message.encode)
+        serialPort.writeString(message.encode + "\n")
+        if (times < 3) retry(2.seconds, Device.Send(message, null, times + 1))
+        if (replyTo != null) replyTo ! Device.SendResponse("Mensagem enviada")
+        Behaviors.same
+      }
     }
   }
 
@@ -66,7 +68,6 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
       Behaviors.same
     }
   }
-
 
   private def retry(duration: FiniteDuration, cmd: Device.Command): Unit = {
     if (this.cancellable != null) this.cancellable.cancel

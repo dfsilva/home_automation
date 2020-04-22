@@ -21,6 +21,9 @@ object Receptor {
   def apply(): Behavior[Command] =
     Behaviors.setup(context => new Receptor(context))
 
+  def create(): Behavior[Command] = {
+    Behaviors.setup(context => new Receptor(context))
+  }
 }
 
 class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
@@ -29,9 +32,12 @@ class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command]
   private var cancellable: Cancellable = null
 
   override def onMessage(msg: Command): Behavior[Command] = {
-    case Start =>
-      context.log.debug("Iniciando escuta")
-      startReceive()
+    msg match {
+      case Start() =>
+        context.log.debug("Iniciando escuta")
+        startReceive()
+        Behaviors.same
+    }
   }
 
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {

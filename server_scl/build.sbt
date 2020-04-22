@@ -11,8 +11,8 @@ libraryDependencies ++= {
   val circe     = "io.circe"
   val circeV    = "0.13.0"
   Seq(
-    akka  %% "akka-actor"         % akkaV,
-    akka  %% "akka-stream"        % akkaV,
+    akka  %% "akka-actor-typed"         % akkaV,
+    akka  %% "akka-stream-typed"        % akkaV,
     akka  %% "akka-cluster-tools" % akkaV,
     akka  %% "akka-http"          % akkaHttpV,
     circe %% "circe-core"         % circeV,

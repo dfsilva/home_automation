@@ -1,38 +1,36 @@
 package br.com.diegosilva.home
 
-
-import akka.actor.typed.ActorSystem
-import akka.actor.typed.javadsl.Adapter
 import akka.actor.typed.scaladsl.Behaviors
-import akka.http.scaladsl.Http
-import akka.stream.Materializer
-import akka.{Done, actor}
-import br.com.diegosilva.home.api.Routes
+import akka.actor.typed.{ActorSystem, Behavior, SupervisorStrategy}
+import br.com.diegosilva.home.actors.Receptor.Start
+import br.com.diegosilva.home.actors.{Device, Receptor}
+import br.com.diegosilva.home.api.{AutomationRoutes, AutomationServer}
+import com.typesafe.config.ConfigFactory
 
-import scala.concurrent.{ExecutionContextExecutor, Future}
-import scala.util.{Failure, Success}
+import scala.concurrent.duration._
 
-object Main extends App with Routes {
+object Main extends App {
+  val system = ActorSystem[Nothing](Guardian(), "Automation", ConfigFactory.load)
+}
 
-  val system = ActorSystem[Any](Behaviors.setup { ctx =>
+object Guardian {
+  def apply(): Behavior[Nothing] = {
+    Behaviors.setup[Nothing] { context =>
+      Device.init(context.system)
 
-    implicit val classicSystem: actor.ActorSystem = Adapter.toClassic(ctx.system)
-    implicit val materializer: Materializer = Materializer.matFromSystem(ctx.system)
-    implicit val ec: ExecutionContextExecutor = ctx.system.executionContext
+      val httpPort = context.system.settings.config.getInt("automation.http.port")
+      val routes = new AutomationRoutes()(context)
+      new AutomationServer(routes.routes, httpPort, context.system).start()
 
-    val serverBinding: Future[Http.ServerBinding] = Http().bindAndHandle(routes(ctx), "localhost", 8080)
+      val isReceptor = context.system.settings.config.getBoolean("serial.receptor")
 
-    serverBinding.onComplete {
-      case Success(bound) =>
-        println(s"Server online at http://${bound.localAddress.getHostString}:${bound.localAddress.getPort}/")
-      case Failure(e) =>
-        Console.err.println(s"Server could not start!")
-        e.printStackTrace()
-        ctx.self ! Done
+      if (isReceptor) {
+        val receptor = context.spawn(Behaviors.supervise(new Receptor(context))
+          .onFailure(SupervisorStrategy.restartWithBackoff(1.seconds, 5.seconds, 0.5)), "receptor")
+        receptor ! Start()
+      }
+
+      Behaviors.empty
     }
-    Behaviors.receiveMessage {
-      case Done =>
-        Behaviors.stopped
-    }
-  }, "helloAkkaHttpServer")
+  }
 }

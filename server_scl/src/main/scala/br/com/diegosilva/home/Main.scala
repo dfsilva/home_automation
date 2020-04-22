@@ -9,34 +9,35 @@ import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration._
 
+
+object Guardian {
+  def apply(): Behavior[Nothing] = {
+    Behaviors.setup[Nothing] { context =>
+      Device.init(context.system)
+
+      val httpPort = context.system.settings.config.getInt("automation.http.port")
+      val routes = new AutomationRoutes()(context)
+      new AutomationServer(routes.routes, httpPort, context.system).start()
+
+      val isReceptor = context.system.settings.config.getBoolean("serial.receptor")
+
+      if (isReceptor) {
+        val receptor = context.spawn(Behaviors.supervise(Receptor.create())
+          .onFailure(SupervisorStrategy.restartWithBackoff(1.seconds, 5.seconds, 0.5)), "receptor")
+        receptor ! Start()
+      }
+
+      Behaviors.empty
+    }
+  }
+}
+
 object Main {
 
   def main(args: Array[String]): Unit = {
     val system = ActorSystem[Nothing](Guardian(), "Automation", ConfigFactory.load)
   }
 
-
-  object Guardian {
-    def apply(): Behavior[Nothing] = {
-      Behaviors.setup[Nothing] { context =>
-        Device.init(context.system)
-
-        val httpPort = context.system.settings.config.getInt("automation.http.port")
-        val routes = new AutomationRoutes()(context)
-        new AutomationServer(routes.routes, httpPort, context.system).start()
-
-        val isReceptor = context.system.settings.config.getBoolean("serial.receptor")
-
-        if (isReceptor) {
-          val receptor = context.spawn(Behaviors.supervise(Receptor.create())
-            .onFailure(SupervisorStrategy.restartWithBackoff(1.seconds, 5.seconds, 0.5)), "receptor")
-          receptor ! Start()
-        }
-
-        Behaviors.empty
-      }
-    }
-  }
 
 }
 

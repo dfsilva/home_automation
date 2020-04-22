@@ -29,7 +29,7 @@ object IOTMessage {
 }
 
 
-case class IOTMessage(var id: String = "", var sensor: String = "", var value: String = "") {
+final case class IOTMessage(var id: String = "", var sensor: String = "", var value: String = ""){
 
   def encode: String = "id:" + this.id + "," + "sen:" + this.sensor + "," + "val:" + value
 

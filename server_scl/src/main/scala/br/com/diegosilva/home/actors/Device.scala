@@ -20,7 +20,7 @@ object Device {
 
   final case class Processar(message: IOTMessage) extends Command
 
-  final case class Send(message: IOTMessage, replyTo: ActorRef[Response], times: Int) extends Command
+  final case class Send(message: IOTMessage, times: Int, replyTo: ActorRef[Response]) extends Command
 
   final case class SendResponse(message: String) extends Response
 
@@ -49,12 +49,12 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
         context.log.info("Processando mensagem IOT {}", message)
         Behaviors.same
       }
-      case Send(message, replyTo, times) => {
+      case Send(message, times, replyTo ) => {
         if (cancellable != null)
           cancellable.cancel()
         context.log.info("Escrevendo mensagem na serial {}", message.encode)
         serialPort.writeString(message.encode + "\n")
-        if (times < 3) retry(2.seconds, Device.Send(message, null, times + 1))
+        if (times < 3) retry(2.seconds, Device.Send(message, times + 1, null))
         if (replyTo != null) replyTo ! Device.SendResponse("Mensagem enviada")
         Behaviors.same
       }

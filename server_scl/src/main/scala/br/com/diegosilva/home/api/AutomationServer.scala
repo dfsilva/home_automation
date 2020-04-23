@@ -10,7 +10,9 @@ import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 
 class AutomationServer(routes: Route, port: Int, system: ActorSystem[_]) {
+
   import akka.actor.typed.scaladsl.adapter._
+
   implicit val classicSystem: classic.ActorSystem = system.toClassic
   private val shutdown = CoordinatedShutdown(classicSystem)
 

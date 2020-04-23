@@ -15,13 +15,9 @@ import br.com.diegosilva.home.actors.UserWs.{Fail, Notify, Register, WsHandleDro
 import br.com.diegosilva.home.actors.{Device, UserWs}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
 import br.com.diegosilva.home.dto.IOTMessage
-import io.circe.generic.auto._
-import io.circe.parser.decode
-import io.circe.syntax._
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
-
 
 object AutomationRoutes {
 
@@ -36,11 +32,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
     Timeout.create(context.system.settings.config.getDuration("automation.askTimeout"))
   private val sharding = ClusterSharding(context.system)
 
-
   import AutomationRoutes._
   import JsonFormats._
   import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
   import akka.http.scaladsl.server.Directives._
+  import spray.json._
 
   val routes: Route = {
 
@@ -79,12 +75,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
     val wsUser: ActorRef[UserWs.Command] = context.spawn(new UserWs(userName).create(), s"user-$userName")
 
+
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
-        case TextMessage.Strict(json) => decode[Register](json)
+        case TextMessage.Strict(string) => registerFormat.read(string.parseJson)
       }
-        .filter(_.isRight)
-        .map(_.getOrElse(null))
         .to(ActorSink.actorRef[UserWs.Command](ref = wsUser, onCompleteMessage = WsHandleDropped, onFailureMessage = Fail))
 
 
@@ -95,7 +90,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
-          case c: Notify => TextMessage.Strict(c.asJson.noSpaces)
+          case c: Notify => TextMessage.Strict(c.toJson.toString())
         }
         .mapMaterializedValue({ wsHandler =>
           wsUser ! UserWs.ConnectWsHandle(wsHandler)
@@ -111,9 +106,12 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
 object JsonFormats {
 
-  import spray.json.DefaultJsonProtocol._
-  import spray.json.RootJsonFormat
+  import spray.json._
+  import DefaultJsonProtocol._
 
+  implicit val iotMessage: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
+  implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
+  implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)
 
 }

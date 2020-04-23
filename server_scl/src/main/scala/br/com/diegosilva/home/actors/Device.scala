@@ -1,11 +1,11 @@
 package br.com.diegosilva.home.actors
 
 import akka.actor.Cancellable
-import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.actor.typed._
+import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.Device.{Command, Processar, Register, Send}
+import br.com.diegosilva.home.actors.Device._
 import br.com.diegosilva.home.dto.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import jssc.SerialPort
@@ -26,6 +26,8 @@ object Device {
 
   final case class Register(actorRef: ActorRef[UserWs.Command]) extends Command
 
+  final case class UnRegister(actorRef: ActorRef[UserWs.Command]) extends Command
+
   val EntityKey: EntityTypeKey[Command] = EntityTypeKey[Command]("device")
 
   def init(system: ActorSystem[_]): Unit = {
@@ -43,19 +45,25 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
 
   private var cancellable: Cancellable = null
   private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
-  private var processors: List[ActorRef[UserWs.Command]] = List()
+  private var registers: List[ActorRef[UserWs.Command]] = List()
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Processar(message) => {
-        context.log.info("Processando mensagem IOT {}", message)
-        processors.foreach { actorRef =>
+        context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
+        registers.foreach { actorRef =>
           actorRef ! UserWs.Notify(message)
         }
         Behaviors.same
       }
       case Register(actorRef) => {
-        processors = actorRef :: processors
+        registers = registers :+ actorRef
+        Behaviors.same
+      }
+      case UnRegister(actorRef) => {
+        registers = registers filter { value =>
+          value.path != actorRef.path
+        }
         Behaviors.same
       }
       case Send(message, times, replyTo) => {

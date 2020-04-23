@@ -2,7 +2,7 @@ package br.com.diegosilva.home.actors
 
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
-import akka.cluster.sharding.typed.scaladsl.ClusterSharding
+import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.dto.IOTMessage
 
@@ -28,11 +28,14 @@ class UserWs(val userName: String) {
 
   def create(): Behavior[UserWs.Command] = Behaviors.setup { context =>
     val sharding = ClusterSharding(context.system)
+    var devices: List[EntityRef[Device.Command]] = List()
 
     Behaviors.receiveMessage[UserWs.Command] {
       case UserWs.Register(uids) =>
         uids.foreach { uid =>
-          sharding.entityRefFor(Device.EntityKey, uid) ! Device.Register(context.self)
+          val entity = sharding.entityRefFor(Device.EntityKey, uid)
+          devices = devices :+ entity
+          entity ! Device.Register(context.self)
         }
         Behaviors.same
       case UserWs.Notify(message) =>
@@ -41,6 +44,12 @@ class UserWs(val userName: String) {
       case UserWs.ConnectWsHandle(actorRef) =>
         this.actorRef = actorRef
         Behaviors.same
+      case UserWs.WsHandleDropped => {
+        devices foreach { entity =>
+          entity ! Device.UnRegister(context.self)
+        }
+        Behaviors.same
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ object IOTMessage {
     val map: Map[String, String] = message.split(",")
       .map(value => value.split(":")(0) -> value.split(":")(1)).toMap
 
+
     val retorno = IOTMessage()
 
     if (map.contains("id"))

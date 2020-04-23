@@ -11,7 +11,7 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
-import br.com.diegosilva.home.actors.UserWs.{Calculate, Calculated, Fail, WsHandleDropped}
+import br.com.diegosilva.home.actors.UserWs.{Fail, Notify, Register, WsHandleDropped}
 import br.com.diegosilva.home.actors.{Device, UserWs}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
 import br.com.diegosilva.home.dto.IOTMessage
@@ -24,7 +24,9 @@ import scala.concurrent.duration._
 
 
 object AutomationRoutes {
+
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
+
 }
 
 
@@ -79,7 +81,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
-        case TextMessage.Strict(json) => decode[Calculate](json)
+        case TextMessage.Strict(json) => decode[Register](json)
       }
         .filter(_.isRight)
         .map(_.getOrElse(null))
@@ -93,7 +95,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
-          case c: Calculated => TextMessage.Strict(c.asJson.noSpaces)
+          case c: Notify => TextMessage.Strict(c.asJson.noSpaces)
         }
         .mapMaterializedValue({ wsHandler =>
           wsUser ! UserWs.ConnectWsHandle(wsHandler)

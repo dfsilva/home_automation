@@ -2,10 +2,10 @@ package br.com.diegosilva.home.actors
 
 import akka.actor.Cancellable
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
-import akka.actor.typed.{ActorRef, ActorSystem, Behavior, PreRestart, Signal}
+import akka.actor.typed._
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.Device.{Command, Processar, Send}
+import br.com.diegosilva.home.actors.Device.{Command, Processar, Register, Send}
 import br.com.diegosilva.home.dto.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import jssc.SerialPort
@@ -24,6 +24,7 @@ object Device {
 
   final case class SendResponse(message: String) extends Response
 
+  final case class Register(actorRef: ActorRef[UserWs.Command]) extends Command
 
   val EntityKey: EntityTypeKey[Command] = EntityTypeKey[Command]("device")
 
@@ -42,14 +43,22 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
 
   private var cancellable: Cancellable = null
   private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
+  private var processors: List[ActorRef[UserWs.Command]] = List()
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Processar(message) => {
         context.log.info("Processando mensagem IOT {}", message)
+        processors.foreach { actorRef =>
+          actorRef ! UserWs.Notify(message)
+        }
         Behaviors.same
       }
-      case Send(message, times, replyTo ) => {
+      case Register(actorRef) => {
+        processors = actorRef :: processors
+        Behaviors.same
+      }
+      case Send(message, times, replyTo) => {
         if (cancellable != null)
           cancellable.cancel()
         context.log.info("Escrevendo mensagem na serial {}", message.encode)

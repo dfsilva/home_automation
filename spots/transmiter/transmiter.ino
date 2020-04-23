@@ -10,7 +10,6 @@
 
 #include "printf.h"
 
-
 RF24 radio(9,10);
 const uint64_t w_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t r_pipe = 0xABCDABCD71AA;
@@ -21,8 +20,20 @@ const int send_delay = 4000;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
-
 Adafruit_SSD1306 display(128, 64, &Wire, 4);
+byte last_view = 0;
+
+float last_temp = 0.0;
+float last_hum = 0.0;
+int last_pir = 0;
+int last_smoke = 0;
+
+int last_id = 1;
+
+const byte INTERRUP_PIN = 2;
+const byte PIR_PIN = 3;
+
+const int SMOKE_PIN = A0;
 
 void setup() {
     Serial.begin(57600);
@@ -44,11 +55,44 @@ void setup() {
 
     display.clearDisplay();
     display.display();
+
+    pinMode(PIR_PIN, INPUT);
+    pinMode(SMOKE_PIN, INPUT);
+
+    attachInterrupt(digitalPinToInterrupt(INTERRUP_PIN), changeView, RISING);
 }
 
 void loop() {
   sendValues();
   readWifi();
+}
+
+void changeView() {
+  Serial.println("changeView");
+  if(last_view == 0){
+    last_view = 1;
+  }else{
+    last_view = 0;
+  }
+}
+
+
+void drawView(){
+  char th[10];
+  char subtitle[40];
+    
+ if(last_view == 0){
+    const char *title = "TEMPERATURA";
+    dtostrf(last_temp,6,2,th);
+    sprintf(subtitle, "%s",th);
+    drawTextCenter(title, subtitle);
+  }
+  if(last_view == 1){
+    const char *title = "HUMIDADE";
+    dtostrf(last_hum,6,2,th);
+    sprintf(subtitle, "%s",th);
+    drawTextCenter(title, subtitle);
+  }
 }
 
 void drawTextCenter(const char* title, const char *subtitle) {
@@ -73,39 +117,55 @@ void readWifi(){
 }
 
 void sendHum(){
-    float humValue = sensor.readHumidity();
+    last_hum = sensor.readHumidity();
     char th[10];
-    dtostrf(humValue,6,2,th);
+    dtostrf(last_hum,6,2,th);
     
     char msgHum[30] = "";
-    int id = random(1, 10);
-    sprintf(msgHum, "id:s_%d,sen:h,val:%s\n",id,th);
+    sprintf(msgHum, "id:s_%d,sen:h,val:%s\n",last_id,th);
     
     Serial.print(msgHum); 
     radio.write(&msgHum,strlen(msgHum));
-
-    const char *title = "HUMIDADE";
-    char subtitle[40];
-    sprintf(subtitle, "%s",th);
-    drawTextCenter(title, subtitle);
+    drawView();
 }
 
 void sendTemp(){
-    float tempValue = sensor.readTemperature();
+    last_temp = sensor.readTemperature();
     char tt[10];
-    dtostrf(tempValue,6,2,tt);
+    dtostrf(last_temp,6,2,tt);
     
     char msgTemp[30] = "";
-    int id = random(1, 10);
-    sprintf(msgTemp,"id:s_%d,sen:t,val:%s\n",id,tt);
+    sprintf(msgTemp,"id:s_%d,sen:t,val:%s\n",last_id,tt);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
     
-    const char *title = "TEMPERATURA";
-    char subtitle[40];
-    sprintf(subtitle, "%s",tt);
-    drawTextCenter(title, subtitle);
+    drawView();
+}
+
+void sendPresence(){
+    last_pir = digitalRead(PIR_PIN);
+        
+    char msgTemp[30] = "";
+    sprintf(msgTemp,"id:s_%d,sen:p,val:%d\n",last_id, last_pir);
+    
+    Serial.print(msgTemp); 
+    radio.write(&msgTemp,strlen(msgTemp));
+    
+    drawView();
+}
+
+void sendSmoke(){
+    last_smoke = analogRead(SMOKE_PIN);
+        
+    char msgTemp[30] = "";
+    
+    sprintf(msgTemp,"id:s_%d,sen:s,val:%d\n",last_id, last_smoke);
+    
+    Serial.print(msgTemp); 
+    radio.write(&msgTemp,strlen(msgTemp));
+    
+    drawView();
 }
 
 void sendValues(){
@@ -113,8 +173,11 @@ void sendValues(){
     radio.stopListening();
     radio.openWritingPipe(w_pipes[last_pipe]);
 
+    last_id = random(1, 10);
     sendHum();
     sendTemp();
+    sendPresence();
+    sendSmoke();
     
     radio.startListening();
     

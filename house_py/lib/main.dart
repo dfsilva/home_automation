@@ -2,12 +2,13 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:housepy/screens/auth/splash.dart';
-import 'package:housepy/screens/home.dart';
+import 'file:///C:/Users/dsilv/projetos/home_automation/house_py/lib/screens/home/home.dart';
 import 'package:housepy/service/device_service.dart';
 import 'package:housepy/service/usuario_service.dart';
 import 'package:housepy/store/device_store.dart';
 import 'package:housepy/store/user_store.dart';
-import 'package:housepy/utils/navigator_utils.dart';
+import 'package:housepy/utils/theme.dart';
+import 'package:housepy/utils/navigator.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -36,12 +37,8 @@ class MyApp extends StatelessWidget {
             title: 'HomePy',
             navigatorObservers: [BotToastNavigatorObserver()],
             navigatorKey: NavigatorUtils.nav,
-            theme: ThemeData(
-                primarySwatch: Colors.blue,
-                buttonTheme:
-                    ButtonThemeData(buttonColor: Colors.blue[700], textTheme: ButtonTextTheme.primary, height: 50)),
+            theme: HousePyTheme.buildTheme(),
             initialRoute: "home",
-            themeMode: ThemeMode.dark,
             builder: (ctx, widget) => ProgressHUD(
               child: widget,
             ),

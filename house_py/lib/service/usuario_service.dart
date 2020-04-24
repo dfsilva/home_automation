@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/store/user_store.dart';
-import 'package:housepy/utils/navigator_utils.dart';
+import 'package:housepy/utils/navigator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {

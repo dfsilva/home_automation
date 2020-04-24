@@ -43,21 +43,21 @@ mixin _$DeviceModel on _DeviceModel, Store {
     }, _$titleAtom, name: '${_$titleAtom.name}_set');
   }
 
-  final _$positionAtom = Atom(name: '_DeviceModel.position');
+  final _$orderAtom = Atom(name: '_DeviceModel.order');
 
   @override
-  int get position {
-    _$positionAtom.context.enforceReadPolicy(_$positionAtom);
-    _$positionAtom.reportObserved();
-    return super.position;
+  int get order {
+    _$orderAtom.context.enforceReadPolicy(_$orderAtom);
+    _$orderAtom.reportObserved();
+    return super.order;
   }
 
   @override
-  set position(int value) {
-    _$positionAtom.context.conditionallyRunInAction(() {
-      super.position = value;
-      _$positionAtom.reportChanged();
-    }, _$positionAtom, name: '${_$positionAtom.name}_set');
+  set order(int value) {
+    _$orderAtom.context.conditionallyRunInAction(() {
+      super.order = value;
+      _$orderAtom.reportChanged();
+    }, _$orderAtom, name: '${_$orderAtom.name}_set');
   }
 
   final _$sensorsAtom = Atom(name: '_DeviceModel.sensors');
@@ -80,7 +80,7 @@ mixin _$DeviceModel on _DeviceModel, Store {
   @override
   String toString() {
     final string =
-        'id: ${id.toString()},title: ${title.toString()},position: ${position.toString()},sensors: ${sensors.toString()}';
+        'id: ${id.toString()},title: ${title.toString()},order: ${order.toString()},sensors: ${sensors.toString()}';
     return '{$string}';
   }
 }

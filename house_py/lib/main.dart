@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
           ],
           child: MaterialApp(
             title: 'HomePy',
+            debugShowCheckedModeBanner: false,
             navigatorObservers: [BotToastNavigatorObserver()],
             navigatorKey: NavigatorUtils.nav,
             theme: HousePyTheme.buildTheme(),

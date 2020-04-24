@@ -16,7 +16,7 @@ const uint64_t r_pipe = 0xABCDABCD71AA;
 
 int last_pipe = 0;
 
-const int send_delay = 4000;
+const int send_delay = 2000;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
@@ -122,7 +122,7 @@ void sendHum(){
     dtostrf(last_hum,6,2,th);
     
     char msgHum[30] = "";
-    sprintf(msgHum, "id:s_%d,sen:h,val:%s\n",last_id,th);
+    sprintf(msgHum, "id:s_%d,sen:hm,val:%s\n",last_id,th);
     
     Serial.print(msgHum); 
     radio.write(&msgHum,strlen(msgHum));
@@ -135,7 +135,7 @@ void sendTemp(){
     dtostrf(last_temp,6,2,tt);
     
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_%d,sen:t,val:%s\n",last_id,tt);
+    sprintf(msgTemp,"id:s_%d,sen:tp,val:%s\n",last_id,tt);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
@@ -147,7 +147,7 @@ void sendPresence(){
     last_pir = digitalRead(PIR_PIN);
         
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_%d,sen:p,val:%d\n",last_id, last_pir);
+    sprintf(msgTemp,"id:s_%d,sen:ps,val:%d\n",last_id, last_pir);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
@@ -160,7 +160,7 @@ void sendSmoke(){
         
     char msgTemp[30] = "";
     
-    sprintf(msgTemp,"id:s_%d,sen:s,val:%d\n",last_id, last_smoke);
+    sprintf(msgTemp,"id:s_%d,sen:sm,val:%d\n",last_id, last_smoke);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));

@@ -14,11 +14,11 @@ abstract class _DeviceModel with Store {
   String title;
 
   @observable
-  int position;
+  int order;
 
   @observable
   ObservableList<SensorModel> sensors;
 
-  _DeviceModel({this.id, this.title, this.position, this.sensors});
+  _DeviceModel({this.id, this.title, this.order, this.sensors});
 
 }

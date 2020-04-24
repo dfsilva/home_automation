@@ -15,4 +15,11 @@ abstract class _SensorModel with Store {
   ObservableMap<int, dynamic> latestValues;
 
   _SensorModel({this.type, this.value, this.latestValues});
+
+
+  @action
+  setValue(dynamic _value) {
+    this.value = _value;
+  }
+
 }

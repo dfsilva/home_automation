@@ -20,6 +20,7 @@ dependencies:
   syncfusion_flutter_charts: 18.1.45
   flutter_progress_hud: 1.0.2
   google_fonts: ^1.0.0
+  web_socket_channel: 1.1.0
   intl: 0.16.1
 
 dev_dependencies:

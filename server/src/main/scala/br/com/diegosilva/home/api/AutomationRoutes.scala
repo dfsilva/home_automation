@@ -94,7 +94,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
           wsUser ! UserWs.ConnectWsHandle(wsHandler)
           NotUsed
         })
-        .keepAlive(maxIdle = 10.seconds, () => TextMessage.Strict("Mensagem de Keep-alive enviada pelo recipent websocket"))
+        .keepAlive(maxIdle = 10.seconds, () => TextMessage.Strict("{\"message\": \"keep-alive\"}"))
 
     Flow.fromSinkAndSource(sink, source)
   }

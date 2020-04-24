@@ -1,5 +1,7 @@
+import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/store/model/device_model.dart';
 import 'package:housepy/store/model/sensor_model.dart';
+import 'package:housepy/utils/constants.dart';
 import 'package:mobx/mobx.dart';
 
 part 'device_store.g.dart';
@@ -11,23 +13,52 @@ abstract class _DeviceStore with Store {
   ObservableMap<String, DeviceModel> dashboardDevices = {
     "s_1": DeviceModel(
         id: "s_1",
-        position: 0,
+        order: 1,
         title: "Sala",
         sensors: [
-          SensorModel(type: "t", value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
-          SensorModel(type: "h", value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
-          SensorModel(type: "s", value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
-          SensorModel(type: "p", value: true, latestValues: {1: false, 2: true}.asObservable())
+          SensorModel(type: DeviceTypes.TEMPERATURE, value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
+          SensorModel(type: DeviceTypes.HUMIDITY, value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
+          SensorModel(type: DeviceTypes.SMOKE, value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
+          SensorModel(type: DeviceTypes.PRESENCE, value: true, latestValues: {1: false, 2: true}.asObservable())
         ].asObservable()),
     "s_2": DeviceModel(
         id: "s_2",
-        position: 1,
-        title: "Quarto Luísa",
+        order: 2,
+        title: "Quarto Filha",
         sensors: [
-          SensorModel(type: "t", value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
-          SensorModel(type: "h", value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
-          SensorModel(type: "s", value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
-          SensorModel(type: "p", value: true, latestValues: {1: false, 2: true}.asObservable())
+          SensorModel(type: DeviceTypes.TEMPERATURE, value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
+          SensorModel(type: DeviceTypes.HUMIDITY, value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
+          SensorModel(type: DeviceTypes.SMOKE, value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
+          SensorModel(type: DeviceTypes.PRESENCE, value: true, latestValues: {1: false, 2: true}.asObservable())
+        ].asObservable()),
+    "s_3": DeviceModel(
+        id: "s_3",
+        order: 3,
+        title: "Quarto Casal",
+        sensors: [
+          SensorModel(type: DeviceTypes.TEMPERATURE, value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
+          SensorModel(type: DeviceTypes.HUMIDITY, value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
+          SensorModel(type: DeviceTypes.SMOKE, value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
+          SensorModel(type: DeviceTypes.PRESENCE, value: true, latestValues: {1: false, 2: true}.asObservable())
+        ].asObservable()),
+    "s_4": DeviceModel(
+        id: "s_4",
+        order: 4,
+        title: "Escritório",
+        sensors: [
+          SensorModel(type: DeviceTypes.TEMPERATURE, value: 25.40, latestValues: {1: 26.0, 2: 27.5}.asObservable()),
+          SensorModel(type: DeviceTypes.HUMIDITY, value: 70.40, latestValues: {1: 80.0, 2: 95.5}.asObservable()),
+          SensorModel(type: DeviceTypes.SMOKE, value: 200.40, latestValues: {1: 300.0, 2: 100.5}.asObservable()),
+          SensorModel(type: DeviceTypes.PRESENCE, value: true, latestValues: {1: false, 2: true}.asObservable())
         ].asObservable())
   }.asObservable();
+
+  @action
+  updateLecture(Lecture _lecture) {
+    dashboardDevices[_lecture.id].sensors.forEach((sensor) {
+      if (sensor.type == _lecture.sensor) {
+        sensor.setValue(_lecture.value);
+      }
+    });
+  }
 }

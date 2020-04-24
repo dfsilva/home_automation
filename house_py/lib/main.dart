@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:housepy/screens/auth/splash.dart';
 import 'package:housepy/screens/home.dart';
 import 'package:housepy/service/device_service.dart';
@@ -16,49 +17,43 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BotToastInit(
-    child: MultiProvider(
-      providers: [
-        Provider<UserService>(
-          create: (_) => UserService(UserStore()),
-          dispose: (ctx, userService) {
-            userService.dispose();
-          },
-        ),
-        Provider<DeviceService>(
-          create: (_) => DeviceService(DeviceStore()),
-          dispose: (ctx, deviceService) {
-            deviceService.dispose();
-          },
-        )
-      ],
-      child: MaterialApp(
-        title: 'HomePy',
-        navigatorObservers: [BotToastNavigatorObserver()],
-        navigatorKey: NavigatorUtils.nav,
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-            buttonTheme: ButtonThemeData(buttonColor: Colors.blue[700], textTheme: ButtonTextTheme.primary, height: 50)),
-        initialRoute: "home",
-        routes: {
-          "splash": (context) => Splash(),
+        child: MultiProvider(
+          providers: [
+            Provider<UserService>(
+              create: (_) => UserService(UserStore()),
+              dispose: (ctx, userService) {
+                userService.dispose();
+              },
+            ),
+            Provider<DeviceService>(
+              create: (_) => DeviceService(DeviceStore()),
+              dispose: (ctx, deviceService) {
+                deviceService.dispose();
+              },
+            )
+          ],
+          child: MaterialApp(
+            title: 'HomePy',
+            navigatorObservers: [BotToastNavigatorObserver()],
+            navigatorKey: NavigatorUtils.nav,
+            theme: ThemeData(
+                primarySwatch: Colors.blue,
+                buttonTheme:
+                    ButtonThemeData(buttonColor: Colors.blue[700], textTheme: ButtonTextTheme.primary, height: 50)),
+            initialRoute: "home",
+            themeMode: ThemeMode.dark,
+            builder: (ctx, widget) => ProgressHUD(
+              child: widget,
+            ),
+            routes: {
+              "splash": (context) => Splash(),
 //          "login": (context) => LoginScreen(),
-          "home": (context) => HomeScreen(),
+              "home": (context) => HomeScreen(),
 //          "register": (context) => RegisterScreen(),
 //          "recover": (context) => RecoverScreen(),
 //          "atividade": (context) => AtividadeScreen(),
-        },
-      ),
-    ),
-  );
-//    return MaterialApp(
-//      title: 'Flutter Demo',
-//      theme: ThemeData(
-//        primarySwatch: Colors.black,
-//        visualDensity: VisualDensity.adaptivePlatformDensity,
-//      ),
-//      home: MyHomePage(title: 'Flutter Demo Home Page'),
-//    );
-
+            },
+          ),
+        ),
+      );
 }
-
-

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'usuario_store.dart';
+part of 'user_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,25 +8,25 @@ part of 'usuario_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$UsuarioStore on _UsuarioStore, Store {
-  final _$usuarioAtom = Atom(name: '_UsuarioStore.usuario');
+mixin _$UserStore on _UserStore, Store {
+  final _$usuarioAtom = Atom(name: '_UserStore.usuario');
 
   @override
-  Usuario get usuario {
+  User get usuario {
     _$usuarioAtom.context.enforceReadPolicy(_$usuarioAtom);
     _$usuarioAtom.reportObserved();
     return super.usuario;
   }
 
   @override
-  set usuario(Usuario value) {
+  set usuario(User value) {
     _$usuarioAtom.context.conditionallyRunInAction(() {
       super.usuario = value;
       _$usuarioAtom.reportChanged();
     }, _$usuarioAtom, name: '${_$usuarioAtom.name}_set');
   }
 
-  final _$statusLoginAtom = Atom(name: '_UsuarioStore.statusLogin');
+  final _$statusLoginAtom = Atom(name: '_UserStore.statusLogin');
 
   @override
   StatusLogin get statusLogin {
@@ -43,26 +43,25 @@ mixin _$UsuarioStore on _UsuarioStore, Store {
     }, _$statusLoginAtom, name: '${_$statusLoginAtom.name}_set');
   }
 
-  final _$_UsuarioStoreActionController =
-      ActionController(name: '_UsuarioStore');
+  final _$_UserStoreActionController = ActionController(name: '_UserStore');
 
   @override
-  dynamic setUsuario(Usuario _usuario) {
-    final _$actionInfo = _$_UsuarioStoreActionController.startAction();
+  dynamic setUsuario(User _usuario) {
+    final _$actionInfo = _$_UserStoreActionController.startAction();
     try {
       return super.setUsuario(_usuario);
     } finally {
-      _$_UsuarioStoreActionController.endAction(_$actionInfo);
+      _$_UserStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   dynamic setStatusLogin(StatusLogin status) {
-    final _$actionInfo = _$_UsuarioStoreActionController.startAction();
+    final _$actionInfo = _$_UserStoreActionController.startAction();
     try {
       return super.setStatusLogin(status);
     } finally {
-      _$_UsuarioStoreActionController.endAction(_$actionInfo);
+      _$_UserStoreActionController.endAction(_$actionInfo);
     }
   }
 

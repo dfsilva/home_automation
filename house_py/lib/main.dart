@@ -1,9 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:housepy/screens/auth/splash.dart';
 import 'package:housepy/screens/home.dart';
 import 'package:housepy/service/device_service.dart';
 import 'package:housepy/service/usuario_service.dart';
-import 'package:housepy/store/usuario_store.dart';
+import 'package:housepy/store/device_store.dart';
+import 'package:housepy/store/user_store.dart';
 import 'package:housepy/utils/navigator_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -16,16 +18,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => BotToastInit(
     child: MultiProvider(
       providers: [
-        Provider<UsuarioService>(
-          create: (_) => UsuarioService(UsuarioStore()),
-          dispose: (ctx, usuarioService) {
-            usuarioService.dispose();
+        Provider<UserService>(
+          create: (_) => UserService(UserStore()),
+          dispose: (ctx, userService) {
+            userService.dispose();
           },
         ),
         Provider<DeviceService>(
-          create: (_) => DeviceService(),
-          dispose: (ctx, atividadeService) {
-            atividadeService.dispose();
+          create: (_) => DeviceService(DeviceStore()),
+          dispose: (ctx, deviceService) {
+            deviceService.dispose();
           },
         )
       ],
@@ -36,9 +38,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primarySwatch: Colors.blue,
             buttonTheme: ButtonThemeData(buttonColor: Colors.blue[700], textTheme: ButtonTextTheme.primary, height: 50)),
-        initialRoute: "splash",
+        initialRoute: "home",
         routes: {
-//          "splash": (context) => Splash(),
+          "splash": (context) => Splash(),
 //          "login": (context) => LoginScreen(),
           "home": (context) => HomeScreen(),
 //          "register": (context) => RegisterScreen(),

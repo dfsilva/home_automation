@@ -1,18 +1,18 @@
-import 'package:housepy/domain/usuario.dart';
+import 'package:housepy/domain/user.dart';
 import 'package:mobx/mobx.dart';
 import 'package:rxdart/rxdart.dart';
 
-part 'usuario_store.g.dart';
+part 'user_store.g.dart';
 
 enum StatusLogin{
   carregando, logado, nao_logado
 }
 
-class UsuarioStore = _UsuarioStore with _$UsuarioStore;
+class UserStore = _UserStore with _$UserStore;
 
-abstract class _UsuarioStore with Store {
+abstract class _UserStore with Store {
   @observable
-  Usuario usuario;
+  User usuario;
 
   @observable
   StatusLogin statusLogin = StatusLogin.carregando;
@@ -20,7 +20,7 @@ abstract class _UsuarioStore with Store {
   BehaviorSubject<StatusLogin> statusSubject = BehaviorSubject<StatusLogin>();
 
   @action
-  setUsuario(Usuario _usuario) {
+  setUsuario(User _usuario) {
     this.usuario = _usuario;
   }
 

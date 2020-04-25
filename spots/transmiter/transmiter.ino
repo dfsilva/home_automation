@@ -173,7 +173,7 @@ void sendValues(){
     radio.stopListening();
     radio.openWritingPipe(w_pipes[last_pipe]);
 
-    last_id = random(1, 10);
+    last_id = random(1, 5);
     sendHum();
     sendTemp();
     sendPresence();

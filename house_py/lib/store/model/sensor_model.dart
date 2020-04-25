@@ -12,14 +12,20 @@ abstract class _SensorModel with Store {
   dynamic value;
 
   @observable
-  ObservableMap<int, dynamic> latestValues;
+  ObservableList<dynamic> latestValues;
 
   _SensorModel({this.type, this.value, this.latestValues});
-
 
   @action
   setValue(dynamic _value) {
     this.value = _value;
+    if (latestValues == null) {
+      latestValues = [_value].asObservable();
+    } else {
+      if(latestValues.length > 10){
+        latestValues.removeAt(0);
+      }
+      latestValues.add(_value);
+    }
   }
-
 }

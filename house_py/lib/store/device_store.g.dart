@@ -26,6 +26,18 @@ mixin _$DeviceStore on _DeviceStore, Store {
     }, _$dashboardDevicesAtom, name: '${_$dashboardDevicesAtom.name}_set');
   }
 
+  final _$_DeviceStoreActionController = ActionController(name: '_DeviceStore');
+
+  @override
+  dynamic updateLecture(Lecture _lecture) {
+    final _$actionInfo = _$_DeviceStoreActionController.startAction();
+    try {
+      return super.updateLecture(_lecture);
+    } finally {
+      _$_DeviceStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     final string = 'dashboardDevices: ${dashboardDevices.toString()}';

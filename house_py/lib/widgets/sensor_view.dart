@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:housepy/store/model/sensor_model.dart';
 import 'package:housepy/utils/constants.dart';
-import 'package:housepy/widgets/HumditityView.dart';
-import 'package:housepy/widgets/SmokeView.dart';
-import 'package:housepy/widgets/TemperatureView.dart';
+import 'package:housepy/widgets/humidity_view.dart';
 import 'package:housepy/widgets/presense_view.dart';
+import 'package:housepy/widgets/smoke_view.dart';
+import 'package:housepy/widgets/temperature_view.dart';
 
 class SensorView extends StatelessWidget {
   final SensorModel sensor;
@@ -25,15 +25,14 @@ class SensorView extends StatelessWidget {
     if (type == SensorType.PRESENCE) {
       return PresenseView(sensor: this.sensor);
     }
+    return Column(children: [Text(sensor.value.toString())]);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      child: Observer(
-        builder: (ctx) => Column(children: [Text(sensor.value.toString())]),
-      ),
+      child: Observer(builder: (ctx) => getViewByType(this.sensor.type)),
     );
   }
 }

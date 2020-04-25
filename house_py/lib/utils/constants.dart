@@ -1,4 +1,4 @@
-class DeviceTypes {
+class SensorType {
   static final TEMPERATURE = "tp";
   static final SMOKE = "sm";
   static final HUMIDITY = "hm";

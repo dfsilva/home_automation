@@ -17,9 +17,9 @@ dependencies:
   shared_preferences: 0.5.7
   flutter_masked_text: 0.8.0
   bot_toast: ^2.4.1
-  syncfusion_flutter_charts: 18.1.45
   flutter_progress_hud: 1.0.2
   google_fonts: ^1.0.0
+  font_awesome_flutter: 8.8.1
   web_socket_channel: 1.1.0
   intl: 0.16.1
 

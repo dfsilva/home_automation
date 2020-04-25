@@ -1,12 +1,32 @@
+import 'package:housepy/utils/constants.dart';
+
 class Lecture {
   final String id;
   final String sensor;
-  final String value;
+  final dynamic value;
 
   Lecture({this.id, this.sensor, this.value});
 
   static fromJson(Map<String, Object> json) {
-    return Lecture(id: json["id"], sensor: json["sensor"], value: json["value"]);
+    return Lecture(id: json["id"], sensor: json["sensor"], value: getValueBySensor(json["sensor"], json["value"]));
+  }
+
+  static getValueBySensor(String sensor, String value) {
+    if (SensorType.PRESENCE == sensor) {
+      return value == "1" ? true : false;
+    }
+
+    if (SensorType.TEMPERATURE == sensor) {
+      return double.parse(value);
+    }
+
+    if (SensorType.HUMIDITY == sensor) {
+      return double.parse(value);
+    }
+
+    if (SensorType.SMOKE == sensor) {
+      return double.parse(value);
+    }
   }
 
   @override

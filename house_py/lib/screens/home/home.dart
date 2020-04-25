@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:housepy/service/device_service.dart';
 import 'package:housepy/store/model/device_model.dart';
-import 'package:housepy/widgets/DeviceListView.dart';
+import 'package:housepy/widgets/device_list_view.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {

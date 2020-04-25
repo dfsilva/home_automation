@@ -16,8 +16,8 @@ class DeviceService {
     channel = IOWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diego');
     channel.stream.listen((data) {
       dynamic result = json.decode(data);
+      print(result);
       WebSocketMessage wsMessage = WebSocketMessage.fromJson(result);
-      print(wsMessage);
       if (wsMessage.message is Lecture) {
         deviceStore.updateLecture(wsMessage.message);
       } else {

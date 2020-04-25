@@ -14,7 +14,9 @@ class DeviceListView extends StatelessWidget {
       padding: EdgeInsets.all(5),
       margin: EdgeInsets.symmetric(vertical: 5),
       color: HousePyColors.cardBackground,
+      width: double.maxFinite,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(device.title),
           Container(

@@ -6,21 +6,27 @@ import 'package:web_socket_channel/io.dart';
 
 class DeviceService {
   final DeviceStore deviceStore;
+  dynamic channel;
 
   DeviceService(this.deviceStore);
 
   Future<void> connect() {
-    final channel = IOWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diegofff');
+//      channel = HtmlWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diegofff');
+
+    channel = IOWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diego');
     channel.stream.listen((data) {
       dynamic result = json.decode(data);
       WebSocketMessage wsMessage = WebSocketMessage.fromJson(result);
       print(wsMessage);
       if (wsMessage.message is Lecture) {
         deviceStore.updateLecture(wsMessage.message);
+      } else {
+        channel.sink.add(json.encode({"uids": deviceStore.dashboardDevices.keys.toList()}));
       }
     });
-    channel.sink.add(json.encode({"uids": deviceStore.dashboardDevices.keys.toList()}));
   }
 
-  void dispose() {}
+  void dispose() {
+    channel?.sink?.close();
+  }
 }

@@ -12,7 +12,6 @@ class SensorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      color: HousePyColors.cardBackground,
       child: Column(
         children: [Observer(builder: (ctx) => Text(sensor.value.toString()))],
       ),

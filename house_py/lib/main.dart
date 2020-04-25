@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:housepy/screens/auth/splash.dart';
-import 'file:///C:/Users/dsilv/projetos/home_automation/house_py/lib/screens/home/home.dart';
+import 'package:housepy/screens/home/home.dart';
 import 'package:housepy/service/device_service.dart';
 import 'package:housepy/service/usuario_service.dart';
 import 'package:housepy/store/device_store.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             routes: {
               "splash": (context) => Splash(),
 //          "login": (context) => LoginScreen(),
-              "home": (context) => HomeScreen(),
+              "/": (context) => HomeScreen(),
 //          "register": (context) => RegisterScreen(),
 //          "recover": (context) => RecoverScreen(),
 //          "atividade": (context) => AtividadeScreen(),

@@ -11,8 +11,7 @@ class DeviceListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5),
       color: HousePyColors.cardBackground,
       width: double.maxFinite,
       child: Column(
@@ -20,12 +19,22 @@ class DeviceListView extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(device.title, style: TextStyle(fontSize: 16)),
+            child: Text(device.title, style: TextStyle(fontSize: 30)),
+          ),
+          Divider(
+            color: HousePyColors.dividerColor,
+            height: 1,
+            thickness: .5,
           ),
           Container(
             child: Column(
               children: device.sensors.map((sensor) => SensorView(sensor: sensor)).toList(),
             ),
+          ),
+          Divider(
+            color: HousePyColors.dividerColor,
+            height: 3,
+            thickness: 2.0,
           )
         ],
       ),

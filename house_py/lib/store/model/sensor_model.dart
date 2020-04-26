@@ -5,6 +5,10 @@ part 'sensor_model.g.dart';
 class SensorModel = _SensorModel with _$SensorModel;
 
 abstract class _SensorModel with Store {
+
+  @observable
+  String title;
+
   @observable
   String type;
 
@@ -14,7 +18,7 @@ abstract class _SensorModel with Store {
   @observable
   ObservableList<dynamic> latestValues;
 
-  _SensorModel({this.type, this.value, this.latestValues});
+  _SensorModel({this.title, this.type, this.value, this.latestValues});
 
   @action
   setValue(dynamic _value) {
@@ -22,7 +26,7 @@ abstract class _SensorModel with Store {
     if (latestValues == null) {
       latestValues = [_value].asObservable();
     } else {
-      if(latestValues.length > 10){
+      if(latestValues.length > 20){
         latestValues.removeAt(0);
       }
       latestValues.add(_value);

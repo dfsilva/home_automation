@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/store/device_store.dart';
+import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/io.dart';
 
 class DeviceService {
@@ -21,7 +22,21 @@ class DeviceService {
       if (wsMessage.message is Lecture) {
         deviceStore.updateLecture(wsMessage.message);
       } else {
-        channel.sink.add(json.encode({"uids": deviceStore.dashboardDevices.keys.toList()}));
+        if(wsMessage.message.toString().contains("conectado!!!")){
+          channel.sink.add(json.encode({"uids": deviceStore.dashboardDevices.keys.toList()}));
+        }
+      }
+    });
+  }
+
+  Future<Map> changeValue(Lecture lecture) async {
+    deviceStore.changeSensorValue(lecture.id, lecture.sensor, lecture.value);
+    return http.post("http://dfsilva.sytes.net:8180/api/device/",
+        body: json.encode(lecture.toJson()), headers: {"Content-Type": "application/json"}).then((response) {
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      } else {
+        throw Exception(response.reasonPhrase);
       }
     });
   }

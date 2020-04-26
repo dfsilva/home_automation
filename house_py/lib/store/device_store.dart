@@ -19,7 +19,8 @@ abstract class _DeviceStore with Store {
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
           SensorModel(type: SensorType.HUMIDITY, value: 0.0),
           SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
+          SensorModel(type: SensorType.PRESENCE, value: false),
+          SensorModel(title: "Lâmpada", type: SensorType.LIGA_DESLIGA, value: false)
         ].asObservable()),
     "s_2": DeviceModel(
         id: "s_2",
@@ -51,16 +52,6 @@ abstract class _DeviceStore with Store {
           SensorModel(type: SensorType.SMOKE, value: 0.0),
           SensorModel(type: SensorType.PRESENCE, value: false)
         ].asObservable()),
-    "s_5": DeviceModel(
-        id: "s_5",
-        order: 5,
-        title: "Cozinha",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
-        ].asObservable())
   }.asObservable();
 
   @action
@@ -68,6 +59,15 @@ abstract class _DeviceStore with Store {
     dashboardDevices[_lecture.id].sensors.forEach((sensor) {
       if (sensor.type == _lecture.sensor) {
         sensor.setValue(_lecture.value);
+      }
+    });
+  }
+
+  @action
+  changeSensorValue(String deviceId, String sensor, dynamic value) {
+    dashboardDevices[deviceId].sensors.forEach((s) {
+      if(s.type == sensor){
+        s.setValue(value);
       }
     });
   }

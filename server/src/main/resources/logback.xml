@@ -13,7 +13,7 @@
     </appender>
 
     <logger name="com.datastax.driver.core.Connection" level="WARN"/>
-    <logger name="com.codahale.metrics" level="INFO"/>
+    <logger name="com.codahale.metrics" level="WARN"/>
     <logger name="akka" level="WARN"/>
 
     <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">

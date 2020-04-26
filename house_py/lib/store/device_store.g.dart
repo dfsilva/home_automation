@@ -39,6 +39,16 @@ mixin _$DeviceStore on _DeviceStore, Store {
   }
 
   @override
+  dynamic changeSensorValue(String deviceId, String sensor, dynamic value) {
+    final _$actionInfo = _$_DeviceStoreActionController.startAction();
+    try {
+      return super.changeSensorValue(deviceId, sensor, value);
+    } finally {
+      _$_DeviceStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string = 'dashboardDevices: ${dashboardDevices.toString()}';
     return '{$string}';

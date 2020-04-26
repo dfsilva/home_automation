@@ -20,6 +20,7 @@ dependencies:
   flutter_progress_hud: 1.0.2
   google_fonts: ^1.0.0
   font_awesome_flutter: 8.8.1
+  http:
   web_socket_channel: 1.1.0
   intl: 0.16.1
 

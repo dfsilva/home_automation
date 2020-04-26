@@ -10,10 +10,12 @@ class TemperatureView extends StatelessWidget {
   const TemperatureView({Key key, this.sensor}) : super(key: key);
 
   _getIcon(double temp) {
-    if (temp > 30) {
-      return Icon(FontAwesomeIcons.temperatureHigh, color: Colors.red);
-    } else {
+    if (temp < 28) {
       return Icon(FontAwesomeIcons.temperatureLow, color: Colors.blue);
+    } else if (temp > 28 && temp <= 30) {
+      return Icon(FontAwesomeIcons.temperatureHigh, color: Colors.orange);
+    } else if (temp > 30) {
+      return Icon(FontAwesomeIcons.temperatureHigh, color: Colors.red);
     }
   }
 
@@ -31,7 +33,10 @@ class TemperatureView extends StatelessWidget {
                     child: Container(
                       color: Colors.black12,
                       height: 50,
-                      child: sensor.latestValues != null ? Sparkline(data: sensor.latestValues.map((v) => v as double).toList(), lineColor: Colors.grey) : SizedBox.shrink(),
+                      child: sensor.latestValues != null
+                          ? Sparkline(
+                              data: sensor.latestValues.map((v) => v as double).toList(), lineColor: Colors.grey)
+                          : SizedBox.shrink(),
                     ),
                   ),
                 ),

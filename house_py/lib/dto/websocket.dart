@@ -11,6 +11,10 @@ class Lecture {
     return Lecture(id: json["id"], sensor: json["sensor"], value: getValueBySensor(json["sensor"], json["value"]));
   }
 
+  Map<String, Object> toJson() {
+    return {"id": this.id, "sensor": this.sensor, "value": this.value.toString()};
+  }
+
   static getValueBySensor(String sensor, String value) {
     if (SensorType.PRESENCE == sensor) {
       return value == "1" ? true : false;
@@ -26,6 +30,10 @@ class Lecture {
 
     if (SensorType.SMOKE == sensor) {
       return double.parse(value);
+    }
+
+    if (SensorType.LIGA_DESLIGA == sensor) {
+      return value == "1" ? true : false;
     }
   }
 

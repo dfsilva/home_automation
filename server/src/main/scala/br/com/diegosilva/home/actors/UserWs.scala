@@ -10,9 +10,11 @@ object UserWs {
 
   sealed trait Command extends CborSerializable
 
-  case class ConnectWsHandle(actorRef: ActorRef[Command]) extends Command
+  case class Connect(actorRef: ActorRef[Command]) extends Command
 
-  case object WsHandleDropped extends Command
+  final case class Connected(message: String) extends Command
+
+  case object Disconnected extends Command
 
   case class Fail(ex: Throwable) extends Command
 
@@ -41,10 +43,11 @@ class UserWs(val userName: String) {
       case UserWs.Notify(message) =>
         actorRef ! UserWs.Notify(message)
         Behaviors.same
-      case UserWs.ConnectWsHandle(actorRef) =>
+      case UserWs.Connect(actorRef) =>
         this.actorRef = actorRef
+        this.actorRef ! UserWs.Connected(s"Usuário $userName conectado!!!")
         Behaviors.same
-      case UserWs.WsHandleDropped => {
+      case UserWs.Disconnected => {
         devices foreach { entity =>
           entity ! Device.UnRegister(context.self)
         }

@@ -11,7 +11,7 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
-import br.com.diegosilva.home.actors.UserWs.{Fail, Notify, Register, WsHandleDropped}
+import br.com.diegosilva.home.actors.UserWs.{Connected, Disconnected, Fail, Notify, Register}
 import br.com.diegosilva.home.actors.{Device, UserWs}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
 import br.com.diegosilva.home.dto.IOTMessage
@@ -44,7 +44,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       concat(
         get {
           path("health") {
-            complete("Hello from " + context.system.address)
+            complete(JsObject("message" -> JsString("Hello from " + context.system.address)))
           }
         },
         pathPrefix("device") {
@@ -56,9 +56,9 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
               onSuccess(reply) {
                 case Device.SendResponse(summary) =>
-                  complete(StatusCodes.OK -> summary)
+                  complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
                 case _ =>
-                  complete(StatusCodes.BadRequest, "Erroooooo")
+                  complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Deu errroooooooo")))
               }
 
             }
@@ -79,19 +79,26 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       Flow[Message].collect {
         case TextMessage.Strict(string) => registerFormat.read(string.parseJson)
       }
-        .to(ActorSink.actorRef[UserWs.Command](ref = wsUser, onCompleteMessage = WsHandleDropped, onFailureMessage = Fail))
+        .to(ActorSink.actorRef[UserWs.Command](ref = wsUser, onCompleteMessage = Disconnected, onFailureMessage = Fail))
 
     val source: Source[Message, NotUsed] =
       ActorSource.actorRef[UserWs.Command](completionMatcher = {
-        case WsHandleDropped =>
+        case Disconnected =>
       }, failureMatcher = {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
-          case c: Notify => TextMessage.Strict(c.toJson.toString())
+          case c: Notify => {
+            context.system.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userName)
+            TextMessage.Strict(c.toJson.toString())
+          }
+          case c : Connected => {
+            context.system.log.info("Enviando mensagem de conectado para usuario {}", userName)
+            TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
+          }
         }
         .mapMaterializedValue({ wsHandler =>
-          wsUser ! UserWs.ConnectWsHandle(wsHandler)
+          wsUser ! UserWs.Connect(wsHandler)
           NotUsed
         })
         .keepAlive(maxIdle = 10.seconds, () => TextMessage.Strict("{\"message\": \"keep-alive\"}"))

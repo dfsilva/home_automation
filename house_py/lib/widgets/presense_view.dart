@@ -31,7 +31,7 @@ class PresenseView extends StatelessWidget {
                       height: 50,
                       child: sensor.latestValues != null
                           ? Sparkline(
-                              data: sensor.latestValues.map((v) => v ? 1.0 : 0.0).toList(), lineColor: Colors.grey)
+                              data: sensor.latestValues.map((v) => v ? 1.0 : 0.1).toList(), lineColor: Colors.grey)
                           : SizedBox.shrink(),
                     ),
                   ),

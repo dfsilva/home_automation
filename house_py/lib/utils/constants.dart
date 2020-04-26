@@ -3,4 +3,5 @@ class SensorType {
   static final SMOKE = "sm";
   static final HUMIDITY = "hm";
   static final PRESENCE = "ps";
+  static final LIGA_DESLIGA = "ld";
 }

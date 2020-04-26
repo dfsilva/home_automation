@@ -28,7 +28,7 @@ class DeviceListView extends StatelessWidget {
           ),
           Container(
             child: Column(
-              children: device.sensors.map((sensor) => SensorView(sensor: sensor)).toList(),
+              children: device.sensors.map((sensor) => SensorView(sensor: sensor, device: this.device,)).toList(),
             ),
           ),
           Divider(

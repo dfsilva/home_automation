@@ -12,7 +12,7 @@ object UserWs {
 
   case class Connect(actorRef: ActorRef[Command]) extends Command
 
-  final case class Connected(message: String) extends Command
+  final case class Connected(userName: String, message: String) extends Command
 
   case object Disconnected extends Command
 
@@ -45,7 +45,7 @@ class UserWs(val userName: String) {
         Behaviors.same
       case UserWs.Connect(actorRef) =>
         this.actorRef = actorRef
-        this.actorRef ! UserWs.Connected(s"Usuário $userName conectado!!!")
+        this.actorRef ! UserWs.Connected(message = "conectado", userName = userName)
         Behaviors.same
       case UserWs.Disconnected => {
         devices foreach { entity =>

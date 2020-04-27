@@ -15,7 +15,7 @@ const uint64_t r_pipe = 0xABCDABCD71AA;
 
 int last_pipe = 0;
 
-const int send_delay = 5000;
+const int send_delay = 2000;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();

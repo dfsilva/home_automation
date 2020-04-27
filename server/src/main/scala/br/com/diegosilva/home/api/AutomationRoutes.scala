@@ -18,6 +18,7 @@ import br.com.diegosilva.home.dto.IOTMessage
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.util.parsing.json.JSONObject
 
 object AutomationRoutes {
 
@@ -94,7 +95,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
           }
           case c : Connected => {
             context.system.log.info("Enviando mensagem de conectado para usuario {}", userName)
-            TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
+            TextMessage.Strict(JsObject("message" -> JsObject("me" ->JsString(""))).toString())
           }
         }
         .mapMaterializedValue({ wsHandler =>

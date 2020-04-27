@@ -15,6 +15,7 @@ class ConnectionService {
   Future<void> connect() {
     if (!connectionStore.connected) {
       try {
+        channel?.sink?.close();
         //      channel = HtmlWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diegofff');
         channel = IOWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diego');
         channel.stream.listen((data) {
@@ -22,16 +23,15 @@ class ConnectionService {
           print(result);
           WebSocketMessage wsMessage = WebSocketMessage.fromJson(result);
           if (wsMessage.message is Lecture) {
-            deviceService.onReceiveLecture(wsMessage.message);
+            if(connectionStore.connected){
+              deviceService.onReceiveLecture(wsMessage.message);
+            }
           } else {
-            if (wsMessage.message.toString().contains("conectado!!!")) {
+            if (wsMessage.message.toString().compareTo("conectado") == 0) {
               connectionStore.setConnected(true);
               deviceService.onConected(channel);
             }
           }
-        }, onError: (eror) {
-          connectionStore.setConnected(false);
-          Future.delayed(Duration(seconds: 10), connect);
         }, onDone: () {
           connectionStore.setConnected(false);
           Future.delayed(Duration(seconds: 10), connect);

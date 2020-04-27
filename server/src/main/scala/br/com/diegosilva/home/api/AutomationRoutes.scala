@@ -11,14 +11,13 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
-import br.com.diegosilva.home.actors.UserWs.{Connected, Disconnected, Fail, Notify, Register}
+import br.com.diegosilva.home.actors.UserWs._
 import br.com.diegosilva.home.actors.{Device, UserWs}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
 import br.com.diegosilva.home.dto.IOTMessage
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.util.parsing.json.JSONObject
 
 object AutomationRoutes {
 
@@ -74,7 +73,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
   private def wsUser(userName: String, context: ActorContext[_]): Flow[Message, Message, NotUsed] = {
 
-    val wsUser: ActorRef[UserWs.Command] = context.spawn(new UserWs(userName).create(), s"user-$userName")
+    val wsUser: ActorRef[UserWs.Command] = context.spawnAnonymous(new UserWs(userName).create())
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
@@ -93,9 +92,9 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
             context.system.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userName)
             TextMessage.Strict(c.toJson.toString())
           }
-          case c : Connected => {
+          case c: Connected => {
             context.system.log.info("Enviando mensagem de conectado para usuario {}", userName)
-            TextMessage.Strict(JsObject("message" -> JsObject("me" ->JsString(""))).toString())
+            TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
         }
         .mapMaterializedValue({ wsHandler =>

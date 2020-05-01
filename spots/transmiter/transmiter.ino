@@ -28,8 +28,7 @@ int last_pir = 0;
 int last_smoke = 0;
 int last_relay = 0;
 
-int last_id = 1;
-
+const int DEV_ID = 10;
 const byte INTERRUP_PIN = 2;
 const byte PIR_PIN = 3;
 const byte RELAY1_PIN = 7;
@@ -154,7 +153,7 @@ void sendHum(){
     dtostrf(last_hum,6,2,th);
     
     char msgHum[30] = "";
-    sprintf(msgHum, "id:s_%d,sen:hm,val:%s\n",last_id,th);
+    sprintf(msgHum, "id:s_%d,sen:hm,val:%s\n", DEV_ID, th);
     
     Serial.print(msgHum); 
     radio.write(&msgHum,strlen(msgHum));
@@ -166,7 +165,7 @@ void sendTemp(){
     dtostrf(last_temp,6,2,tt);
     
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_%d,sen:tp,val:%s\n",last_id,tt);
+    sprintf(msgTemp,"id:s_%d,sen:tp,val:%s\n", DEV_ID, tt);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
@@ -176,7 +175,7 @@ void sendPresence(){
     last_pir = digitalRead(PIR_PIN);
         
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_%d,sen:ps,val:%d\n",last_id, last_pir);
+    sprintf(msgTemp,"id:s_%d,sen:ps,val:%d\n", DEV_ID, last_pir);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
@@ -187,7 +186,7 @@ void sendSmoke(){
         
     char msgTemp[30] = "";
     
-    sprintf(msgTemp,"id:s_%d,sen:sm,val:%d\n",last_id, last_smoke);
+    sprintf(msgTemp,"id:s_%d,sen:sm,val:%d\n",DEV_ID, last_smoke);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
@@ -195,7 +194,7 @@ void sendSmoke(){
 
 void sendRelay(){        
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_%d,sen:ld,val:%d\n",last_id, last_relay);
+    sprintf(msgTemp,"id:s_%d,sen:ld,val:%d\n", DEV_ID, last_relay);
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
 }
@@ -205,7 +204,6 @@ void sendValues(){
     radio.stopListening();
     radio.openWritingPipe(w_pipes[last_pipe]);
 
-    last_id = random(1, 5);
     sendHum();
     delay(500);
     sendTemp();

@@ -53,14 +53,12 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
               val entityRef = sharding.entityRefFor(Device.EntityKey, data.id)
               val reply: Future[Device.Response] =
                 entityRef.ask(Device.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
-
               onSuccess(reply) {
                 case Device.SendResponse(summary) =>
                   complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
                 case _ =>
-                  complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Deu errroooooooo")))
+                  complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
               }
-
             }
           }
         },
@@ -89,11 +87,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
           case c: Notify => {
-            context.system.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userName)
+            context.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userName)
             TextMessage.Strict(c.toJson.toString())
           }
           case c: Connected => {
-            context.system.log.info("Enviando mensagem de conectado para usuario {}", userName)
+            context.log.info("Enviando mensagem de conectado para usuario {}", userName)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
         }

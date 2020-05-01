@@ -11,41 +11,33 @@ class DeviceStore = _DeviceStore with _$DeviceStore;
 abstract class _DeviceStore with Store {
   @observable
   ObservableMap<String, DeviceModel> dashboardDevices = {
-    "s_1": DeviceModel(
-        id: "s_1",
+    "s_10": DeviceModel(
+        id: "s_10",
         order: 1,
+        title: "Quarto Casal",
+        sensors: [
+          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
+          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
+          SensorModel(type: SensorType.SMOKE, value: 0.0),
+          SensorModel(type: SensorType.PRESENCE, value: false),
+          SensorModel(title: "Humidificador", type: SensorType.LIGA_DESLIGA, value: false)
+        ].asObservable()),
+    "s_11": DeviceModel(
+        id: "s_11",
+        order: 2,
         title: "Sala",
         sensors: [
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
           SensorModel(type: SensorType.HUMIDITY, value: 0.0),
           SensorModel(type: SensorType.SMOKE, value: 0.0),
           SensorModel(type: SensorType.PRESENCE, value: false),
-          SensorModel(title: "Lâmpada", type: SensorType.LIGA_DESLIGA, value: false)
+          SensorModel(title: "Portao Saida", type: "op1", value: false),
+          SensorModel(title: "Portao Entrada", type: "op2", value: false)
         ].asObservable()),
-    "s_2": DeviceModel(
-        id: "s_2",
-        order: 2,
-        title: "Quarto Filha",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
-        ].asObservable()),
-    "s_3": DeviceModel(
-        id: "s_3",
+    "s_12": DeviceModel(
+        id: "s_12",
         order: 3,
-        title: "Quarto Casal",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
-        ].asObservable()),
-    "s_4": DeviceModel(
-        id: "s_4",
-        order: 4,
-        title: "Escritório",
+        title: "Quarto Filha",
         sensors: [
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
           SensorModel(type: SensorType.HUMIDITY, value: 0.0),
@@ -66,7 +58,7 @@ abstract class _DeviceStore with Store {
   @action
   changeSensorValue(String deviceId, String sensor, dynamic value) {
     dashboardDevices[deviceId].sensors.forEach((s) {
-      if(s.type == sensor){
+      if (s.type == sensor) {
         s.setValue(value);
       }
     });

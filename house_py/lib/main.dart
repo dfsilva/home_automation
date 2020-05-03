@@ -19,44 +19,42 @@ void main() {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => BotToastInit(
-        child: MultiProvider(
-          providers: [
-            Provider<UserService>(
-              create: (_) => UserService(UserStore()),
-              dispose: (ctx, userService) {
-                userService.dispose();
-              },
-            ),
-            Provider<DeviceService>(
-              create: (_) => DeviceService(DeviceStore()),
-              dispose: (ctx, deviceService) {
-                deviceService.dispose();
-              },
-            ),
-            ProxyProvider<DeviceService, ConnectionService>(
-              update: (_, deviceService, __) => ConnectionService(deviceService, ConnectionStore()),
-            ),
-          ],
-          child: MaterialApp(
-            title: 'HomePy',
-            debugShowCheckedModeBanner: false,
-            navigatorObservers: [BotToastNavigatorObserver()],
-            navigatorKey: NavigatorUtils.nav,
-            theme: HousePyTheme.buildTheme(),
-            initialRoute: "home",
-            builder: (ctx, widget) => ProgressHUD(
-              child: widget,
-            ),
-            routes: {
-              "splash": (context) => Splash(),
+  Widget build(BuildContext context) => MultiProvider(
+        providers: [
+          Provider<UserService>(
+            create: (_) => UserService(UserStore()),
+            dispose: (ctx, userService) {
+              userService.dispose();
+            },
+          ),
+          Provider<DeviceService>(
+            create: (_) => DeviceService(DeviceStore()),
+            dispose: (ctx, deviceService) {
+              deviceService.dispose();
+            },
+          ),
+          ProxyProvider<DeviceService, ConnectionService>(
+            update: (_, deviceService, __) => ConnectionService(deviceService, ConnectionStore()),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'HomePy',
+          debugShowCheckedModeBanner: false,
+          navigatorObservers: [BotToastNavigatorObserver()],
+          navigatorKey: NavigatorUtils.nav,
+          theme: HousePyTheme.buildTheme(),
+          initialRoute: "home",
+          builder: (ctx, widget) => ProgressHUD(
+            child: BotToastInit()(ctx, widget),
+          ),
+          routes: {
+            "splash": (context) => Splash(),
 //          "login": (context) => LoginScreen(),
-              "/": (context) => HomeScreen(),
+            "/": (context) => HomeScreen(),
 //          "register": (context) => RegisterScreen(),
 //          "recover": (context) => RecoverScreen(),
 //          "atividade": (context) => AtividadeScreen(),
-            },
-          ),
+          },
         ),
       );
 }

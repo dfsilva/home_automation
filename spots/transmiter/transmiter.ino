@@ -142,6 +142,13 @@ void readWifi(){
                 last_relay = 0;
                 digitalWrite(RELAY1_PIN, LOW);
               }
+          }else{
+            //Caso a mensagem seja para esse device mas ele nao 
+            //possuir o sensor ele retransmite
+            radio.stopListening();
+            radio.openWritingPipe(r_pipe);
+            radio.write(&msg_inc,len);
+            radio.startListening();
           }
         }        
    } 

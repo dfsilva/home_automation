@@ -31,8 +31,8 @@ abstract class _DeviceStore with Store {
           SensorModel(type: SensorType.HUMIDITY, value: 0.0),
           SensorModel(type: SensorType.SMOKE, value: 0.0),
           SensorModel(type: SensorType.PRESENCE, value: false),
-          SensorModel(title: "Portao Saida", type: "op1", value: false),
-          SensorModel(title: "Portao Entrada", type: "op2", value: false)
+          SensorModel(title: "Portao Entrada", type: "op1", value: false),
+          SensorModel(title: "Portao Saída", type: "op2", value: false)
         ].asObservable()),
     "s_12": DeviceModel(
         id: "s_12",

@@ -2,10 +2,18 @@
 #include "nRF24L01.h"
 #include "RF24.h"
 
-RF24 radio(9,10);
+RF24 radio(8,10);
+const uint64_t w_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t r_pipe = 0xABCDABCD71AA;
 
+int last_pipe = 0;
+
+const int send_delay = 2000;
+unsigned long last_send = 0;
+
+int last_open_1 = 0;
 const byte OPEN_1 = 4;
+int last_open_2 = 0;
 const byte OPEN_2 = 5;
 
 void setup() {
@@ -30,6 +38,7 @@ void setup() {
 }
 
 void loop() {
+  sendValues();
   readWifi();
 }
 
@@ -40,7 +49,7 @@ void readWifi(){
         char msg_inc[40] = "";
         radio.read(&msg_inc,len);
 
-        Serial.println(F("recebido"));
+//        Serial.println(F("recebido"));
 
         char *p = msg_inc;
         char *p_id = strtok_r(p, ",", &p);
@@ -63,8 +72,12 @@ void readWifi(){
           if(type_Str.equals("op1")){
               String val_str = val;
               if(val_str.equals("true\n")){
-                digitalWrite(OPEN_1, HIGH);
+                last_open_1 = 1;
+                last_open_2 = 0;
+                digitalWrite(OPEN_2, LOW);
+                digitalWrite(OPEN_1, HIGH);            
               }else{
+                last_open_1 = 0;
                 digitalWrite(OPEN_1, LOW);
               }
           }
@@ -72,11 +85,45 @@ void readWifi(){
           if(type_Str.equals("op2")){
               String val_str = val;
               if(val_str.equals("true\n")){
+                last_open_2 = 1;
+                last_open_1 = 0;
+                digitalWrite(OPEN_1, LOW);
                 digitalWrite(OPEN_2, HIGH);
               }else{
+                last_open_2 = 0;
                 digitalWrite(OPEN_2, LOW);
               }
           }
         }        
    } 
+}
+
+void sendOpen1(){        
+    char msgTemp[30] = "";
+    sprintf(msgTemp,"id:s_11,sen:op1,val:%d\n", last_open_1);
+    Serial.print(msgTemp); 
+    radio.write(&msgTemp,strlen(msgTemp));
+}
+
+void sendOpen2(){        
+    char msgTemp[30] = "";
+    sprintf(msgTemp,"id:s_11,sen:op2,val:%d\n", last_open_2);
+    Serial.print(msgTemp); 
+    radio.write(&msgTemp,strlen(msgTemp));
+}
+
+void sendValues(){
+  if(millis() > (last_send + send_delay)){
+    radio.stopListening();
+    radio.openWritingPipe(w_pipes[last_pipe]);
+
+    sendOpen1();
+    delay(200);
+    sendOpen2();
+    
+    radio.startListening();
+    
+    last_pipe = (last_pipe == 0) ? 1 : 0;
+    last_send = millis();
+  }
 }

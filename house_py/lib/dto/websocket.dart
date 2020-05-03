@@ -32,9 +32,11 @@ class Lecture {
       return double.parse(value);
     }
 
-    if (SensorType.LIGA_DESLIGA == sensor) {
+    if (SensorType.LIGA_DESLIGA == sensor || "op1" == sensor || "op2" == sensor) {
       return value == "1" ? true : false;
     }
+
+    return value;
   }
 
   @override

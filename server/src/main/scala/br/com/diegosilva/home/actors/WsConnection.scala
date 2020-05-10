@@ -6,7 +6,7 @@ import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.dto.IOTMessage
 
-object UserWs {
+object WsConnection {
 
   sealed trait Command extends CborSerializable
 
@@ -24,30 +24,30 @@ object UserWs {
 
 }
 
-class UserWs(val userName: String) {
+class WsConnection(val userName: String) {
 
-  private var actorRef: ActorRef[UserWs.Command] = null
+  private var actorRef: ActorRef[WsConnection.Command] = null
 
-  def create(): Behavior[UserWs.Command] = Behaviors.setup { context =>
+  def create(): Behavior[WsConnection.Command] = Behaviors.setup { context =>
     val sharding = ClusterSharding(context.system)
     var devices: List[EntityRef[Device.Command]] = List()
 
-    Behaviors.receiveMessage[UserWs.Command] {
-      case UserWs.Register(uids) =>
+    Behaviors.receiveMessage[WsConnection.Command] {
+      case WsConnection.Register(uids) =>
         uids.foreach { uid =>
           val entity = sharding.entityRefFor(Device.EntityKey, uid)
           devices = devices :+ entity
           entity ! Device.Register(context.self)
         }
         Behaviors.same
-      case UserWs.Notify(message) =>
-        actorRef ! UserWs.Notify(message)
+      case WsConnection.Notify(message) =>
+        actorRef ! WsConnection.Notify(message)
         Behaviors.same
-      case UserWs.Connect(actorRef) =>
+      case WsConnection.Connect(actorRef) =>
         this.actorRef = actorRef
-        this.actorRef ! UserWs.Connected(message = "conectado", userName = userName)
+        this.actorRef ! WsConnection.Connected(message = "conectado", userName = userName)
         Behaviors.same
-      case UserWs.Disconnected => {
+      case WsConnection.Disconnected => {
         devices foreach { entity =>
           entity ! Device.UnRegister(context.self)
         }

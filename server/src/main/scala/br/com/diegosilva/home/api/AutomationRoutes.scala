@@ -11,8 +11,8 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
-import br.com.diegosilva.home.actors.UserWs._
-import br.com.diegosilva.home.actors.{Device, UserWs}
+import br.com.diegosilva.home.actors.WsConnection._
+import br.com.diegosilva.home.actors.{Device, WsConnection}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
 import br.com.diegosilva.home.dto.IOTMessage
 
@@ -71,16 +71,16 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
   private def wsUser(userName: String, context: ActorContext[_]): Flow[Message, Message, NotUsed] = {
 
-    val wsUser: ActorRef[UserWs.Command] = context.spawnAnonymous(new UserWs(userName).create())
+    val wsUser: ActorRef[WsConnection.Command] = context.spawnAnonymous(new WsConnection(userName).create())
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
         case TextMessage.Strict(string) => registerFormat.read(string.parseJson)
       }
-        .to(ActorSink.actorRef[UserWs.Command](ref = wsUser, onCompleteMessage = Disconnected, onFailureMessage = Fail))
+        .to(ActorSink.actorRef[WsConnection.Command](ref = wsUser, onCompleteMessage = Disconnected, onFailureMessage = Fail))
 
     val source: Source[Message, NotUsed] =
-      ActorSource.actorRef[UserWs.Command](completionMatcher = {
+      ActorSource.actorRef[WsConnection.Command](completionMatcher = {
         case Disconnected =>
       }, failureMatcher = {
         case Fail(ex) => ex
@@ -96,7 +96,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
           }
         }
         .mapMaterializedValue({ wsHandler =>
-          wsUser ! UserWs.Connect(wsHandler)
+          wsUser ! WsConnection.Connect(wsHandler)
           NotUsed
         })
         .keepAlive(maxIdle = 10.seconds, () => TextMessage.Strict("{\"message\": \"keep-alive\"}"))

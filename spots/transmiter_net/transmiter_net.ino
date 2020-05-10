@@ -1,3 +1,4 @@
+#include <RF24Network.h>
 #include <SPI.h>
 #include "nRF24L01.h"
 #include "RF24.h"
@@ -5,8 +6,11 @@
 
 
 RF24 radio(9,10);
-const uint64_t w_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
-const uint64_t r_pipe = 0xABCDABCD71AA;
+
+RF24Network network(radio);   
+
+const uint16_t w_pipe = 00;
+const uint16_t r_pipe = 01;
 
 int last_pipe = 0;
 
@@ -29,38 +33,50 @@ void setup() {
     Serial.begin(57600);
 
    if (!sensor.begin()) {
-      Serial.println("Did not find Si7021 sensor!");
+      Serial.println("Sensor Si7021 não encontrado!");
     }
 
+    SPI.begin();
     radio.begin();
-    radio.enableDynamicPayloads();
-    radio.setChannel(55);
-    radio.setRetries(15,15);
-    radio.setAutoAck(true);
-    radio.openReadingPipe(1,r_pipe);
-    radio.setCRCLength(RF24_CRC_16);
-
-    radio.powerUp() ;
-    radio.startListening();
+    network.begin(90,r_pipe);
     
     pinMode(PIR_PIN, INPUT);
     pinMode(SMOKE_PIN, INPUT);
 }
 
 void loop() {
-  sendValues();
+  network.update(); 
   readWifi();
+  sendValues();
+}
+
+void sendValues(){
+  if(millis() > (last_send + send_delay)){
+    sendHum();
+    delay(200);
+    sendTemp();
+    delay(200);
+    sendPresence();
+    delay(200);
+    sendSmoke();
+    
+    last_pipe = (last_pipe == 0) ? 1 : 0;
+    last_send = millis();
+  }
 }
 
 void readWifi(){
-   if (radio.available()) {
-        int len = radio.getDynamicPayloadSize();
+   
+   while(network.available()) {
+        RF24NetworkHeader header;
         char msg_inc[40] = "";
-        radio.read(&msg_inc,len);
+        network.read(header,&msg_inc,sizeof(msg_inc));
 
         Serial.println(F("recebido"));
+        Serial.println(msg_inc);
 
         char *p = msg_inc;
+        
         char *p_id = strtok_r(p, ",", &p);
         char *p_type = strtok_r(p, ",", &p);
         char *p_val = strtok_r(p, ",", &p);
@@ -97,11 +113,11 @@ void readWifi(){
 //          }
 
         //apenas retransmite pq nao possui nenhum relay
-        Serial.println(F("retransmitindo"));
-         radio.stopListening();
-         radio.openWritingPipe(r_pipe);
-         radio.write(&msg_inc,len);
-         radio.startListening();
+         Serial.println(F("retransmitindo"));
+//         radio.stopListening();
+//         radio.openWritingPipe(r_pipe);
+//         radio.write(&msg_inc,sizeof(msg_inc));
+//         radio.startListening();
         }        
    } 
 }
@@ -116,7 +132,8 @@ void sendHum(){
     sprintf(msgHum, "id:%s,sen:hm,val:%s\n",MY_ID,th);
     
     Serial.print(msgHum); 
-    radio.write(&msgHum,strlen(msgHum));
+    RF24NetworkHeader header(w_pipe);
+    network.write(header,&msgHum,strlen(msgHum));
 }
 
 void sendTemp(){
@@ -128,7 +145,8 @@ void sendTemp(){
     sprintf(msgTemp,"id:%s,sen:tp,val:%s\n",MY_ID,tt);
     
     Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    RF24NetworkHeader header(w_pipe);
+    network.write(header,&msgTemp,strlen(msgTemp));
 }
 
 void sendPresence(){
@@ -138,36 +156,18 @@ void sendPresence(){
     sprintf(msgTemp,"id:%s,sen:ps,val:%d\n",MY_ID,last_pir);
     
     Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    RF24NetworkHeader header(w_pipe);
+    network.write(header,&msgTemp,strlen(msgTemp));
 }
 
 void sendSmoke(){
     last_smoke = analogRead(SMOKE_PIN);
         
-    char msgTemp[30] = "";
+    char msgSmk[30] = "";
     
-    sprintf(msgTemp,"id:%s,sen:sm,val:%d\n",MY_ID, last_smoke);
+    sprintf(msgSmk,"id:%s,sen:sm,val:%d\n",MY_ID, last_smoke);
     
-    Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
-}
-
-void sendValues(){
-  if(millis() > (last_send + send_delay)){
-    radio.stopListening();
-    radio.openWritingPipe(w_pipes[last_pipe]);
-
-    sendHum();
-    delay(500);
-    sendTemp();
-    delay(500);
-    sendPresence();
-    delay(500);
-    sendSmoke();
-    
-    radio.startListening();
-    
-    last_pipe = (last_pipe == 0) ? 1 : 0;
-    last_send = millis();
-  }
+    Serial.print(msgSmk); 
+    RF24NetworkHeader header(w_pipe);
+    network.write(header,&msgSmk,strlen(msgSmk));
 }

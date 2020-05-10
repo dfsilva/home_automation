@@ -49,11 +49,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             "splash": (context) => Splash(),
-//          "login": (context) => LoginScreen(),
             "/": (context) => HomeScreen(),
-//          "register": (context) => RegisterScreen(),
-//          "recover": (context) => RecoverScreen(),
-//          "atividade": (context) => AtividadeScreen(),
           },
         ),
       );

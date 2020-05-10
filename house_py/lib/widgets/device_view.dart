@@ -10,34 +10,36 @@ class DeviceListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      color: HousePyColors.cardBackground,
-      width: double.maxFinite,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(device.title, style: TextStyle(fontSize: 30)),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(device.title, style: TextStyle(fontSize: 30)),
+        ),
+        Divider(
+          color: HousePyColors.dividerColor,
+          height: 1,
+          thickness: .5,
+        ),
+        Expanded(
+          child: Container(
+            child: ListView.separated(
+                separatorBuilder: (_, i)=> Divider(
+                  color: HousePyColors.dividerColor,
+                  height: 1,
+                  thickness: .5,
+                ),
+                shrinkWrap: true,
+                itemCount: this.device.sensors.length,
+                itemBuilder: (_, i) => SensorView(
+                      sensor: this.device.sensors[i],
+                      device: this.device,
+                    )),
           ),
-          Divider(
-            color: HousePyColors.dividerColor,
-            height: 1,
-            thickness: .5,
-          ),
-          Container(
-            child: Column(
-              children: device.sensors.map((sensor) => SensorView(sensor: sensor, device: this.device,)).toList(),
-            ),
-          ),
-          Divider(
-            color: HousePyColors.dividerColor,
-            height: 3,
-            thickness: 2.0,
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

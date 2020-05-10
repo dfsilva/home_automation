@@ -13,7 +13,7 @@ abstract class _DeviceStore with Store {
   ObservableMap<String, DeviceModel> dashboardDevices = {
     "s_10": DeviceModel(
         id: "s_10",
-        order: 1,
+        order: 2,
         title: "Quarto Casal",
         sensors: [
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
@@ -24,7 +24,7 @@ abstract class _DeviceStore with Store {
         ].asObservable()),
     "s_11": DeviceModel(
         id: "s_11",
-        order: 2,
+        order: 1,
         title: "Sala",
         sensors: [
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
@@ -37,7 +37,7 @@ abstract class _DeviceStore with Store {
     "s_12": DeviceModel(
         id: "s_12",
         order: 3,
-        title: "Quarto Filha",
+        title: "Quarto Luísa",
         sensors: [
           SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
           SensorModel(type: SensorType.HUMIDITY, value: 0.0),

@@ -24,9 +24,9 @@ object Device {
 
   final case class SendResponse(message: String) extends Response
 
-  final case class Register(actorRef: ActorRef[UserWs.Command]) extends Command
+  final case class Register(actorRef: ActorRef[WsConnection.Command]) extends Command
 
-  final case class UnRegister(actorRef: ActorRef[UserWs.Command]) extends Command
+  final case class UnRegister(actorRef: ActorRef[WsConnection.Command]) extends Command
 
   val EntityKey: EntityTypeKey[Command] = EntityTypeKey[Command]("device")
 
@@ -45,14 +45,14 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
 
   private var cancellable: Cancellable = null
   private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
-  private var registers: List[ActorRef[UserWs.Command]] = List()
+  private var registers: List[ActorRef[WsConnection.Command]] = List()
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Processar(message) => {
         context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
         registers.foreach { actorRef =>
-          actorRef ! UserWs.Notify(message)
+          actorRef ! WsConnection.Notify(message)
         }
         Behaviors.same
       }

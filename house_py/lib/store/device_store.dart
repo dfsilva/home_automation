@@ -44,6 +44,16 @@ abstract class _DeviceStore with Store {
           SensorModel(type: SensorType.SMOKE, value: 0.0),
           SensorModel(type: SensorType.PRESENCE, value: false)
         ].asObservable()),
+    "s_13": DeviceModel(
+        id: "s_13",
+        order: 4,
+        title: "Escritório",
+        sensors: [
+          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
+          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
+          SensorModel(type: SensorType.SMOKE, value: 0.0),
+          SensorModel(type: SensorType.PRESENCE, value: false)
+        ].asObservable()),
   }.asObservable();
 
   @action

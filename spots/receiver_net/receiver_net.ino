@@ -3,32 +3,33 @@
 #include <SPI.h>
 
 
-RF24 radio(9,10);                // nRF24L01(+) radio attached using Getting Started board 
+RF24 radio(9,10);
 
-RF24Network network(radio);      // Network uses that radio
-const uint16_t this_node = 00;    // Address of our node in Octal format ( 04,031, etc)
-const uint16_t other_node = 01;   // Address of the other node in Octal format
+RF24Network network(radio);
+const uint16_t this_node = 00;
+const uint16_t other_node = 01;
 
-struct payload_t {                 // Structure of our payload
-  unsigned long ms;
-  unsigned long counter;
+struct payload_t {
+  unsigned long id;
+  char sen[2];
+  char val[6];
 };
 
 
 void setup(void)
 {
-   Serial.begin(57600);
+  Serial.begin(57600);
   Serial.println("Receptor transmissor");
  
   SPI.begin();
   radio.begin();
-  network.begin(/*channel*/ 90, /*node address*/ this_node);
+  network.begin(90,this_node);
 }
 
 
-void send(const char* msg_inc){
+void send(payload_t payload){
   RF24NetworkHeader header(other_node);
-  bool ok = network.write(header,&msg_inc,sizeof(msg_inc));
+  bool ok = network.write(header,&payload,sizeof(payload));
   if (ok){
      Serial.println(F("Enviou!!!"));
   }else{ 
@@ -39,11 +40,13 @@ void send(const char* msg_inc){
 void receive(){
    if (network.available()) {
       RF24NetworkHeader header;
-      char msg_inc[40] = "";
-      network.read(header,&msg_inc,sizeof(msg_inc));
+      payload_t payload;
+      network.read(header,&payload,sizeof(payload));
       Serial.println(F("Recebeu"));
-      Serial.println(msg_inc);
-      send(msg_inc);
+      Serial.println(payload.id);
+      Serial.println(payload.sen);
+      Serial.println(payload.val);
+      send(payload);
     }  
 }
 

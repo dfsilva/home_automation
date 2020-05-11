@@ -3,7 +3,6 @@
 #include "RF24.h"
 #include "Adafruit_Si7021.h"
 
-
 RF24 radio(9,10);
 const uint64_t w_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t r_pipe = 0xABCDABCD71AA;
@@ -23,7 +22,7 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
-const char *MY_ID = "s_12";
+const char *MY_ID = "s_13";
 
 void setup() {
     Serial.begin(57600);
@@ -109,11 +108,9 @@ void readWifi(){
 
 void sendHum(){
     last_hum = sensor.readHumidity();
-    char th[10];
-    dtostrf(last_hum,6,2,th);
     
     char msgHum[30] = "";
-    sprintf(msgHum, "id:%s,sen:hm,val:%s\n",MY_ID,th);
+    sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
     
     Serial.print(msgHum); 
     radio.write(&msgHum,strlen(msgHum));
@@ -121,11 +118,9 @@ void sendHum(){
 
 void sendTemp(){
     last_temp = sensor.readTemperature();
-    char tt[10];
-    dtostrf(last_temp,6,2,tt);
     
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:%s,sen:tp,val:%s\n",MY_ID,tt);
+    sprintf(msgTemp,"id:%s,sen:tp,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
     
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));

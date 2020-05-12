@@ -1,6 +1,5 @@
 #include <RF24Network.h>
 #include <SPI.h>
- #include <string.h>
 #include "nRF24L01.h"
 #include "RF24.h"
 #include "Adafruit_Si7021.h"
@@ -14,7 +13,7 @@ const uint16_t other_node = 00;
 
 int last_pipe = 0;
 
-const int send_delay = 2000;
+const int send_delay = 1000;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
@@ -27,17 +26,13 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
-const char *MY_ID = "s_12";
+const char *MY_ID = "s_13";
 
-struct payload_t {
-  unsigned long id;
-  char sen[2];
-  char val[6];
-};
+int send_now = 0;
 
 void setup()
 {
-  Serial.begin(57600);
+  Serial.begin(115200);
 
   if (!sensor.begin())
   {
@@ -46,6 +41,8 @@ void setup()
 
   SPI.begin();
   radio.begin();
+  radio.setPALevel(RF24_PA_MAX);
+  radio.setDataRate(RF24_250KBPS);
   network.begin(90, this_node);
 
   pinMode(PIR_PIN, INPUT);
@@ -55,7 +52,7 @@ void setup()
 void loop()
 {
   network.update();
-  readInc();
+  receive();
   sendValues();
 }
 
@@ -63,63 +60,57 @@ void sendValues()
 {
   if (millis() > (last_send + send_delay))
   {
-    while (!sendHum())
-    {
-      Serial.println(F("erro"));
-    }
 
-   Serial.println(F("enviou"));
-//    sendTemp();
-//    delay(1000);
-//    sendPresence();
-//    delay(1000);
-//    sendSmoke();
+    switch(send_now){
+      case 0:
+        sendHum();
+        send_now = 1;
+        break;
+      case 1:
+        sendTemp();
+        send_now = 2;
+        break;
+      case 2:
+        sendPresence();
+        send_now = 3;
+        break;
+      case 3:
+        sendSmoke();
+        send_now = 0;
+        break;
+      }
 
     last_pipe = (last_pipe == 0) ? 1 : 0;
     last_send = millis();
   }
 }
 
-void readInc()
+void receive()
 {
   while (network.available())
   {
     Serial.println(F("recebeu"));
     RF24NetworkHeader header;
-    payload_t payload;
-    network.read(header, &payload, sizeof(payload));
-
-    Serial.println(payload.id);
-    Serial.println(payload.sen);
-    Serial.println(payload.val);
+    char msg[30];
+    network.read(header, &msg, sizeof(msg));
+    Serial.println(msg);
   }
 }
 
 bool sendHum()
 {
   last_hum = sensor.readHumidity();
-  
-  char val[6];
-  sprintf(val, "%d.%02d\n",(int)last_hum,(int)(last_hum*100)%100);
-  payload_t payload;
-  payload.id = 12;
-  payload.sen[0] = 'h';
-  payload.sen[1] = 'm';
-  for(int j = 0; j < 6; j++){
-    payload.val[j] = val[j];
-  }
+  char msgHum[30] = "";
+  sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
   RF24NetworkHeader header2(other_node);
-  return network.write(header2, &payload, sizeof(payload));
+  return network.write(header2, &msgHum, sizeof(msgHum));
 }
 
 bool sendTemp()
 {
   last_temp = sensor.readTemperature();
-
   char msgTemp[30] = "";
   sprintf(msgTemp,"id:%s,sen:tp,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
-
-  Serial.print(msgTemp);
   RF24NetworkHeader header2(other_node);
   return network.write(header2, &msgTemp, sizeof(msgTemp));
 }
@@ -127,11 +118,8 @@ bool sendTemp()
 bool sendPresence()
 {
   last_pir = digitalRead(PIR_PIN);
-
   char msgTemp[30] = "";
   sprintf(msgTemp, "id:%s,sen:ps,val:%d\n", MY_ID, last_pir);
-
-  Serial.print(msgTemp);
   RF24NetworkHeader header2(other_node);
   return network.write(header2, &msgTemp, sizeof(msgTemp));
 }
@@ -139,12 +127,8 @@ bool sendPresence()
 bool sendSmoke()
 {
   last_smoke = analogRead(SMOKE_PIN);
-
   char msgSmk[30] = "";
-
   sprintf(msgSmk, "id:%s,sen:sm,val:%d\n", MY_ID, last_smoke);
-
-  Serial.print(msgSmk);
   RF24NetworkHeader header2(other_node);
   network.write(header2, &msgSmk, sizeof(msgSmk));
 }

@@ -9,7 +9,7 @@ const uint64_t r_pipe = 0xABCDABCD71AA;
 
 int last_pipe = 0;
 
-const int send_delay = 2000;
+const int send_delay = 1000;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
@@ -23,6 +23,8 @@ const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
 const char *MY_ID = "s_13";
+
+int send_now = 0;
 
 void setup() {
     Serial.begin(57600);
@@ -152,13 +154,24 @@ void sendValues(){
     radio.stopListening();
     radio.openWritingPipe(w_pipes[last_pipe]);
 
-    sendHum();
-    delay(500);
-    sendTemp();
-    delay(500);
-    sendPresence();
-    delay(500);
-    sendSmoke();
+   switch(send_now){
+      case 0:
+        sendHum();
+        send_now = 1;
+        break;
+      case 1:
+        sendTemp();
+        send_now = 2;
+        break;
+      case 2:
+        sendPresence();
+        send_now = 3;
+        break;
+      case 3:
+        sendSmoke();
+        send_now = 0;
+        break;
+      }
     
     radio.startListening();
     

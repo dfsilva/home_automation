@@ -12,17 +12,13 @@ RF24Network network(radio);
 const uint16_t this_node = 00;
 const uint16_t other_node = 01;
 
-struct payload_t {
-  unsigned long id;
-  char sen[2];
-  char val[6];
-};
+char msg[30];
 
-void send(payload_t payload)
+void send()
 {
-    printf("enviando: %lu %s %s\n", payload.id, payload.sen, payload.val);
+    printf("enviando: %s", msg);
     RF24NetworkHeader header2(other_node);
-    if(!network.write(header2, &payload, sizeof(payload))){
+    if(!network.write(header2, &msg, sizeof(msg))){
         printf("failed.\n");
     }else{
         printf("enviou.\n");
@@ -34,17 +30,16 @@ void receive()
     if (network.available())
     {
         RF24NetworkHeader header;
-        payload_t payload;
-        network.read(header, &payload, sizeof(payload));
-        printf("Recebeu: %lu %s %s\n", payload.id, payload.sen, payload.val);
-        delay(1000);
-        send(payload);
+        network.read(header, &msg, sizeof(msg));
+        printf("Recebeu: %s", msg);
+        send();
     }
 }
 
 int main(int argc, char **argv)
 {
     radio.begin();
+    radio.setDataRate(RF24_250KBPS);
     delay(5);
     network.begin(90, this_node);
     radio.printDetails();

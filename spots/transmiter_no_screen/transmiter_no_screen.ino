@@ -22,7 +22,7 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
-const char *MY_ID = "s_13";
+const char *MY_ID = "s_10";
 
 int send_now = 0;
 
@@ -41,7 +41,7 @@ void setup() {
     radio.setRetries(15,15);
     radio.setAutoAck(true);
     radio.openReadingPipe(1,r_pipe);
-    radio.setCRCLength(RF24_CRC_16);
+    radio.setCRCLength(RF24_CRC_8);
 
     radio.powerUp() ;
     radio.startListening();
@@ -52,7 +52,7 @@ void setup() {
 
 void loop() {
   sendValues();
-  readWifi();
+//  readWifi();
 }
 
 void readWifi(){
@@ -112,43 +112,30 @@ void readWifi(){
 
 void sendHum(){
     last_hum = sensor.readHumidity();
-    
-    char msgHum[30] = "";
+    char msgHum[30];
     sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
-    
-    Serial.print(msgHum); 
-    radio.write(&msgHum,strlen(msgHum));
+    radio.write(&msgHum,sizeof(msgHum));
 }
 
 void sendTemp(){
     last_temp = sensor.readTemperature();
-    
-    char msgTemp[30] = "";
+    char msgTemp[30];
     sprintf(msgTemp,"id:%s,sen:tp,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
-    
-    Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendPresence(){
     last_pir = digitalRead(PIR_PIN);
-        
-    char msgTemp[30] = "";
+    char msgTemp[30];
     sprintf(msgTemp,"id:%s,sen:ps,val:%d\n",MY_ID,last_pir);
-    
-    Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendSmoke(){
     last_smoke = analogRead(SMOKE_PIN);
-        
-    char msgTemp[30] = "";
-    
+    char msgTemp[30];
     sprintf(msgTemp,"id:%s,sen:sm,val:%d\n",MY_ID, last_smoke);
-    
-    Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendValues(){

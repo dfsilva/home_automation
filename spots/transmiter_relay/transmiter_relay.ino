@@ -42,7 +42,7 @@ void loop() {
 void readWifi(){
    if (radio.available()) {
         int len = radio.getDynamicPayloadSize();
-        char msg_inc[40] = "";
+        char msg_inc[30];
         radio.read(&msg_inc,len);
 
         Serial.println(F("recebido"));
@@ -80,10 +80,9 @@ void readWifi(){
 }
 
 void sendRelay(){        
-    char msgTemp[30] = "";
+    char msgTemp[30];
     sprintf(msgTemp,"id:s_10,sen:ld,val:%d\n", last_relay);
-    Serial.print(msgTemp); 
-    radio.write(&msgTemp,strlen(msgTemp));
+    radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendValues(){

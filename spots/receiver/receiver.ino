@@ -7,12 +7,15 @@ RF24 radio(9,10);
 const uint64_t r_pipes[2] =  {0xABCDABCD71LL, 0x544d52687CLL};
 const uint64_t t_pipe = 0xABCDABCD71AA;
 
-const int IDX_PIPE = 1;
+const int IDX_PIPE = 0;
 
 void setup(){
     Serial.begin(57600);
-    printf_begin();
+
     radio.begin();
+    radio.setPALevel(RF24_PA_MAX);
+    radio.setDataRate(RF24_250KBPS);
+    
     radio.enableDynamicPayloads();
     radio.setChannel(55);
     radio.setRetries(15,15);
@@ -34,7 +37,7 @@ void loop(){
 void readWifi(){
   if (radio.available()) {
         int len = radio.getDynamicPayloadSize();
-        char inc_msg[len] = "";
+        char inc_msg[len];
         radio.read(&inc_msg,len);
         Serial.write((byte*)&inc_msg, sizeof(inc_msg)); 
         Serial.flush();
@@ -45,9 +48,8 @@ void readSerial(){
   if(Serial.available() > 1){
       radio.stopListening();
       String serialMsg = Serial.readString();
-      char out_msg[40] = "";
-      serialMsg.toCharArray(out_msg, 40);
-//      Serial.println(out_msg);
+      char out_msg[30] = "";
+      serialMsg.toCharArray(out_msg, 30);
       radio.write(&out_msg,strlen(out_msg));
       radio.startListening();
     } 

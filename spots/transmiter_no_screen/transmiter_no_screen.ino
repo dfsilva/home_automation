@@ -30,10 +30,12 @@ void setup() {
     Serial.begin(57600);
 
    if (!sensor.begin()) {
-      Serial.println("Did not find Si7021 sensor!");
+      Serial.println("Erro ao inicializar Si7021!");
     }
 
     radio.begin();
+    radio.setPALevel(RF24_PA_MAX);
+    radio.setDataRate(RF24_250KBPS);
     radio.enableDynamicPayloads();
     radio.setChannel(55);
     radio.setRetries(15,15);
@@ -56,7 +58,7 @@ void loop() {
 void readWifi(){
    if (radio.available()) {
         int len = radio.getDynamicPayloadSize();
-        char msg_inc[40] = "";
+        char msg_inc[30];
         radio.read(&msg_inc,len);
 
         Serial.println(F("recebido"));
@@ -98,7 +100,7 @@ void readWifi(){
 //          }
 
         //apenas retransmite pq nao possui nenhum relay
-        Serial.println(F("retransmitindo"));
+//         Serial.println(F("retransmitindo"));
          radio.stopListening();
          radio.openWritingPipe(r_pipe);
          radio.write(&msg_inc,len);

@@ -1,0 +1,850 @@
+[2020-05-12 10:12:05,397] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:12:05.396UTC}
+[2020-05-12 10:12:05,398] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@5013fbe6 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:12:05.397UTC}
+[2020-05-12 10:12:05,800] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-5] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at br.com.diegosilva.home.factory.SerialPortFactory$.get(SerialPortFactory.scala:12)
+	at br.com.diegosilva.home.actors.Receptor.<init>(Receptor.scala:31)
+	at br.com.diegosilva.home.actors.Receptor$.$anonfun$create$1(Receptor.scala:25)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$1.start(InterceptorImpl.scala:48)
+	at akka.actor.typed.internal.AbstractSupervisor.aroundStart(Supervision.scala:76)
+	at akka.actor.typed.internal.InterceptorImpl.preStart(InterceptorImpl.scala:71)
+	at akka.actor.typed.internal.InterceptorImpl$.$anonfun$apply$1(InterceptorImpl.scala:28)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.adapter.ActorAdapter.preStart(ActorAdapter.scala:247)
+	at akka.actor.Actor.aroundPreStart(Actor.scala:545)
+	at akka.actor.Actor.aroundPreStart$(Actor.scala:545)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundPreStart(ActorAdapter.scala:55)
+	at akka.actor.ActorCell.create(ActorCell.scala:637)
+	at akka.actor.ActorCell.invokeAll$1(ActorCell.scala:509)
+	at akka.actor.ActorCell.systemInvoke(ActorCell.scala:531)
+	at akka.dispatch.Mailbox.processAllSystemMessages(Mailbox.scala:294)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:229)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:07,235] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-5] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessage(StashBufferImpl.scala:100)
+	at akka.actor.typed.internal.StashBufferImpl.interpretOne$1(StashBufferImpl.scala:157)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessages(StashBufferImpl.scala:190)
+	at akka.actor.typed.internal.StashBufferImpl.unstash(StashBufferImpl.scala:139)
+	at akka.actor.typed.internal.StashBufferImpl.unstashAll(StashBufferImpl.scala:122)
+	at akka.actor.typed.internal.RestartSupervisor.restartCompleted(Supervision.scala:378)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:237)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:12,251] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:17,268] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:22,289] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:27,310] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:48,338] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:12:48.337UTC}
+[2020-05-12 10:12:48,339] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@8da088d {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:12:48.337UTC}
+[2020-05-12 10:12:48,751] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-25] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at br.com.diegosilva.home.factory.SerialPortFactory$.get(SerialPortFactory.scala:12)
+	at br.com.diegosilva.home.actors.Receptor.<init>(Receptor.scala:31)
+	at br.com.diegosilva.home.actors.Receptor$.$anonfun$create$1(Receptor.scala:25)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$1.start(InterceptorImpl.scala:48)
+	at akka.actor.typed.internal.AbstractSupervisor.aroundStart(Supervision.scala:76)
+	at akka.actor.typed.internal.InterceptorImpl.preStart(InterceptorImpl.scala:71)
+	at akka.actor.typed.internal.InterceptorImpl$.$anonfun$apply$1(InterceptorImpl.scala:28)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.adapter.ActorAdapter.preStart(ActorAdapter.scala:247)
+	at akka.actor.Actor.aroundPreStart(Actor.scala:545)
+	at akka.actor.Actor.aroundPreStart$(Actor.scala:545)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundPreStart(ActorAdapter.scala:55)
+	at akka.actor.ActorCell.create(ActorCell.scala:637)
+	at akka.actor.ActorCell.invokeAll$1(ActorCell.scala:509)
+	at akka.actor.ActorCell.systemInvoke(ActorCell.scala:531)
+	at akka.dispatch.Mailbox.processAllSystemMessages(Mailbox.scala:294)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:229)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:50,079] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-25] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessage(StashBufferImpl.scala:100)
+	at akka.actor.typed.internal.StashBufferImpl.interpretOne$1(StashBufferImpl.scala:157)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessages(StashBufferImpl.scala:190)
+	at akka.actor.typed.internal.StashBufferImpl.unstash(StashBufferImpl.scala:139)
+	at akka.actor.typed.internal.StashBufferImpl.unstashAll(StashBufferImpl.scala:122)
+	at akka.actor.typed.internal.RestartSupervisor.restartCompleted(Supervision.scala:378)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:237)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:12:55,097] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:00,115] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:05,134] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:10,155] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:15,175] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-3] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:28,316] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-3] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-5, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:13:28.315UTC}
+[2020-05-12 10:13:28,317] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-3] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@767c3fe2 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-5, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:13:28.316UTC}
+[2020-05-12 10:13:28,736] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at br.com.diegosilva.home.factory.SerialPortFactory$.get(SerialPortFactory.scala:12)
+	at br.com.diegosilva.home.actors.Receptor.<init>(Receptor.scala:31)
+	at br.com.diegosilva.home.actors.Receptor$.$anonfun$create$1(Receptor.scala:25)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$1.start(InterceptorImpl.scala:48)
+	at akka.actor.typed.internal.AbstractSupervisor.aroundStart(Supervision.scala:76)
+	at akka.actor.typed.internal.InterceptorImpl.preStart(InterceptorImpl.scala:71)
+	at akka.actor.typed.internal.InterceptorImpl$.$anonfun$apply$1(InterceptorImpl.scala:28)
+	at akka.actor.typed.internal.BehaviorImpl$DeferredBehavior$$anon$1.apply(BehaviorImpl.scala:119)
+	at akka.actor.typed.Behavior$.start(Behavior.scala:168)
+	at akka.actor.typed.internal.adapter.ActorAdapter.preStart(ActorAdapter.scala:247)
+	at akka.actor.Actor.aroundPreStart(Actor.scala:545)
+	at akka.actor.Actor.aroundPreStart$(Actor.scala:545)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundPreStart(ActorAdapter.scala:55)
+	at akka.actor.ActorCell.create(ActorCell.scala:637)
+	at akka.actor.ActorCell.invokeAll$1(ActorCell.scala:509)
+	at akka.actor.ActorCell.systemInvoke(ActorCell.scala:531)
+	at akka.dispatch.Mailbox.processAllSystemMessages(Mailbox.scala:294)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:229)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:30,081] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessage(StashBufferImpl.scala:100)
+	at akka.actor.typed.internal.StashBufferImpl.interpretOne$1(StashBufferImpl.scala:157)
+	at akka.actor.typed.internal.StashBufferImpl.interpretUnstashedMessages(StashBufferImpl.scala:190)
+	at akka.actor.typed.internal.StashBufferImpl.unstash(StashBufferImpl.scala:139)
+	at akka.actor.typed.internal.StashBufferImpl.unstashAll(StashBufferImpl.scala:122)
+	at akka.actor.typed.internal.RestartSupervisor.restartCompleted(Supervision.scala:378)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:237)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:35,096] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:40,115] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:45,136] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:50,155] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:13:55,175] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:14:00,197] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:14:05,215] [ERROR] [akka.actor.typed.Behavior$] [] [Automation-akka.actor.default-dispatcher-24] - Supervisor RestartSupervisor saw failure: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened. {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+jssc.SerialPortException: Port name - /dev/cu.usbserial14220; Method name - addEventListener(); Exception type - Port not opened.
+	at jssc.SerialPort.checkPortOpened(SerialPort.java:878)
+	at jssc.SerialPort.addEventListener(SerialPort.java:1007)
+	at jssc.SerialPort.addEventListener(SerialPort.java:975)
+	at br.com.diegosilva.home.actors.Receptor.startReceive(Receptor.scala:54)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:38)
+	at br.com.diegosilva.home.actors.Receptor.onMessage(Receptor.scala:29)
+	at akka.actor.typed.scaladsl.AbstractBehavior.receive(AbstractBehavior.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.InterceptorImpl$$anon$2.apply(InterceptorImpl.scala:55)
+	at akka.actor.typed.internal.RestartSupervisor.aroundReceive(Supervision.scala:262)
+	at akka.actor.typed.internal.InterceptorImpl.receive(InterceptorImpl.scala:83)
+	at akka.actor.typed.Behavior$.interpret(Behavior.scala:274)
+	at akka.actor.typed.Behavior$.interpretMessage(Behavior.scala:230)
+	at akka.actor.typed.internal.adapter.ActorAdapter.handleMessage(ActorAdapter.scala:125)
+	at akka.actor.typed.internal.adapter.ActorAdapter.aroundReceive(ActorAdapter.scala:105)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:573)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:543)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:269)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:230)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:242)
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
+	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-05-12 10:14:22,675] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:14:22.674UTC}
+[2020-05-12 10:14:22,676] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@26d01f72 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:14:22.674UTC}
+[2020-05-12 10:14:23,099] [DEBUG] [br.com.diegosilva.home.actors.Receptor] [] [Automation-akka.actor.default-dispatcher-5] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:26,698] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido CKrsCA,aCid:s_10,sen:tp,val:23.71 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:27,709] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:28,721] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:28,721] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:29,228] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:29,735] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:30,748] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:32,767] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:32,767] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:33,274] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:33,780] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:35,295] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:35,803] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:37,318] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:37,318] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:37,826] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:38,332] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:39,344] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:41,362] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:41,362] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:42,374] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:42,881] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:43,893] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:45,910] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:45,910] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:46,922] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:47,429] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:47,938] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.75 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:50,460] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:50,460] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:50,967] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:51,473] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:52,485] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:54,504] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:54,504] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:55,515] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:56,022] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:56,531] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:59,053] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:14:59,053] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:00,063] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:00,570] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:01,077] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:01,586] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:03,101] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:03,102] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:04,112] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:04,620] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:05,127] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:07,649] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:07,649] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:08,660] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:09,168] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:09,675] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:10,183] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:11,699] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:11,699] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:13,211] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:13,719] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:14,228] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:16,246] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:16,246] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:17,760] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:18,267] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:18,776] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:20,291] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:20,291] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:21,805] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:22,311] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:22,821] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:24,839] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:24,839] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:26,353] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:26,861] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:27,369] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:28,884] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:28,884] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:30,902] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:31,409] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:31,917] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.75 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:33,433] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:33,433] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:35,450] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:35,956] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:36,465] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:37,980] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:37,981] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:39,494] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:40,002] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:40,511] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:41,018] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:42,029] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:42,029] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:44,045] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:44,555] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.71 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:45,062] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:45,570] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.71 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:46,582] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:46,582] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:48,600] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:54,448] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-6] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:15:54.447UTC}
+[2020-05-12 10:15:54,450] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-6] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@18c44893 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:15:54.448UTC}
+[2020-05-12 10:15:54,985] [DEBUG] [br.com.diegosilva.home.actors.Receptor] [] [Automation-akka.actor.default-dispatcher-6] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:15:54,987] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,365] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,367] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,seid:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,367] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,368] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,368] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,369] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,369] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,369] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,370] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,370] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,370] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,370] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,371] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,371] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,372] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,373] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,373] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,374] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,374] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.71 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,375] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,375] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,376] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,377] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,377] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,377] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,377] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,378] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,378] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,378] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,378] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,378] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,379] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,379] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,379] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,379] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.73 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,380] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,380] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,381] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,381] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,382] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,382] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,382] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,382] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,384] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,384] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,384] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,385] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.74 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:350 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.75 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,386] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:49,387] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.72 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:16:50,175] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:34,007] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-6] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:26:34.006UTC}
+[2020-05-12 10:26:34,008] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-6] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@68a91451 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=13:26:34.006UTC}
+[2020-05-12 10:26:34,432] [DEBUG] [br.com.diegosilva.home.actors.Receptor] [] [Automation-akka.actor.default-dispatcher-6] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:34,434] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:34,436] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:351 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:34,437] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:36,522] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido idid:s_10,sen:tp,val:23.76 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:37,533] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,040] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,549] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:352 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,549] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,862] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,862] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-6] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='351'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,863] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,863] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-6] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='352'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:38,863] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:40,567] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.77 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:40,568] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='tp', value='23.77'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:41,578] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:41,579] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:42,084] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:42,085] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:43,096] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:ld,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:43,096] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:43,605] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:352 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:43,606] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:43,606] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='352'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:45,120] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.77 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:45,121] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='tp', value='23.77'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:46,130] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:46,131] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:46,638] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:46,639] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:47,147] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:352 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:47,147] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:47,147] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='352'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:49,668] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.76 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:49,669] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='tp', value='23.76'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:50,678] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:50,679] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:51,185] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:51,186] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:51,694] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:352 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:51,695] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:51,695] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='352'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:53,713] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.75 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:53,713] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='tp', value='23.75'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:55,227] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op1,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:55,228] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:55,733] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_11,sen:op2,val:0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:55,734] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-05-12 10:26:56,242] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:sm,val:352 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:56,242] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido  {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-05-12 10:26:56,242] [INFO] [br.com.diegosilva.home.actors.Device] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='sm', value='352'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-05-12 10:26:58,261] [INFO] [br.com.diegosilva.home.actors.Receptor] [] [EventThread /dev/cu.usbserial-14220] - Valor recebido id:s_10,sen:tp,val:23.76 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}

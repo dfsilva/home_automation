@@ -30,6 +30,7 @@
 
     <root level="ERROR">
         <appender-ref ref="ASYNCFILE"/>
+        <appender-ref ref="ASYNCSTDOUT"/>
     </root>
 
 </configuration>

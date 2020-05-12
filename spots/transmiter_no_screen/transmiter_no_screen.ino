@@ -22,7 +22,7 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
-const char *MY_ID = "s_10";
+const char *MY_ID = "s_12";
 
 int send_now = 0;
 
@@ -41,7 +41,9 @@ void setup() {
     radio.setRetries(15,15);
     radio.setAutoAck(true);
     radio.openReadingPipe(1,r_pipe);
-    radio.setCRCLength(RF24_CRC_8);
+    radio.setCRCLength(RF24_CRC_16);
+
+//    radio.printDetails();
 
     radio.powerUp() ;
     radio.startListening();

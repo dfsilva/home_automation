@@ -1,47 +1,53 @@
-ifeq ($(wildcard ../Makefile.inc), )
-	$(error Configuration not found. Run ./configure first)
+#############################################################################
+#
+# Makefile for librf24 examples on Raspberry Pi
+#
+# License: GPL (General Public License)
+# Author:  gnulnulf <arco@appeltaart.mine.nu>
+# Date:    2013/02/07 (version 1.0)
+#
+# Description:
+# ------------
+# use make all and make install to install the examples
+# You can change the install directory by editing the prefix line
+#
+prefix := /usr/local
+
+ARCH=armv6zk
+ifeq "$(shell uname -m)" "armv7l"
+ARCH=armv7-a
 endif
 
-include ../Makefile.inc
+# Detect the Raspberry Pi from cpuinfo
+#Count the matches for BCM2708 or BCM2709 in cpuinfo
+RPI=$(shell cat /proc/cpuinfo | grep Hardware | grep -c BCM2708)
+ifneq "${RPI}" "1"
+RPI=$(shell cat /proc/cpuinfo | grep Hardware | grep -c BCM2709)
+endif
 
+ifeq "$(RPI)" "1"
+# The recommended compiler flags for the Raspberry Pi
+CCFLAGS=-Ofast -mfpu=vfp -mfloat-abi=hard -march=$(ARCH) -mtune=arm1176jzf-s -std=c++0x
+endif
+
+
+# define all programs
 PROGRAMS = receiver
+SOURCES = ${PROGRAMS:=.cpp}
 
-BINARY_PREFIX = rf24
-SOURCES = $(PROGRAMS:=.cpp)
+all: ${PROGRAMS}
 
-LIBS=-l$(LIB)
-ifeq ($(DRIVER), LittleWire)
-	LIBS+= -llittlewire-spi
-endif
-
-all: $(PROGRAMS)
-
-$(PROGRAMS): $(SOURCES)
-	$(CXX) $(CFLAGS) -I$(HEADER_DIR)/.. -I.. -L$(LIB_DIR) $@.cpp $(LIBS) -o $@
+${PROGRAMS}: ${SOURCES}
+	g++ ${CCFLAGS} -Wall -I../ $@.cpp -lrf24-bcm -lrf24network -o $@
 
 clean:
-	@echo "[Cleaning]"
 	rm -rf $(PROGRAMS)
 
 install: all
-	@echo "[Installing examples to $(EXAMPLES_DIR)]"
-	@mkdir -p $(EXAMPLES_DIR)
-	@for prog in $(PROGRAMS); do \
-		install -m 0755 $${prog} $(EXAMPLES_DIR)/$(BINARY_PREFIX)-$${prog}; \
+	test -d $(prefix) || mkdir $(prefix)
+	test -d $(prefix)/bin || mkdir $(prefix)/bin
+	for prog in $(PROGRAMS); do \
+	  install -m 0755 $$prog $(prefix)/bin; \
 	done
 
-upload: all
-	@echo "[Uploading examples to $(REMOTE):$(REMOTE_EXAMPLES_DIR)]"
-ifeq ($(REMOTE),)
-	@echo "[ERROR] Remote machine not configured. Run configure with respective arguments."
-	@exit 1
-endif
-	@ssh -q -t -p $(REMOTE_PORT) $(REMOTE) "mkdir -p $(REMOTE_EXAMPLES_DIR)"
-	@ssh -q -t -p $(REMOTE_PORT) $(REMOTE) "mkdir -p /tmp/RF24_examples"
-	@scp -q -P $(REMOTE_PORT) $(PROGRAMS) $(REMOTE):/tmp/RF24_examples
-	@for prog in $(PROGRAMS); do \
-		ssh -q -t -p $(REMOTE_PORT) $(REMOTE) "sudo install -m 0755 /tmp/RF24_examples/$${prog} $(REMOTE_EXAMPLES_DIR)/$(BINARY_PREFIX)-$${prog}"; \
-	done
-	@ssh -q -t -p $(REMOTE_PORT) $(REMOTE) "rm -rf /tmp/RF24_examples"
-
-.PHONY: install upload
+.PHONY: install

@@ -39,12 +39,9 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
   }
 
 JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send
-  (JNIEnv *env, jobject thiz, jint node, jstring msg){
+  (JNIEnv *env, jobject thiz, jint node, jstring jmsg){
+      char *msg = env->GetStringUTFChars(jmsg, 0);
       printf("enviando: %s", msg);
       RF24NetworkHeader header2(node);
-      if(!network.write(header2, &msg, sizeof(msg))){
-          return true;
-      }else{
-          return false;
-      }
+      return network.write(header2, msg, sizeof(msg)));
   }

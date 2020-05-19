@@ -30,7 +30,6 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
             char msg[30];
             RF24NetworkHeader header;
             network.read(header, &msg, sizeof(msg));
-            printf("Recebeu: %s", msg);
             char *buf = (char*)malloc(30);
             strcpy(buf, msg);
             jstring jstrBuf = env->NewStringUTF(buf);

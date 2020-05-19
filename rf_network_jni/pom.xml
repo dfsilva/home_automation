@@ -37,7 +37,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.5.0</version>
                 <configuration>
-                    <mainClass>cluster.Runner</mainClass>
+                    <mainClass>MainTest</mainClass>
                 </configuration>
             </plugin>
 

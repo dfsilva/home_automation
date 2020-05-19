@@ -41,6 +41,9 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.5.0</version>
                 <configuration>
+                    <arguments>
+                        <argument>-Djava.library.path=${project.basedir}/src/main/resources</argument>
+                    </arguments>
                     <mainClass>MainTest</mainClass>
                 </configuration>
             </plugin>

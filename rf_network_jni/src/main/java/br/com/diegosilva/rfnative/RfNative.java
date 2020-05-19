@@ -8,7 +8,7 @@ public class RfNative {
     static {
 //        System.loadLibrary(LIB_NAME);
         try {
-            NativeUtils.loadLibraryFromJar("librfnative.so");
+            NativeUtils.loadLibraryFromJar("/librfnative.so");
         } catch (IOException e) {
             e.printStackTrace();
         }

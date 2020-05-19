@@ -18,7 +18,7 @@ public class RfNative {
 
     public void onReceive(String msg) {
         System.out.println(msg);
-        send(01, msg);
+        System.out.println("Enviou: "+send(01, msg));
     }
 
 }

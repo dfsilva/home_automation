@@ -1,12 +1,11 @@
 package br.com.diegosilva.rfnative;
 
 public class RfNative {
-    final private static String LIB_NAME = "rfnative.so";
+    final private static String LIB_NAME = "rfnative";
 
     static {
         System.loadLibrary(LIB_NAME);
     }
-
-
+    
     public native String getString();
 }

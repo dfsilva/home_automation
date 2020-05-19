@@ -7,9 +7,9 @@ public class RfNative {
         System.loadLibrary(LIB_NAME);
     }
 
-    public native void start();
+    public native void start(int node);
 
-    public native boolean send(String msg);
+    public native boolean send(int node, String msg);
 
     public void onReceive(String msg){
         System.out.println(msg);

@@ -10,18 +10,18 @@ extern "C" {
 /*
  * Class:     br_com_diegosilva_rfnative_RfNative
  * Method:    start
- * Signature: ()V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     br_com_diegosilva_rfnative_RfNative
  * Method:    send
- * Signature: (Ljava/lang/String;)Z
+ * Signature: (ILjava/lang/String;)Z
  */
 JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send
-  (JNIEnv *, jobject, jstring);
+  (JNIEnv *, jobject, jint, jstring);
 
 #ifdef __cplusplus
 }

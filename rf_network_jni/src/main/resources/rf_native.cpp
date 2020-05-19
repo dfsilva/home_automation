@@ -11,17 +11,17 @@ RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);
 
 RF24Network network(radio);
 
-const uint16_t this_node = 00;
-const uint16_t other_node = 01;
+// const uint16_t this_node = 00;
+// const uint16_t other_node = 01;
 
 char msg[30];
 
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
-  (JNIEnv *env, jobject thiz){
+  (JNIEnv *env, jobject thiz, jint node){
     radio.begin();
     radio.setDataRate(RF24_250KBPS);
     delay(5);
-    network.begin(90, this_node);
+    network.begin(90, node);
     radio.printDetails();
 
     jclass thisClass = env->GetObjectClass(thiz);
@@ -44,12 +44,12 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
   }
 
 JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send
-  (JNIEnv *env, jobject thiz, jstring msg){
+  (JNIEnv *env, jobject thiz, jint node, jstring msg){
       printf("enviando: %s", msg);
-      RF24NetworkHeader header2(other_node);
+      RF24NetworkHeader header2(node);
       if(!network.write(header2, &msg, sizeof(msg))){
-          printf("failed.\n");
+          return true;
       }else{
-          printf("enviou.\n");
+          return false;
       }
   }

@@ -40,7 +40,9 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
 
 JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv *env, jobject thiz, jint node, jstring jmsg)
 {
-  const char *msg = env->GetStringUTFChars(jmsg, 0);
+  const char *buf = env->GetStringUTFChars(jmsg, 0);
+  char msg[30];
+  strncpy(msg,buf,30);
   RF24NetworkHeader header2(node);
-  return network.write(header2, msg, sizeof(msg));
+  return network.write(header2, &msg, sizeof(msg));
 }

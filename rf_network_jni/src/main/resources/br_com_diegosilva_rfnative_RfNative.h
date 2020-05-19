@@ -9,11 +9,19 @@ extern "C" {
 #endif
 /*
  * Class:     br_com_diegosilva_rfnative_RfNative
- * Method:    getString
- * Signature: ()Ljava/lang/String;
+ * Method:    start
+ * Signature: ()V
  */
-JNIEXPORT jstring JNICALL Java_br_com_diegosilva_rfnative_RfNative_getString
+JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
   (JNIEnv *, jobject);
+
+/*
+ * Class:     br_com_diegosilva_rfnative_RfNative
+ * Method:    send
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

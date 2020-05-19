@@ -5,7 +5,7 @@ public class RunTest {
 
         new RfNative((instance, msg) -> {
             System.out.println(msg);
-            System.out.println("Enviou: "+instance.send(011, "testeeeee"));
+            System.out.println("Enviou: "+instance.send(011, "teste"));
         }).start(00);
 
     }

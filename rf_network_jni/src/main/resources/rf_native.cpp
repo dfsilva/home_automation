@@ -16,16 +16,6 @@ const uint16_t other_node = 01;
 
 char msg[30];
 
-void receive()
-{
-    if (network.available())
-    {
-        RF24NetworkHeader header;
-        network.read(header, &msg, sizeof(msg));
-        printf("Recebeu: %s", msg);
-    }
-}
-
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
   (JNIEnv *env, jobject thiz){
     radio.begin();
@@ -34,10 +24,22 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start
     network.begin(90, this_node);
     radio.printDetails();
 
+    jclass thisClass = env->GetObjectClass(thiz);
+    jmethodID onReceive = env->GetMethodID(thisClass, "onReceive", "(Ljava/lang/String;)V");
+
     while (1)
     {
         network.update();
-        receive();
+        if (network.available())
+        {
+            RF24NetworkHeader header;
+            network.read(header, &msg, sizeof(msg));
+            printf("Recebeu: %s", msg);
+            char *buf = (char*)malloc(30);
+            strcpy(buf, msg);
+            jstring jstrBuf = (*env)->NewStringUTF(env, buf);
+            env->CallVoidMethod(thiz, onReceive, jstrBuf);
+        }
     }
   }
 

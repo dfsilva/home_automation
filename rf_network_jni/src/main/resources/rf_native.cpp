@@ -31,7 +31,7 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
       // const char buf = (char *)malloc(30);
       // strcpy(buf, msg);
       // const char *buf = "teste_mensagem";
-      jstring jstrBuf = env->NewStringUTF(&msg);
+      jstring jstrBuf = env->NewStringUTF(msg);
       env->CallVoidMethod(thiz, onReceive, jstrBuf);
     }
   }

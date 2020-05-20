@@ -3,6 +3,11 @@ package br.com.diegosilva.rfnative;
 import java.io.IOException;
 
 public class RfNative {
+
+    public interface ReceiListener {
+        void onReceive(RfNative instance, String msg);
+    }
+
     static {
         try {
             NativeUtils.loadLibraryFromJar("/librfnative.so");
@@ -11,14 +16,19 @@ public class RfNative {
         }
     }
 
+    private ReceiListener receiListener;
+
+    public RfNative(ReceiListener receiListener) {
+        this.receiListener = receiListener;
+    }
 
     public native void start(int node);
 
     public native boolean send(int node, String msg);
 
     public void onReceive(String msg) {
-        System.out.println(msg);
-        System.out.println("Enviou: "+send(01, msg));
+        if (receiListener != null)
+            receiListener.onReceive(this, msg);
     }
 
 }

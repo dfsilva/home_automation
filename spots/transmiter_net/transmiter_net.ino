@@ -1,14 +1,13 @@
 #include <RF24Network.h>
+#include <RF24.h>
 #include <SPI.h>
-#include "nRF24L01.h"
-#include "RF24.h"
 #include "Adafruit_Si7021.h"
 
 RF24 radio(9, 10);
 
 RF24Network network(radio);
 
-const uint16_t this_node = 01;
+const uint16_t this_node = 02;
 const uint16_t other_node = 00;
 
 int last_pipe = 0;
@@ -53,7 +52,7 @@ void loop()
 {
   network.update();
   receive();
-  sendValues();
+//  sendValues();
 }
 
 void sendValues()

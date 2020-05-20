@@ -1,5 +1,4 @@
 #include "br_com_diegosilva_rfnative_RfNative.h"
-#include <stdio.h>
 #include <RF24/RF24.h>
 #include <RF24Network/RF24Network.h>
 #include <iostream>
@@ -8,7 +7,6 @@
 #include <time.h>
 
 RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);
-
 RF24Network network(radio);
 
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *env, jobject thiz, jint node)

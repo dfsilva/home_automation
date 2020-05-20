@@ -44,7 +44,7 @@ JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv 
   // strcpy(msg, msgbuf);
   RF24NetworkHeader header2(node);
   printf("enviando %s ", msg);
-  bool enviou = network.write(header2, &msg, sizeof(msg));
+  bool enviou = network.write(header2, msg, sizeof(msg));
   env->ReleaseStringUTFChars(jmsg, msg);
   return enviou;
 }

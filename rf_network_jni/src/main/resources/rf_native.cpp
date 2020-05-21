@@ -29,7 +29,7 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
       RF24NetworkHeader header;
       network.read(header, &msg, sizeof(msg));
       // const char *buf = "id:s_13";
-      jstring jmsg = env->NewStringUTF("id:s_13");
+      jstring jmsg = env->NewStringUTF("testeMensagem");
       env->CallVoidMethod(thiz, onReceive, jmsg);
     }
   }

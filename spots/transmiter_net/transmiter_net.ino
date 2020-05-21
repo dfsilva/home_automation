@@ -7,7 +7,7 @@ RF24 radio(9, 10);
 
 RF24Network network(radio);
 
-const uint16_t this_node = 02;
+const uint16_t this_node = 01;
 const uint16_t other_node = 00;
 
 int last_pipe = 0;
@@ -42,6 +42,7 @@ void setup()
   radio.begin();
   radio.setPALevel(RF24_PA_MAX);
   radio.setDataRate(RF24_250KBPS);
+  radio.setAutoAck(false);
   network.begin(90, this_node);
 
   pinMode(PIR_PIN, INPUT);

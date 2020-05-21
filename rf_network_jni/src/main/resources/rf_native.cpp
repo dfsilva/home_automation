@@ -1,7 +1,7 @@
 #include "br_com_diegosilva_rfnative_RfNative.h"
 #include <RF24/RF24.h>
 #include <RF24Network/RF24Network.h>
-#include <wiringPi.h>
+// #include <wiringPi.h>
 #include <iostream>
 #include <ctime>
 #include <stdio.h>
@@ -41,7 +41,12 @@ JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv 
   char msg[30];
   strncpy (msg, msgBuf, sizeof(msg) );
   RF24NetworkHeader header2(node);
-  bool enviou = network.write(header2, &msg, sizeof(msg));
+  bool sent = network.write(header2, &msg, sizeof(msg));
   env->ReleaseStringUTFChars(jmsg, msgBuf);
-  return enviou;
+  if(sent){
+      digitalWrite(0, HIGH); 
+  }else{
+      digitalWrite(0, LOW); 
+  }
+  return sent;
 }

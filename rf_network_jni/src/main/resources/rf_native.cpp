@@ -28,21 +28,19 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
       char msg[30];
       RF24NetworkHeader header;
       network.read(header, &msg, sizeof(msg));
-      char *buf = (char *)malloc(30);
-      strcpy(buf, msg);
-      jstring jstrBuf = env->NewStringUTF(buf);
-      env->CallVoidMethod(thiz, onReceive, jstrBuf);
-      free(buf);
+      jstring jmsg = env->NewStringUTF(msg);
+      env->CallVoidMethod(thiz, onReceive, jmsg);
     }
   }
 }
 
 JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv *env, jobject thiz, jint node, jstring jmsg)
 {
-  const char *msg = env->GetStringUTFChars(jmsg, 0);
+  const char *msgBuf = env->GetStringUTFChars(jmsg, 0);
+  char msg[30];
+  strncpy (msg, msgBuf, sizeof(msg) );
   RF24NetworkHeader header2(node);
-  printf("enviando %s ", msg);
-  bool enviou = network.write(header2, msg, sizeof(msg));
-  env->ReleaseStringUTFChars(jmsg, msg);
+  bool enviou = network.write(header2, &msg, sizeof(msg));
+  env->ReleaseStringUTFChars(jmsg, msgBuf);
   return enviou;
 }

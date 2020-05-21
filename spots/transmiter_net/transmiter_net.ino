@@ -7,12 +7,12 @@ RF24 radio(9, 10);
 
 RF24Network network(radio);
 
-const uint16_t this_node = 01;
+const uint16_t this_node = 02;
 const uint16_t other_node = 00;
 
 int last_pipe = 0;
 
-const int send_delay = 1000;
+const int send_delay = 300;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();

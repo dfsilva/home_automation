@@ -52,7 +52,7 @@ void loop()
 {
   network.update();
   receive();
-//  sendValues();
+  sendValues();
 }
 
 void sendValues()
@@ -88,10 +88,9 @@ void receive()
 {
   while (network.available())
   {
-    Serial.println(F("recebeu"));
     RF24NetworkHeader header;
     char msg[30];
-    network.read(header, &msg, sizeof(msg));
+    network.read(header, msg, sizeof(msg));
     Serial.println(msg);
   }
 }

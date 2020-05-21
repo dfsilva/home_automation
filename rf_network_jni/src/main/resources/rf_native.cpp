@@ -28,7 +28,6 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
       char msg[30];
       RF24NetworkHeader header;
       network.read(header, &msg, sizeof(msg));
-      // const char *buf = "id:s_13";
       jstring jmsg = env->NewStringUTF(msg);
       env->CallVoidMethod(thiz, onReceive, jmsg);
     }
@@ -41,8 +40,7 @@ JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv 
   char msg[30];
   strncpy (msg, msgBuf, sizeof(msg) );
   RF24NetworkHeader header2(node);
-  // printf("enviando %s ", msg);
   bool enviou = network.write(header2, &msg, sizeof(msg));
-  // env->ReleaseStringUTFChars(jmsg, msg);
+  env->ReleaseStringUTFChars(jmsg, msg);
   return enviou;
 }

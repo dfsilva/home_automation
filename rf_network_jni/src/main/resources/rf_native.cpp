@@ -12,6 +12,8 @@ RF24Network network(radio);
 
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *env, jobject thiz, jint node)
 {
+  pinMode(0, OUTPUT);
+
   radio.begin();
   radio.setDataRate(RF24_250KBPS);
   delay(5);

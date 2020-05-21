@@ -1,7 +1,7 @@
 #include "br_com_diegosilva_rfnative_RfNative.h"
 #include <RF24/RF24.h>
 #include <RF24Network/RF24Network.h>
-// #include <wiringPi.h>
+#include <wiringPi.h>
 #include <iostream>
 #include <ctime>
 #include <stdio.h>

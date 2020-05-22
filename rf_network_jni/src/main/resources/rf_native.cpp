@@ -7,12 +7,14 @@
 #include <stdio.h>
 #include <time.h>
 
+#define PIN_GREEN RPI_GPIO_P1_11
+#define PIN_RED RPI_V2_GPIO_P1_13
+
 RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);
 RF24Network network(radio);
 
 JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *env, jobject thiz, jint node)
 {
-  pinMode(0, OUTPUT);
 
   radio.begin();
   radio.setDataRate(RF24_250KBPS);
@@ -22,6 +24,9 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
 
   jclass thisClass = env->GetObjectClass(thiz);
   jmethodID onReceive = env->GetMethodID(thisClass, "onReceive", "(Ljava/lang/String;)V");
+
+  bcm2835_gpio_fsel(PIN_GREEN, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(PIN_RED, BCM2835_GPIO_FSEL_OUTP);
 
   while (1)
   {
@@ -46,9 +51,11 @@ JNIEXPORT jboolean JNICALL Java_br_com_diegosilva_rfnative_RfNative_send(JNIEnv 
   bool sent = network.write(header2, &msg, sizeof(msg));
   env->ReleaseStringUTFChars(jmsg, msgBuf);
   if(sent){
-      digitalWrite(0, HIGH); 
+      bcm2835_gpio_write(PIN_GREEN, HIGH); 
+      bcm2835_gpio_write(PIN_RED, LOW); 
   }else{
-      digitalWrite(0, LOW); 
+      bcm2835_gpio_write(PIN_GREEN, LOW); 
+      bcm2835_gpio_write(PIN_RED, HIGH); 
   }
   return sent;
 }

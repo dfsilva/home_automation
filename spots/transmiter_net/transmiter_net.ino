@@ -12,7 +12,7 @@ const uint16_t other_node = 00;
 
 int last_pipe = 0;
 
-const int send_delay = 300;
+const int send_delay = 500;
 unsigned long last_send = 0;
 
 Adafruit_Si7021 sensor = Adafruit_Si7021();
@@ -42,7 +42,6 @@ void setup()
   radio.begin();
   radio.setPALevel(RF24_PA_MAX);
   radio.setDataRate(RF24_250KBPS);
-  radio.setAutoAck(false);
   network.begin(90, this_node);
 
   pinMode(PIR_PIN, INPUT);

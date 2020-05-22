@@ -25,6 +25,10 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
+const byte GLED_PIN = 4;
+const byte RLED_PIN = 5;
+const byte BLED_PIN = 6;
+
 const char *MY_ID = "s_13";
 
 int send_now = 0;
@@ -46,6 +50,9 @@ void setup()
 
   pinMode(PIR_PIN, INPUT);
   pinMode(SMOKE_PIN, INPUT);
+  pinMode(GLED_PIN, OUTPUT);
+  pinMode(RLED_PIN, OUTPUT);
+  pinMode(BLED_PIN, OUTPUT);
 }
 
 void loop()
@@ -59,26 +66,25 @@ void sendValues()
 {
   if (millis() > (last_send + send_delay))
   {
-
-    switch(send_now){
-      case 0:
-        sendHum();
-        send_now = 1;
-        break;
-      case 1:
-        sendTemp();
-        send_now = 2;
-        break;
-      case 2:
-        sendPresence();
-        send_now = 3;
-        break;
-      case 3:
-        sendSmoke();
-        send_now = 0;
-        break;
-      }
-
+    switch (send_now)
+    {
+    case 0:
+      sendHum();
+      send_now = 1;
+      break;
+    case 1:
+      sendTemp();
+      send_now = 2;
+      break;
+    case 2:
+      sendPresence();
+      send_now = 3;
+      break;
+    case 3:
+      sendSmoke();
+      send_now = 0;
+      break;
+    }
     last_pipe = (last_pipe == 0) ? 1 : 0;
     last_send = millis();
   }
@@ -88,10 +94,26 @@ void receive()
 {
   while (network.available())
   {
+    digitalWrite(BLED_PIN, HIGH);
     RF24NetworkHeader header;
     char msg[30];
     network.read(header, msg, sizeof(msg));
     Serial.println(msg);
+  }
+  digitalWrite(BLED_PIN, LOW);
+}
+
+void updateSentLed(bool sent)
+{
+  if (sent)
+  {
+    digitalWrite(GLED_PIN, HIGH);
+    digitalWrite(RLED_PIN, LOW);
+  }
+  else
+  {
+    digitalWrite(GLED_PIN, LOW);
+    digitalWrite(RLED_PIN, HIGH);
   }
 }
 
@@ -99,18 +121,22 @@ bool sendHum()
 {
   last_hum = sensor.readHumidity();
   char msgHum[30] = "";
-  sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
+  sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n", MY_ID, (int)last_hum, (int)(last_hum * 100) % 100);
   RF24NetworkHeader header2(other_node);
-  return network.write(header2, &msgHum, sizeof(msgHum));
+  bool sent = network.write(header2, &msgHum, sizeof(msgHum));
+  updateSentLed(&sent);
+  return sent;
 }
 
 bool sendTemp()
 {
   last_temp = sensor.readTemperature();
   char msgTemp[30] = "";
-  sprintf(msgTemp,"id:%s,sen:tp,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
+  sprintf(msgTemp, "id:%s,sen:tp,val:%d.%02d\n", MY_ID, (int)last_temp, (int)(last_temp * 100) % 100);
   RF24NetworkHeader header2(other_node);
-  return network.write(header2, &msgTemp, sizeof(msgTemp));
+  bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
+  updateSentLed(&sent);
+  return sent;
 }
 
 bool sendPresence()
@@ -119,7 +145,9 @@ bool sendPresence()
   char msgTemp[30] = "";
   sprintf(msgTemp, "id:%s,sen:ps,val:%d\n", MY_ID, last_pir);
   RF24NetworkHeader header2(other_node);
-  return network.write(header2, &msgTemp, sizeof(msgTemp));
+  bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
+  updateSentLed(&sent);
+  return sent;
 }
 
 bool sendSmoke()
@@ -128,5 +156,7 @@ bool sendSmoke()
   char msgSmk[30] = "";
   sprintf(msgSmk, "id:%s,sen:sm,val:%d\n", MY_ID, last_smoke);
   RF24NetworkHeader header2(other_node);
-  network.write(header2, &msgSmk, sizeof(msgSmk));
+  bool sent = network.write(header2, &msgSmk, sizeof(msgSmk));
+  updateSentLed(&sent);
+  return sent;
 }

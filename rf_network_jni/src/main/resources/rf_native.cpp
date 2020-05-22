@@ -7,6 +7,7 @@
 #include <time.h>
 
 #define PIN_GREEN RPI_GPIO_P1_11
+#define PIN_BLUE RPI_GPIO_P1_12
 #define PIN_RED RPI_V2_GPIO_P1_13
 
 RF24 radio(RPI_V2_GPIO_P1_15, BCM2835_SPI_CS0, BCM2835_SPI_SPEED_8MHZ);
@@ -26,17 +27,21 @@ JNIEXPORT void JNICALL Java_br_com_diegosilva_rfnative_RfNative_start(JNIEnv *en
 
   bcm2835_gpio_fsel(PIN_GREEN, BCM2835_GPIO_FSEL_OUTP);
   bcm2835_gpio_fsel(PIN_RED, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(PIN_BLUE, BCM2835_GPIO_FSEL_OUTP);
 
   while (1)
   {
     network.update();
     if (network.available())
     {
+      bcm2835_gpio_write(PIN_BLUE, HIGH); 
       char msg[30];
       RF24NetworkHeader header;
       network.read(header, &msg, sizeof(msg));
       jstring jmsg = env->NewStringUTF(msg);
       env->CallVoidMethod(thiz, onReceive, jmsg);
+    }else{
+      bcm2835_gpio_write(PIN_BLUE, LOW); 
     }
   }
 }

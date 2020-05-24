@@ -8,6 +8,7 @@ import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.Device._
 import br.com.diegosilva.home.dto.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
+import br.com.diegosilva.home.serial.SerialInterface
 import jssc.SerialPort
 
 import scala.concurrent.duration._
@@ -44,7 +45,7 @@ object Device {
 class Device(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
   private var cancellable: Cancellable = null
-  private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
+  private var serialPort: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var registers: List[ActorRef[WsConnection.Command]] = List()
 
   override def onMessage(msg: Command): Behavior[Command] = {
@@ -70,7 +71,7 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
         if (cancellable != null)
           cancellable.cancel()
         context.log.info("Escrevendo mensagem na serial {}", message.encode)
-        serialPort.writeString(message.encode + "\n")
+        serialPort.send(0, message.encode + "\n")
         if (times < 3) retry(2.seconds, Device.Send(message, times + 1, null))
         if (replyTo != null) replyTo ! Device.SendResponse("Mensagem enviada")
         Behaviors.same

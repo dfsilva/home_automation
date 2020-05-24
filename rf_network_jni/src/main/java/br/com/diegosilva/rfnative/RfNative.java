@@ -18,7 +18,14 @@ public class RfNative {
 
     private ReceiListener receiListener;
 
+    public RfNative() {
+    }
+
     public RfNative(ReceiListener receiListener) {
+        this.receiListener = receiListener;
+    }
+
+    public void setReceiListener(ReceiListener receiListener) {
         this.receiListener = receiListener;
     }
 

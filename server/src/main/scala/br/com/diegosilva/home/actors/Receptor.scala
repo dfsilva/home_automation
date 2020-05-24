@@ -8,7 +8,7 @@ import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.Receptor.{Command, Start}
 import br.com.diegosilva.home.dto.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
-import jssc.SerialPort
+import br.com.diegosilva.home.serial.SerialInterface
 
 import scala.concurrent.duration._
 
@@ -28,7 +28,7 @@ object Receptor {
 
 class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
 
-  private var serialPort: SerialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
+  private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var cancellable: Cancellable = null
 
   override def onMessage(msg: Command): Behavior[Command] = {
@@ -43,33 +43,21 @@ class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command]
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {
     case restart: PreRestart => {
       context.log.debug("Reiniciando de recebimento de leituras")
-      this.serialPort = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
+      this.serialInterface = SerialPortFactory.get(context.system.settings.config)
       retry(5.seconds, new Receptor.Start)
       Behaviors.same
     }
   }
 
   private def startReceive() {
-    val message = new StringBuilder()
-    serialPort.addEventListener { event =>
-      if (event.isRXCHAR && event.getEventValue > 0) {
-        val buffer: Array[Byte] = serialPort.readBytes()
-        buffer.foreach { b =>
-          if ((b == '\n') && message.length > 0) {
-            val toProcess = message.toString.replaceAll("[^a-zA-Z0-9:,;._]", "")
-            context.log.info("Valor recebido {}", toProcess)
-            message.setLength(0)
-            val iotMessage = IOTMessage.decode(toProcess)
-            iotMessage match {
-              case Some(iotMessage) =>
-                getDevice(iotMessage.id) ! Device.Processar(iotMessage)
-              case _ =>
-            }
-          }
-          else message.append(b.toChar)
-        }
+    serialInterface.onReceive(toProcess => {
+      val iotMessage = IOTMessage.decode(toProcess)
+      iotMessage match {
+        case Some(iotMessage) =>
+          getDevice(iotMessage.id) ! Device.Processar(iotMessage)
+        case _ =>
       }
-    }
+    })
   }
 
   private def getDevice(id: String): EntityRef[Device.Command] = {

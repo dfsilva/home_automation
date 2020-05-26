@@ -46,6 +46,7 @@ void setup()
   radio.begin();
   radio.setPALevel(RF24_PA_MAX);
   radio.setDataRate(RF24_250KBPS);
+    
   network.begin(90, this_node);
 
   pinMode(PIR_PIN, INPUT);
@@ -124,7 +125,7 @@ bool sendHum()
   sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n", MY_ID, (int)last_hum, (int)(last_hum * 100) % 100);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgHum, sizeof(msgHum));
-  updateSentLed(&sent);
+  updateSentLed(sent);
   return sent;
 }
 
@@ -135,7 +136,7 @@ bool sendTemp()
   sprintf(msgTemp, "id:%s,sen:tp,val:%d.%02d\n", MY_ID, (int)last_temp, (int)(last_temp * 100) % 100);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
-  updateSentLed(&sent);
+  updateSentLed(sent);
   return sent;
 }
 
@@ -146,7 +147,7 @@ bool sendPresence()
   sprintf(msgTemp, "id:%s,sen:ps,val:%d\n", MY_ID, last_pir);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
-  updateSentLed(&sent);
+  updateSentLed(sent);
   return sent;
 }
 
@@ -157,6 +158,6 @@ bool sendSmoke()
   sprintf(msgSmk, "id:%s,sen:sm,val:%d\n", MY_ID, last_smoke);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgSmk, sizeof(msgSmk));
-  updateSentLed(&sent);
+  updateSentLed(sent);
   return sent;
 }

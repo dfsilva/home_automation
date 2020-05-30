@@ -1,5 +1,4 @@
-package br.com.diegosilva.home.dto
-
+package br.com.diegosilva.home.data
 
 object IOTMessage {
 

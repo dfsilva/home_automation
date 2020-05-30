@@ -19,8 +19,11 @@ libraryDependencies ++= {
     akka %% "akka-serialization-jackson" % akkaV,
     akka %% "akka-http" % akkaHttpV,
     akka %% "akka-http-spray-json" % akkaHttpV,
+    "org.flywaydb" % "flyway-core" % "6.4.2",
     akka %% "akka-slf4j" % akkaV,
     "com.typesafe.slick" %% "slick" % slickV,
+    "com.typesafe.slick" %% "slick-hikaricp" % slickV,
+    "org.postgresql" % "postgresql" % "42.2.12",
     "ch.qos.logback" % "logback-classic" % "1.2.3",
     "org.scream3r" % "jssc" % "2.8.0",
     "br.com.diegosilva" % "rf_network_jni" % "1.0-SNAPSHOT"

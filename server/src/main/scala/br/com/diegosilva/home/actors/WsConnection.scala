@@ -4,7 +4,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.dto.IOTMessage
+import br.com.diegosilva.home.data.IOTMessage
 
 object WsConnection {
 

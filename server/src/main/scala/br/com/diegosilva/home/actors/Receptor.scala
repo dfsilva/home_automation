@@ -6,7 +6,7 @@ import akka.actor.typed.{Behavior, PreRestart, Signal}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.Receptor.{Command, Start}
-import br.com.diegosilva.home.dto.IOTMessage
+import br.com.diegosilva.home.data.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import br.com.diegosilva.home.serial.SerialInterface
 

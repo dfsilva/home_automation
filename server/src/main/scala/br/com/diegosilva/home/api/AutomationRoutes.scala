@@ -14,7 +14,7 @@ import akka.util.Timeout
 import br.com.diegosilva.home.actors.WsConnection._
 import br.com.diegosilva.home.actors.{Device, WsConnection}
 import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
-import br.com.diegosilva.home.dto.IOTMessage
+import br.com.diegosilva.home.data.IOTMessage
 
 import scala.concurrent.Future
 import scala.concurrent.duration._

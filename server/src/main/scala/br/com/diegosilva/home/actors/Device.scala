@@ -1,16 +1,13 @@
 package br.com.diegosilva.home.actors
 
-import akka.actor.Cancellable
 import akka.actor.typed._
+import akka.actor.typed.pubsub.Topic
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.Device._
-import br.com.diegosilva.home.dto.IOTMessage
-import br.com.diegosilva.home.factory.SerialPortFactory
-import br.com.diegosilva.home.serial.SerialInterface
-
-import scala.concurrent.duration._
+import br.com.diegosilva.home.actors.TopicMessages.SendTopic
+import br.com.diegosilva.home.data.{IOTMessage, InterfaceType}
 
 object Device {
 
@@ -43,9 +40,12 @@ object Device {
 
 class Device(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
-  private var cancellable: Cancellable = null
-  private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var registers: List[ActorRef[WsConnection.Command]] = List()
+  private val interface: InterfaceType = context.system.settings.config.getEnum(Class[InterfaceType], "serial.interface")
+  private val topic = interface match {
+    case InterfaceType.rf24 => context.spawn(Topic[SendTopic](TopicMessages.RF24TOPIC), "RF24TOPIC")
+    case InterfaceType.rxtx => context.spawn(Topic[SendTopic](TopicMessages.RXTXTOPIC), "RXTXTOPIC")
+  }
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
@@ -67,12 +67,13 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
         Behaviors.same
       }
       case Send(message, times, replyTo) => {
-        if (cancellable != null)
-          cancellable.cancel()
-        context.log.info("Escrevendo mensagem na serial {}", message.encode)
-        serialInterface.send(0, message.encode + "\n")
-        if (times < 3) retry(2.seconds, Device.Send(message, times + 1, null))
-        if (replyTo != null) replyTo ! Device.SendResponse("Mensagem enviada")
+        topic ! Topic.Publish(TopicMessages.SendTopic(message))
+        //        if (cancellable != null)
+        //          cancellable.cancel()
+        //        context.log.info("Escrevendo mensagem na serial {}", message.encode)
+        //        serialInterface.send(0, message.encode + "\n")
+        //        if (times < 3) retry(2.seconds, Device.Send(message, times + 1, null))
+        //        if (replyTo != null) replyTo ! Device.SendResponse("Mensagem enviada")
         Behaviors.same
       }
     }
@@ -81,13 +82,13 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {
     case restart: PreRestart => {
       context.log.debug("Reiniciando de recebimento de leituras")
-      this.serialInterface = SerialPortFactory.get(context.system.settings.config.getString("serial.port"))
+      //      this.serialInterface = SerialPortFactory.get(context.system.settings.config)
       Behaviors.same
     }
   }
 
-  private def retry(duration: FiniteDuration, cmd: Device.Command): Unit = {
-    if (this.cancellable != null) this.cancellable.cancel
-    this.cancellable = context.scheduleOnce(duration, context.self, cmd)
-  }
+  //  private def retry(duration: FiniteDuration, cmd: Device.Command): Unit = {
+  ////    if (this.cancellable != null) this.cancellable.cancel
+  ////    this.cancellable = context.scheduleOnce(duration, context.self, cmd)
+  //  }
 }

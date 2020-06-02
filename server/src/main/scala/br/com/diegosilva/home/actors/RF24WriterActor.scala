@@ -21,7 +21,7 @@ object RF24WriterActor {
 
   final case class Start() extends Command
 
-  private final case class WrappedBackendResponse(response: TopicMessages.SendTopic) extends Command
+  final case class WrappedBackendResponse(response: TopicMessages.SendTopic) extends Command
 
   def init(system: ActorSystem[_], uid: String): Unit = {
     val proxy: ActorRef[RF24WriterActor.Command] = ClusterSingleton(system).init(

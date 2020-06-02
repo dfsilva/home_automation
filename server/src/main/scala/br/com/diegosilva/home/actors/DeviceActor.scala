@@ -41,7 +41,7 @@ object DeviceActor {
 class DeviceActor(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
   private var registers: List[ActorRef[WsConnectionActor.Command]] = List()
-  private val interface: InterfaceType = context.system.settings.config.getEnum(Class[InterfaceType], "serial.interface")
+  private val interface: InterfaceType = context.system.settings.config.getEnum(classOf[InterfaceType], "serial.interface")
   private val topic = interface match {
     case InterfaceType.rf24 => context.spawn(Topic[SendTopic](TopicMessages.RF24TOPIC), "RF24TOPIC")
     case InterfaceType.rxtx => context.spawn(Topic[SendTopic](TopicMessages.RXTXTOPIC), "RXTXTOPIC")

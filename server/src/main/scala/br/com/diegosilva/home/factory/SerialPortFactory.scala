@@ -14,7 +14,7 @@ object SerialPortFactory {
 
   def get(config: Config): SerialInterface = {
     if (_instance == null) {
-      val interface = config.getEnum(SerialType.getClass, "serial.interface")
+      val interface = config.getEnum(SerialType.getClass.getClass, "serial.interface")
       interface match {
         case SerialType.RXTX => {
           _instance = new RxTxSerialInterface(portName = config.getString("serial.port"))

@@ -6,12 +6,17 @@ import akka.actor.typed.pubsub.Topic
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.typed.{ClusterSingleton, SingletonActor}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.RF24WriterActor.{Start, WrappedBackendResponse}
-import br.com.diegosilva.home.actors.TopicMessages.SendTopic
+import br.com.diegosilva.home.actors.RF24WriterActor.{Start, TopicMessage}
+import br.com.diegosilva.home.data.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import br.com.diegosilva.home.serial.SerialInterface
 
 import scala.concurrent.duration._
+
+object Topics{
+  final val RF24TOPIC:String = "rf24_topic_message"
+  final val RXTXTOPIC:String = "rxtx_topic_message"
+}
 
 object RF24WriterActor {
 
@@ -19,9 +24,11 @@ object RF24WriterActor {
 
   sealed trait Response extends CborSerializable
 
+  final case class TopicMessage(message: IOTMessage) extends Command
+
   final case class Start() extends Command
 
-  final case class WrappedBackendResponse(response: TopicMessages.SendTopic) extends Command
+//  final case class WrappedBackendResponse(response: TopicMessages.TopicMessage) extends Command
 
   def init(system: ActorSystem[_], uid: String): Unit = {
     val proxy: ActorRef[RF24WriterActor.Command] = ClusterSingleton(system).init(
@@ -39,10 +46,9 @@ class RF24WriterActor(context: ActorContext[RF24WriterActor.Command]) extends Ab
 
   private var cancellable: Cancellable = null
   private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
+  private val topic = context.spawn(Topic[TopicMessage](Topics.RF24TOPIC), "RF24TOPIC")
 
-  private val topic = context.spawn(Topic[TopicMessages.SendTopic](TopicMessages.RF24TOPIC), "RF24TOPIC")
-
-  private val mapper: ActorRef[TopicMessages.SendTopic] = context.messageAdapter(rsp => WrappedBackendResponse(rsp))
+//  private val mapper: ActorRef[TopicMessage] = context.messageAdapter(rsp => WrappedBackendResponse(rsp))
 
   override def onMessage(msg: RF24WriterActor.Command): Behavior[RF24WriterActor.Command] = {
     msg match {
@@ -50,18 +56,14 @@ class RF24WriterActor(context: ActorContext[RF24WriterActor.Command]) extends Ab
         topic ! Topic.Subscribe(context.self)
         Behaviors.same
       }
-      case wrapped: WrappedBackendResponse => {
-        wrapped.response match {
-          case SendTopic(iotMsg) => {
-            if (cancellable != null)
-              cancellable.cancel()
-            context.log.info("Escrevendo mensagem na serial {}", iotMsg.encode)
-            if (!serialInterface.send(Integer.parseInt(iotMsg.id), iotMsg.encode + "\n")) {
-                context.log.error("Erro ao enviar!!!!!")
-            }
-            Behaviors.same
-          }
+      case TopicMessage(iotMsg) => {
+        if (cancellable != null)
+          cancellable.cancel()
+        context.log.info("Escrevendo mensagem na serial {}", iotMsg.encode)
+        if (!serialInterface.send(Integer.parseInt(iotMsg.id), iotMsg.encode + "\n")) {
+          context.log.error("Erro ao enviar!!!!!")
         }
+        Behaviors.same
       }
       //      case Send(message, times, replyTo) => {
       //        if (cancellable != null)

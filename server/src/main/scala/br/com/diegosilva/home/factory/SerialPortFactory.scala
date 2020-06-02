@@ -1,12 +1,10 @@
 package br.com.diegosilva.home.factory
 
+import br.com.diegosilva.home.data.InterfaceType
 import br.com.diegosilva.home.serial.{Rf24SerialInterface, RxTxSerialInterface, SerialInterface}
 import com.typesafe.config.Config
 
-object SerialType extends Enumeration {
-  val RXTX = Value("rxtx")
-  val RF24 = Value("rf24")
-}
+
 
 object SerialPortFactory {
 
@@ -14,12 +12,12 @@ object SerialPortFactory {
 
   def get(config: Config): SerialInterface = {
     if (_instance == null) {
-      val interface = config.getEnum(SerialType.getClass.getClass, "serial.interface")
+      val interface = InterfaceType.withName(config.getString("serial.interface"))
       interface match {
-        case SerialType.RXTX => {
+        case InterfaceType.RXTX => {
           _instance = new RxTxSerialInterface(portName = config.getString("serial.port"))
         }
-        case SerialType.RF24 => {
+        case InterfaceType.RF24 => {
           _instance = new Rf24SerialInterface(config.getInt("rfnetwork.node"))
         }
       }

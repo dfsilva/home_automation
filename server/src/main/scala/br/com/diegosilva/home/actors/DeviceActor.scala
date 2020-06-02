@@ -6,7 +6,7 @@ import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.DeviceActor._
-import br.com.diegosilva.home.actors.TopicMessages.SendTopic
+import br.com.diegosilva.home.actors.RF24WriterActor.TopicMessage
 import br.com.diegosilva.home.data.{IOTMessage, InterfaceType}
 
 object DeviceActor {
@@ -41,10 +41,10 @@ object DeviceActor {
 class DeviceActor(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
   private var registers: List[ActorRef[WsConnectionActor.Command]] = List()
-  private val interface: InterfaceType = context.system.settings.config.getEnum(classOf[InterfaceType], "serial.interface")
+  private val interface = InterfaceType.withName(context.system.settings.config.getString("serial.interface"))
   private val topic = interface match {
-    case InterfaceType.rf24 => context.spawn(Topic[SendTopic](TopicMessages.RF24TOPIC), "RF24TOPIC")
-    case InterfaceType.rxtx => context.spawn(Topic[SendTopic](TopicMessages.RXTXTOPIC), "RXTXTOPIC")
+    case InterfaceType.RF24 => context.spawn(Topic[TopicMessage](Topics.RF24TOPIC), "RF24TOPIC")
+    case InterfaceType.RXTX => context.spawn(Topic[TopicMessage](Topics.RXTXTOPIC), "RXTXTOPIC")
   }
 
   override def onMessage(msg: Command): Behavior[Command] = {
@@ -67,7 +67,7 @@ class DeviceActor(context: ActorContext[Command], val entityId: String) extends 
         Behaviors.same
       }
       case Send(message, times, replyTo) => {
-        topic ! Topic.Publish(TopicMessages.SendTopic(message))
+        topic ! Topic.Publish(RF24WriterActor.TopicMessage(message))
         //        if (cancellable != null)
         //          cancellable.cancel()
         //        context.log.info("Escrevendo mensagem na serial {}", message.encode)

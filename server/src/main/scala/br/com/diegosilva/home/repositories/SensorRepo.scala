@@ -47,13 +47,15 @@ class CommandTable(tag: Tag) extends Table[Command](tag, "Commands") {
   def * : ProvenShape[Command] = (id, sensorId, deviceId, value, description) <> (Command.tupled, Command.unapply)
 }
 
-case class Sensor(uid: String, triggers: Seq[Trigger] = Seq(), commands: Seq[Command] = Seq())
+case class Sensor(id: String, deviceId: Int, dataType: String, triggers: Seq[Trigger] = Seq(), commands: Seq[Command] = Seq())
 
-class SensorTable(tag: Tag) extends Table[(String, Int)](tag, "Commands") {
+class SensorTable(tag: Tag) extends Table[(String, Int)](tag, "Sensors") {
 
-  def id: Rep[String] = column[String]("id", O.PrimaryKey)
+  def id: Rep[String] = column[String]("id", O.PrimaryKey, O.AutoInc)
 
   def deviceId: Rep[Int] = column[Int]("device_id", O.PrimaryKey)
+
+  def dataType: Rep[String] = column[String]("data_type")
 
   def * : ProvenShape[(String, Int)] = (id, deviceId)
 }

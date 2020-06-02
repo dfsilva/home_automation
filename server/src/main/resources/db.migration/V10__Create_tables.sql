@@ -14,22 +14,28 @@ CREATE TABLE Devices
 
 CREATE TABLE Sensors
 (
+    id char(3) PRIMARY KEY,
     device_id BIGINT PRIMARY KEY,
-    sensor_id char(3) PRIMARY KEY,
     data_type VARCHAR NOT NULL --int, string, float, bool
+);
+
+CREATE TABLE Commands
+(
+    id BIGINT PRIMARY KEY,
+    sensor_id char(3) PRIMARY KEY,
+    device_id BIGINT PRIMARY KEY,
+    value VARCHAR NOT NULL,
+    description VARCHAR NOT NULL
 );
 
 CREATE TABLE Triggers
 (
-    device_id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY,
     sensor_id char(3) PRIMARY KEY,
-    to_sensor_id char(3) PRIMARY KEY,
-    init_value VARCHAR NOT NULL,
-    end_value VARCHAR NULL,
-    duration VARCHAR
+    device_id BIGINT PRIMARY KEY,
+    to_sensor_id char(3),
+    to_device_id BIGINT PRIMARY KEY,
+    activate_value VARCHAR NOT NULL,
+    set_value VARCHAR NOT NULL,
+    duration VARCHAR NULL
 );
-
-ALTER TABLE Sensors
-    ADD CONSTRAINT sensor_device_fk FOREIGN KEY (device_id) REFERENCES Devices (id) ON UPDATE RESTRICT ON DELETE CASCADE;
-ALTER TABLE Triggers
-    ADD CONSTRAINT trigger_sensor_fk FOREIGN KEY (device_id, sensor_id) REFERENCES Sensors (device_id, sensor_id) ON UPDATE RESTRICT ON DELETE CASCADE;

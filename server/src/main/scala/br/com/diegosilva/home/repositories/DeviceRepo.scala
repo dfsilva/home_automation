@@ -5,13 +5,13 @@ import slick.lifted.ProvenShape
 
 case class Device(id: Int, name: String)
 
-class DeviceTable(tag: Tag) extends Table[(Int, String)](tag, "Devices") {
+class DeviceTable(tag: Tag) extends Table[Device](tag, "Devices") {
 
-  def id: Rep[Int] = column[Int]("id", O.PrimaryKey)
+  def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
   def name: Rep[String] = column[String]("name")
 
-  def * : ProvenShape[(Int, String)] = (id, name)
+  def * : ProvenShape[Device] = (id, name) <> (Device.tupled, Device.unapply)
 
 }
 

@@ -6,14 +6,14 @@ import akka.actor.typed.pubsub.Topic
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.typed.{ClusterSingleton, SingletonActor}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.RF24Writter.{Start, WrappedBackendResponse}
+import br.com.diegosilva.home.actors.RF24WriterActor.{Start, WrappedBackendResponse}
 import br.com.diegosilva.home.actors.TopicMessages.SendTopic
 import br.com.diegosilva.home.factory.SerialPortFactory
 import br.com.diegosilva.home.serial.SerialInterface
 
 import scala.concurrent.duration._
 
-object RF24Writter {
+object RF24WriterActor {
 
   sealed trait Command extends CborSerializable
 
@@ -24,18 +24,18 @@ object RF24Writter {
   private final case class WrappedBackendResponse(response: TopicMessages.SendTopic) extends Command
 
   def init(system: ActorSystem[_], uid: String): Unit = {
-    val proxy: ActorRef[RF24Writter.Command] = ClusterSingleton(system).init(
+    val proxy: ActorRef[RF24WriterActor.Command] = ClusterSingleton(system).init(
       SingletonActor(Behaviors.supervise(create())
         .onFailure[Exception](SupervisorStrategy.restart), s"Rf24Writter_$uid"))
-    proxy ! RF24Writter.Start()
+    proxy ! RF24WriterActor.Start()
   }
 
   def create(): Behavior[Command] =
-    Behaviors.setup(context => new RF24Writter(context))
+    Behaviors.setup(context => new RF24WriterActor(context))
 
 }
 
-class RF24Writter(context: ActorContext[RF24Writter.Command]) extends AbstractBehavior[RF24Writter.Command](context) {
+class RF24WriterActor(context: ActorContext[RF24WriterActor.Command]) extends AbstractBehavior[RF24WriterActor.Command](context) {
 
   private var cancellable: Cancellable = null
   private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
@@ -44,7 +44,7 @@ class RF24Writter(context: ActorContext[RF24Writter.Command]) extends AbstractBe
 
   private val mapper: ActorRef[TopicMessages.SendTopic] = context.messageAdapter(rsp => WrappedBackendResponse(rsp))
 
-  override def onMessage(msg: RF24Writter.Command): Behavior[RF24Writter.Command] = {
+  override def onMessage(msg: RF24WriterActor.Command): Behavior[RF24WriterActor.Command] = {
     msg match {
       case Start() => {
         topic ! Topic.Subscribe(context.self)
@@ -75,7 +75,7 @@ class RF24Writter(context: ActorContext[RF24Writter.Command]) extends AbstractBe
     }
   }
 
-  override def onSignal: PartialFunction[Signal, Behavior[RF24Writter.Command]] = {
+  override def onSignal: PartialFunction[Signal, Behavior[RF24WriterActor.Command]] = {
     case restart: PreRestart => {
       context.log.debug("Reiniciando de recebimento de leituras")
       this.serialInterface = SerialPortFactory.get(context.system.settings.config)
@@ -83,7 +83,7 @@ class RF24Writter(context: ActorContext[RF24Writter.Command]) extends AbstractBe
     }
   }
 
-  private def retry(duration: FiniteDuration, cmd: RF24Writter.Command): Unit = {
+  private def retry(duration: FiniteDuration, cmd: RF24WriterActor.Command): Unit = {
     if (this.cancellable != null) this.cancellable.cancel
     this.cancellable = context.scheduleOnce(duration, context.self, cmd)
   }

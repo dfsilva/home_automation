@@ -5,11 +5,11 @@ import akka.actor.typed.pubsub.Topic
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.Device._
+import br.com.diegosilva.home.actors.DeviceActor._
 import br.com.diegosilva.home.actors.TopicMessages.SendTopic
 import br.com.diegosilva.home.data.{IOTMessage, InterfaceType}
 
-object Device {
+object DeviceActor {
 
   sealed trait Command extends CborSerializable
 
@@ -21,9 +21,9 @@ object Device {
 
   final case class SendResponse(message: String) extends Response
 
-  final case class Register(actorRef: ActorRef[WsConnection.Command]) extends Command
+  final case class Register(actorRef: ActorRef[WsConnectionActor.Command]) extends Command
 
-  final case class UnRegister(actorRef: ActorRef[WsConnection.Command]) extends Command
+  final case class UnRegister(actorRef: ActorRef[WsConnectionActor.Command]) extends Command
 
   val EntityKey: EntityTypeKey[Command] = EntityTypeKey[Command]("device")
 
@@ -34,13 +34,13 @@ object Device {
   }
 
   def create(deviceid: String): Behavior[Command] =
-    Behaviors.setup(context => new Device(context, deviceid))
+    Behaviors.setup(context => new DeviceActor(context, deviceid))
 
 }
 
-class Device(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
+class DeviceActor(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
-  private var registers: List[ActorRef[WsConnection.Command]] = List()
+  private var registers: List[ActorRef[WsConnectionActor.Command]] = List()
   private val interface: InterfaceType = context.system.settings.config.getEnum(Class[InterfaceType], "serial.interface")
   private val topic = interface match {
     case InterfaceType.rf24 => context.spawn(Topic[SendTopic](TopicMessages.RF24TOPIC), "RF24TOPIC")
@@ -52,7 +52,7 @@ class Device(context: ActorContext[Command], val entityId: String) extends Abstr
       case Processar(message) => {
         context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
         registers.foreach { actorRef =>
-          actorRef ! WsConnection.Notify(message)
+          actorRef ! WsConnectionActor.Notify(message)
         }
         Behaviors.same
       }

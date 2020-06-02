@@ -6,7 +6,7 @@ import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.data.IOTMessage
 
-object WsConnection {
+object WsConnectionActor {
 
   sealed trait Command extends CborSerializable
 
@@ -24,32 +24,32 @@ object WsConnection {
 
 }
 
-class WsConnection(val userName: String) {
+class WsConnectionActor(val userName: String) {
 
-  private var actorRef: ActorRef[WsConnection.Command] = null
+  private var actorRef: ActorRef[WsConnectionActor.Command] = null
 
-  def create(): Behavior[WsConnection.Command] = Behaviors.setup { context =>
+  def create(): Behavior[WsConnectionActor.Command] = Behaviors.setup { context =>
     val sharding = ClusterSharding(context.system)
-    var devices: List[EntityRef[Device.Command]] = List()
+    var devices: List[EntityRef[DeviceActor.Command]] = List()
 
-    Behaviors.receiveMessage[WsConnection.Command] {
-      case WsConnection.Register(uids) =>
+    Behaviors.receiveMessage[WsConnectionActor.Command] {
+      case WsConnectionActor.Register(uids) =>
         uids.foreach { uid =>
-          val entity = sharding.entityRefFor(Device.EntityKey, uid)
+          val entity = sharding.entityRefFor(DeviceActor.EntityKey, uid)
           devices = devices :+ entity
-          entity ! Device.Register(context.self)
+          entity ! DeviceActor.Register(context.self)
         }
         Behaviors.same
-      case WsConnection.Notify(message) =>
-        actorRef ! WsConnection.Notify(message)
+      case WsConnectionActor.Notify(message) =>
+        actorRef ! WsConnectionActor.Notify(message)
         Behaviors.same
-      case WsConnection.Connect(actorRef) =>
+      case WsConnectionActor.Connect(actorRef) =>
         this.actorRef = actorRef
-        this.actorRef ! WsConnection.Connected(message = "conectado", userName = userName)
+        this.actorRef ! WsConnectionActor.Connected(message = "conectado", userName = userName)
         Behaviors.same
-      case WsConnection.Disconnected => {
+      case WsConnectionActor.Disconnected => {
         devices foreach { entity =>
-          entity ! Device.UnRegister(context.self)
+          entity ! DeviceActor.UnRegister(context.self)
         }
         Behaviors.stopped
       }

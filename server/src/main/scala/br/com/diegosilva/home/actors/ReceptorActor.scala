@@ -5,28 +5,28 @@ import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.actor.typed.{Behavior, PreRestart, Signal}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.actors.Receptor.{Command, Start}
+import br.com.diegosilva.home.actors.ReceptorActor.{Command, Start}
 import br.com.diegosilva.home.data.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import br.com.diegosilva.home.serial.SerialInterface
 
 import scala.concurrent.duration._
 
-object Receptor {
+object ReceptorActor {
 
   sealed trait Command extends CborSerializable
 
   final case class Start() extends Command
 
   def apply(): Behavior[Command] =
-    Behaviors.setup(context => new Receptor(context))
+    Behaviors.setup(context => new ReceptorActor(context))
 
   def create(): Behavior[Command] = {
-    Behaviors.setup(context => new Receptor(context))
+    Behaviors.setup(context => new ReceptorActor(context))
   }
 }
 
-class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
+class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
 
   private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var cancellable: Cancellable = null
@@ -44,7 +44,7 @@ class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command]
     case restart: PreRestart => {
       context.log.debug("Reiniciando de recebimento de leituras")
       this.serialInterface = SerialPortFactory.get(context.system.settings.config)
-      retry(5.seconds, new Receptor.Start)
+      retry(5.seconds, new ReceptorActor.Start)
       Behaviors.same
     }
   }
@@ -54,18 +54,18 @@ class Receptor(context: ActorContext[Command]) extends AbstractBehavior[Command]
       val iotMessage = IOTMessage.decode(toProcess)
       iotMessage match {
         case Some(iotMessage) =>
-          getDevice(iotMessage.id) ! Device.Processar(iotMessage)
+          getDevice(iotMessage.id) ! DeviceActor.Processar(iotMessage)
         case _ =>
       }
     })
   }
 
-  private def getDevice(id: String): EntityRef[Device.Command] = {
+  private def getDevice(id: String): EntityRef[DeviceActor.Command] = {
     val sharding = ClusterSharding(context.system)
-    sharding.entityRefFor(Device.EntityKey, id)
+    sharding.entityRefFor(DeviceActor.EntityKey, id)
   }
 
-  private def retry(duration: FiniteDuration, cmd: Receptor.Command): Unit = {
+  private def retry(duration: FiniteDuration, cmd: ReceptorActor.Command): Unit = {
     if (this.cancellable != null) this.cancellable.cancel
     this.cancellable = context.scheduleOnce(duration, context.self, cmd)
   }

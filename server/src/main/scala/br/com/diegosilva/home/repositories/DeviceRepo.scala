@@ -3,7 +3,7 @@ package br.com.diegosilva.home.repositories
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 
-case class Device(id: Int, name: String)
+case class Device(id: Int, name: String, type: )
 
 class DeviceTable(tag: Tag) extends Table[Device](tag, "Devices") {
 

@@ -1,17 +1,32 @@
 package br.com.diegosilva.home.database
 
 import akka.actor.typed.{ActorSystem, Extension, ExtensionId}
+import org.flywaydb.core.Flyway
 import slick.jdbc.PostgresProfile.api._
 
-class DatabasePool(system: ActorSystem[_]) extends Extension {
+class DatabasePoolExtensionImpl(system: ActorSystem[_], val database: Database) extends Extension {
 
-  lazy val _db: Database = Database.forConfig("database")
-
-  def connection(): Database = _db
+  def connection(): Database = database
 }
 
-object DatabasePool extends ExtensionId[DatabasePool] {
-  def createExtension(system: ActorSystem[_]): DatabasePool = new DatabasePool(system)
+object DatabasePool extends ExtensionId[DatabasePoolExtensionImpl] {
+  def createExtension(system: ActorSystem[_]): DatabasePoolExtensionImpl = {
+    val db = initDb()
 
-  def get(system: ActorSystem[_]): DatabasePool = apply(system)
+    val flyway = Flyway.configure.dataSource(db.source)
+
+    val ext = new DatabasePoolExtensionImpl(system, db)
+
+    system.whenTerminated.andThen(_ => {
+      db.close()
+    })(system.executionContext)
+
+    ext
+  }
+
+  private def initDb(): Database = {
+    Database.forConfig("database")
+  }
+
+  def get(system: ActorSystem[_]): DatabasePoolExtensionImpl = apply(system)
 }

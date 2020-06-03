@@ -67,7 +67,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
             },
             post {
               entity(as[AddDevice]) { data =>
-                complete(db.run(DeviceRepo.add(new Device(name = data.name, devType = data.devType))))
+                complete(db.run(DeviceRepo.add(Device(name = data.name, devType = data.devType))))
               }
             }
           )

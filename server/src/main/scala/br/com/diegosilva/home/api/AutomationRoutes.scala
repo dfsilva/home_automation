@@ -13,24 +13,25 @@ import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
 import br.com.diegosilva.home.actors.WsConnectionActor._
 import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
-import br.com.diegosilva.home.api.AutomationRoutes.SendMessage
+import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.IOTMessage
+import br.com.diegosilva.home.database.DatabasePool
+import br.com.diegosilva.home.repositories.{Device, DeviceRepo}
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
 object AutomationRoutes {
-
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
+  final case class AddDevice(name: String, devType: String)
 
 }
 
-
 class AutomationRoutes()(implicit context: ActorContext[_]) {
 
-  implicit private val timeout: Timeout =
-    Timeout.create(context.system.settings.config.getDuration("automation.askTimeout"))
+  implicit private val timeout: Timeout = Timeout.create(context.system.settings.config.getDuration("automation.askTimeout"))
   private val sharding = ClusterSharding(context.system)
+  protected val db = DatabasePool(context.system).database
 
   import AutomationRoutes._
   import JsonFormats._
@@ -48,19 +49,28 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
           }
         },
         pathPrefix("device") {
-          post {
-            entity(as[SendMessage]) { data =>
-              val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
-              val reply: Future[DeviceActor.Response] =
-                entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
-              onSuccess(reply) {
-                case DeviceActor.SendResponse(summary) =>
-                  complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
-                case _ =>
-                  complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+          concat(
+            pathPrefix("send"){
+              post {
+                entity(as[SendMessage]) { data =>
+                  val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
+                  val reply: Future[DeviceActor.Response] =
+                    entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
+                  onSuccess(reply) {
+                    case DeviceActor.SendResponse(summary) =>
+                      complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
+                    case _ =>
+                      complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+                  }
+                }
+              }
+            },
+            post {
+              entity(as[AddDevice]) { data =>
+                complete(db.run(DeviceRepo.add(new Device(name = data.name, devType = data.devType))))
               }
             }
-          }
+          )
         },
         path("ws" / Remaining) { userName: String =>
           handleWebSocketMessages(wsUser(userName, context))
@@ -114,6 +124,7 @@ object JsonFormats {
 
   implicit val iotMessage: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
+  implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat2(AddDevice)
   implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
   implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)
 

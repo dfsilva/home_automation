@@ -329,3 +329,1026 @@ java.net.BindException: [/127.0.0.1:2551] Address already in use
 [2020-06-02 14:19:58,888] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@190fa818 {}
 [2020-06-02 14:19:58,958] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [Automation-akka.actor.default-dispatcher-33] - database - Shutdown initiated... {}
 [2020-06-02 14:19:58,958] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [Automation-akka.actor.default-dispatcher-33] - database - Before shutdown stats (total=9, active=0, idle=9, waiting=0) {}
+[2020-06-02 16:09:23,110] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 16:09:23,114] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 16:09:23,115] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 16:09:23,116] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 16:09:23,117] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 16:09:23,118] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 16:09:23,120] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 16:09:23,152] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 16:09:40,236] [WARN] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Thread starvation or clock leap detected (housekeeper delta=47s88ms). {}
+[2020-06-02 16:09:40,238] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=0) {}
+[2020-06-02 16:09:49,593] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@71b0cd8c {}
+[2020-06-02 16:09:49,677] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@51b9c4e1 {}
+[2020-06-02 16:09:49,757] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@5f384240 {}
+[2020-06-02 16:09:49,837] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@2942ba9b {}
+[2020-06-02 16:09:49,914] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@5644a76 {}
+[2020-06-02 16:09:49,994] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@105795cc {}
+[2020-06-02 16:09:50,099] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@369ec154 {}
+[2020-06-02 16:09:50,215] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@5d54b980 {}
+[2020-06-02 16:09:50,290] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7c187fb9 {}
+[2020-06-02 16:09:50,368] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7859fffe {}
+[2020-06-02 16:09:50,368] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - After adding stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 16:11:20,070] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 16:11:20,074] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 16:11:20,074] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 16:11:20,074] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 16:11:20,075] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 16:11:20,076] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 16:11:20,077] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 16:11:20,079] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 16:11:20,110] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 16:11:42,075] [WARN] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Thread starvation or clock leap detected (housekeeper delta=51s968ms). {}
+[2020-06-02 16:11:42,076] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=0) {}
+[2020-06-02 16:11:47,934] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 16:11:47,937] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 16:11:47,937] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 16:11:47,976] [WARN] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Unable to resolve location classpath:db/migration. Note this warning will become an error in Flyway 7. {}
+[2020-06-02 16:11:47,976] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 16:11:48,067] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@5b63353b {}
+[2020-06-02 16:11:48,093] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 16:11:48,093] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 16:11:48,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 16:11:48,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas:  {}
+[2020-06-02 16:11:48,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: null {}
+[2020-06-02 16:11:48,125] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 16:11:48,154] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@3456e43d {}
+[2020-06-02 16:11:48,234] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@1a40fd19 {}
+[2020-06-02 16:11:48,315] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@77c92bbd {}
+[2020-06-02 16:11:48,358] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 16:11:48,383] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 0 migrations (execution time 00:00.023s) {}
+[2020-06-02 16:11:48,383] [WARN] [org.flywaydb.core.internal.command.DbValidate] [] [main] - No migrations found. Are your locations set up correctly? {}
+[2020-06-02 16:11:48,407] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@74a4127d {}
+[2020-06-02 16:11:48,474] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 72 of 278M {}
+[2020-06-02 16:11:48,490] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@54dd9dc4 {}
+[2020-06-02 16:11:48,569] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@65595496 {}
+[2020-06-02 16:11:48,647] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@9ce6f7f {}
+[2020-06-02 16:11:48,721] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@433a06a0 {}
+[2020-06-02 16:11:48,802] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@27974c2d {}
+[2020-06-02 16:11:48,803] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - After adding stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 17:15:52,540] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 17:15:52,544] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 17:15:52,544] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 17:15:52,544] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 17:15:52,544] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 17:15:52,544] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 17:15:52,545] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 17:15:52,546] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 17:15:52,547] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 17:15:52,548] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 17:15:52,572] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 17:15:52,596] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 17:15:52,599] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 17:15:52,599] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 17:15:52,642] [WARN] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Unable to resolve location classpath:db/migration. Note this warning will become an error in Flyway 7. {}
+[2020-06-02 17:15:52,642] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 17:15:52,672] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 17:15:52,891] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@21d5c71e {}
+[2020-06-02 17:15:52,922] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 17:15:52,922] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 17:15:52,924] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 17:15:52,924] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas:  {}
+[2020-06-02 17:15:52,924] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: null {}
+[2020-06-02 17:15:52,951] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 17:15:52,970] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 17:15:52,985] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@129e9234 {}
+[2020-06-02 17:15:52,992] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 0 migrations (execution time 00:00.021s) {}
+[2020-06-02 17:15:52,992] [WARN] [org.flywaydb.core.internal.command.DbValidate] [] [main] - No migrations found. Are your locations set up correctly? {}
+[2020-06-02 17:15:53,053] [INFO] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Creating Schema History table "public"."flyway_schema_history" with baseline ... {}
+[2020-06-02 17:15:53,063] [DEBUG] [org.flywaydb.core.internal.parser.Parser] [] [main] - Parsing  ... {}
+[2020-06-02 17:15:53,066] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7b572334 {}
+[2020-06-02 17:15:53,068] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 1: CREATE TABLE "public"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 17:15:53,068] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 13: INSERT INTO "public"."flyway_schema_history" ("installed_rank", "version", "description", "type", "script", "checksum", "installed_by", "execution_time", "success") VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'null', 0, TRUE) {}
+[2020-06-02 17:15:53,069] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 14: ALTER TABLE "public"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 17:15:53,069] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 15: CREATE INDEX "flyway_schema_history_s_idx" ON "public"."flyway_schema_history" ("success") {}
+[2020-06-02 17:15:53,069] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE "public"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 17:15:53,154] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@572d6d33 {}
+[2020-06-02 17:15:53,177] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 17:15:53,177] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: INSERT INTO "public"."flyway_schema_history" ("installed_rank", "version", "description", "type", "script", "checksum", "installed_by", "execution_time", "success") VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'null', 0, TRUE) {}
+[2020-06-02 17:15:53,182] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 1 {}
+[2020-06-02 17:15:53,182] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: ALTER TABLE "public"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 17:15:53,211] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 17:15:53,211] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE INDEX "flyway_schema_history_s_idx" ON "public"."flyway_schema_history" ("success") {}
+[2020-06-02 17:15:53,227] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 17:15:53,227] [DEBUG] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Created Schema History table "public"."flyway_schema_history" with baseline {}
+[2020-06-02 17:15:53,236] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@584fbdff {}
+[2020-06-02 17:15:53,259] [INFO] [org.flywaydb.core.internal.command.DbBaseline] [] [main] - Successfully baselined schema with version: 1 {}
+[2020-06-02 17:15:53,287] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "public": 1 {}
+[2020-06-02 17:15:53,290] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "public" is up to date. No migration necessary. {}
+[2020-06-02 17:15:53,307] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 131 of 262M {}
+[2020-06-02 17:15:53,309] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 17:15:53,309] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 17:15:53,317] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@3ea69bf0 {}
+[2020-06-02 17:15:53,344] [WARN] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Unable to resolve location classpath:db/migration. Note this warning will become an error in Flyway 7. {}
+[2020-06-02 17:15:53,344] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 17:15:53,348] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 17:15:53,348] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas:  {}
+[2020-06-02 17:15:53,348] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: null {}
+[2020-06-02 17:15:53,370] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 17:15:53,373] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 17:15:53,389] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.015s) {}
+[2020-06-02 17:15:53,399] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7caa5193 {}
+[2020-06-02 17:15:53,415] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "public": 1 {}
+[2020-06-02 17:15:53,418] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "public" is up to date. No migration necessary. {}
+[2020-06-02 17:15:53,427] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 41 of 321M {}
+[2020-06-02 17:15:53,475] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@40d2efc0 {}
+[2020-06-02 17:15:53,550] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@65d70260 {}
+[2020-06-02 17:15:53,589] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-23] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=20:15:53.589UTC}
+[2020-06-02 17:15:53,590] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-23] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@837c809 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=20:15:53.589UTC}
+[2020-06-02 17:15:53,625] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6fa47c31 {}
+[2020-06-02 17:15:54,082] [DEBUG] [br.com.diegosilva.home.actors.ReceptorActor] [] [Automation-akka.actor.default-dispatcher-23] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-06-02 17:15:57,382] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:15:58,212] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:15:58,718] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:15:59,219] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:00,222] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.15'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:02,229] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:02,737] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 17:16:03,238] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:03,741] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:04,246] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.14'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:06,253] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:07,757] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:08,259] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:08,763] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.15'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:09,771] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='50.17'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:10,275] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:10,778] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 17:16:11,786] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:12,290] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:12,794] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:13,298] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:13,802] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:14,306] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='50.17'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:14,814] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:15,817] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:16,325] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.18'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:16,828] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:17,832] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='50.20'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:18,337] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:18,844] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 17:16:19,848] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:20,352] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='45.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:21,356] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:21,863] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:22,366] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='50.19'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 17:16:22,674] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 17:16:22,871] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 17:16:25,023] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [Automation-akka.actor.default-dispatcher-36] - database - Shutdown initiated... {}
+[2020-06-02 21:07:56,586] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 21:07:56,589] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 21:07:56,589] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 21:07:56,589] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 21:07:56,590] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 21:07:56,591] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 21:07:56,592] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 21:07:56,593] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 21:07:56,594] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 21:07:56,619] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 21:07:56,641] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 21:07:56,643] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:07:56,643] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:07:56,643] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:07:56,644] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:07:56,645] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning starting at classpath root in filesystem: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/ {}
+[2020-06-02 21:07:56,645] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning for resources in path: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration (db/migration) {}
+[2020-06-02 21:07:56,646] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:07:56,646] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:07:56,720] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 21:07:56,929] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@21d5c71e {}
+[2020-06-02 21:07:56,956] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 21:07:56,956] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 21:07:56,957] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:07:56,957] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas:  {}
+[2020-06-02 21:07:56,957] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: null {}
+[2020-06-02 21:07:56,985] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:07:57,004] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:07:57,009] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@129e9234 {}
+[2020-06-02 21:07:57,016] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:07:57,042] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.037s) {}
+[2020-06-02 21:07:57,069] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "public": 1 {}
+[2020-06-02 21:07:57,072] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "public" is up to date. No migration necessary. {}
+[2020-06-02 21:07:57,090] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 40 of 272M {}
+[2020-06-02 21:07:57,090] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7b572334 {}
+[2020-06-02 21:07:57,091] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:07:57,091] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:07:57,091] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:07:57,092] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:07:57,092] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:07:57,092] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:07:57,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:07:57,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas:  {}
+[2020-06-02 21:07:57,095] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: null {}
+[2020-06-02 21:07:57,118] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:07:57,121] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:07:57,124] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:07:57,139] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.017s) {}
+[2020-06-02 21:07:57,166] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "public": 1 {}
+[2020-06-02 21:07:57,169] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "public" is up to date. No migration necessary. {}
+[2020-06-02 21:07:57,169] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@572d6d33 {}
+[2020-06-02 21:07:57,190] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 41 of 272M {}
+[2020-06-02 21:07:57,250] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@584fbdff {}
+[2020-06-02 21:07:57,324] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@3ea69bf0 {}
+[2020-06-02 21:07:57,334] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:07:57.334UTC}
+[2020-06-02 21:07:57,335] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@79b90310 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:07:57.335UTC}
+[2020-06-02 21:07:57,399] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7caa5193 {}
+[2020-06-02 21:07:57,477] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@40d2efc0 {}
+[2020-06-02 21:07:57,552] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@65d70260 {}
+[2020-06-02 21:07:57,626] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6fa47c31 {}
+[2020-06-02 21:07:57,899] [DEBUG] [br.com.diegosilva.home.actors.ReceptorActor] [] [Automation-akka.actor.default-dispatcher-23] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-06-02 21:08:01,302] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:01,302] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:01,528] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:02,031] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:03,038] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.83'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:04,042] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:05,049] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:05,557] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:06,058] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:06,565] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.52'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:07,068] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.59'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:07,577] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.67'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:08,081] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:09,084] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:09,588] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:10,095] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:10,600] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.50'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:11,604] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.52'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:12,111] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:13,614] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:14,123] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.46'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:15,125] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:15,630] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.41'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:16,137] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:17,141] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:17,646] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:18,149] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:18,657] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.46'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:20,160] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.42'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:20,668] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:21,172] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.42'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:21,677] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:22,184] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.43'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:22,688] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:23,191] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:24,199] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:24,704] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.45'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:25,206] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:26,214] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.40'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:26,718] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:26,721] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 21:08:27,226] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:28,230] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:28,734] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.52'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:29,241] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:30,245] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:30,749] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.37'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:31,253] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:31,760] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:32,265] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:33,272] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:34,276] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.37'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:35,279] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:35,787] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.55'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:36,291] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:37,299] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.57'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:38,303] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.34'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:39,309] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:39,813] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:40,318] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:41,324] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:41,829] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.55'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:42,332] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:42,836] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.32'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:43,344] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:43,848] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:44,353] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:44,857] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:45,364] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:45,867] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:46,375] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.33'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:47,380] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.56'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:48,383] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:48,891] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:49,394] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:50,398] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:50,902] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:51,405] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.33'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:51,914] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:52,417] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:52,921] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:53,426] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:54,432] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.51'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:54,936] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.33'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:55,445] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.54'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:08:56,721] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 21:08:56,948] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:57,452] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:57,959] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:58,463] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:08:58,968] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.33'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:08:59,474] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.51'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:00,979] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:01,482] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:01,991] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:09:02,493] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:09:02,998] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.32'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:03,502] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.52'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:04,009] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.58'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:09:05,012] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:05,518] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:07,024] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.30'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:07,527] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.61'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:08,036] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='57.59'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:09:09,040] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:09,543] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:09:10,051] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:09:11,055] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.29'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:09:12,521] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [Automation-akka.actor.default-dispatcher-34] - database - Shutdown initiated... {}
+[2020-06-02 21:09:12,521] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [Automation-akka.actor.default-dispatcher-34] - database - Before shutdown stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 21:11:20,421] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 21:11:20,425] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 21:11:20,426] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 21:11:20,427] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 21:11:20,428] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 21:11:20,428] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 21:11:20,429] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 21:11:20,450] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 21:11:20,469] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 21:11:20,471] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:11:20,471] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:11:20,471] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:11:20,471] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:11:20,472] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning starting at classpath root in filesystem: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/ {}
+[2020-06-02 21:11:20,472] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning for resources in path: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration (db/migration) {}
+[2020-06-02 21:11:20,473] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:11:20,473] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:11:20,551] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 21:11:20,782] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@4007c759 {}
+[2020-06-02 21:11:20,808] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 21:11:20,808] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 21:11:20,809] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:11:20,809] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 34 of 272M {}
+[2020-06-02 21:11:54,494] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 21:11:54,498] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 21:11:54,499] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 21:11:54,500] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 21:11:54,501] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 21:11:54,502] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 21:11:54,526] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 21:11:54,547] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 21:11:54,549] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:11:54,550] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:11:54,550] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:11:54,550] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:11:54,551] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning starting at classpath root in filesystem: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/ {}
+[2020-06-02 21:11:54,551] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning for resources in path: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration (db/migration) {}
+[2020-06-02 21:11:54,552] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:11:54,552] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:11:54,626] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 21:11:54,812] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@66cafe7a {}
+[2020-06-02 21:11:54,838] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 21:11:54,838] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 21:11:54,839] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:11:54,839] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas: housepy,public {}
+[2020-06-02 21:11:54,839] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: housepy {}
+[2020-06-02 21:11:54,860] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:11:54,884] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:11:54,898] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:11:54,919] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.034s) {}
+[2020-06-02 21:11:54,930] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6801a057 {}
+[2020-06-02 21:11:55,080] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@ed66727 {}
+[2020-06-02 21:11:55,083] [INFO] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Creating Schema History table "housepy"."flyway_schema_history" with baseline ... {}
+[2020-06-02 21:11:55,089] [DEBUG] [org.flywaydb.core.internal.parser.Parser] [] [main] - Parsing  ... {}
+[2020-06-02 21:11:55,094] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 1: CREATE TABLE "housepy"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 21:11:55,095] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 13: INSERT INTO "housepy"."flyway_schema_history" ("installed_rank", "version", "description", "type", "script", "checksum", "installed_by", "execution_time", "success") VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'null', 0, TRUE) {}
+[2020-06-02 21:11:55,095] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 14: ALTER TABLE "housepy"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 21:11:55,095] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 15: CREATE INDEX "flyway_schema_history_s_idx" ON "housepy"."flyway_schema_history" ("success") {}
+[2020-06-02 21:11:55,096] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE "housepy"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 21:11:55,129] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:11:55,129] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: INSERT INTO "housepy"."flyway_schema_history" ("installed_rank", "version", "description", "type", "script", "checksum", "installed_by", "execution_time", "success") VALUES (1, '1', '<< Flyway Baseline >>', 'BASELINE', '<< Flyway Baseline >>', NULL, 'null', 0, TRUE) {}
+[2020-06-02 21:11:55,134] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 1 {}
+[2020-06-02 21:11:55,134] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: ALTER TABLE "housepy"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 21:11:55,151] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:11:55,151] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE INDEX "flyway_schema_history_s_idx" ON "housepy"."flyway_schema_history" ("success") {}
+[2020-06-02 21:11:55,161] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@28fa0102 {}
+[2020-06-02 21:11:55,168] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:11:55,168] [DEBUG] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Created Schema History table "housepy"."flyway_schema_history" with baseline {}
+[2020-06-02 21:11:55,193] [INFO] [org.flywaydb.core.internal.command.DbBaseline] [] [main] - Successfully baselined schema with version: 1 {}
+[2020-06-02 21:11:55,219] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "housepy": 1 {}
+[2020-06-02 21:11:55,223] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "housepy" is up to date. No migration necessary. {}
+[2020-06-02 21:11:55,239] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@19f20349 {}
+[2020-06-02 21:11:55,242] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 43 of 269M {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:11:55,244] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:11:55,248] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:11:55,248] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas: housepy,public {}
+[2020-06-02 21:11:55,248] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: housepy {}
+[2020-06-02 21:11:55,263] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:11:55,267] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:11:55,288] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:11:55,774] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.507s) {}
+[2020-06-02 21:11:55,790] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@7c940b38 {}
+[2020-06-02 21:11:55,803] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "housepy": 1 {}
+[2020-06-02 21:11:55,805] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "housepy" is up to date. No migration necessary. {}
+[2020-06-02 21:11:55,816] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 46 of 269M {}
+[2020-06-02 21:11:55,864] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@4146a4d2 {}
+[2020-06-02 21:11:55,938] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@39cc5fe9 {}
+[2020-06-02 21:11:55,961] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:11:55.961UTC}
+[2020-06-02 21:11:55,962] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-5] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@72d0eefc {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:11:55.962UTC}
+[2020-06-02 21:11:56,010] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@302debd2 {}
+[2020-06-02 21:11:56,084] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6cbcfb24 {}
+[2020-06-02 21:11:56,420] [DEBUG] [br.com.diegosilva.home.actors.ReceptorActor] [] [Automation-akka.actor.default-dispatcher-25] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,280] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,280] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='58.08'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='58.08'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,281] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:11:59,544] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:12:00,051] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-25] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:12:00,553] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:12:01,056] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.10'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:12:02,408] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [Automation-akka.actor.default-dispatcher-33] - database - Shutdown initiated... {}
+[2020-06-02 21:12:02,409] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [Automation-akka.actor.default-dispatcher-33] - database - Before shutdown stats (total=10, active=0, idle=10, waiting=0) {}
+[2020-06-02 21:16:36,126] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 21:16:36,130] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 21:16:36,131] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 21:16:36,132] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 21:16:36,133] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 21:16:36,155] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 21:16:36,173] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 21:16:36,175] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:16:36,175] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:16:36,175] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:16:36,175] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:16:36,176] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning starting at classpath root in filesystem: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/ {}
+[2020-06-02 21:16:36,176] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning for resources in path: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration (db/migration) {}
+[2020-06-02 21:16:36,177] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:16:36,177] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:16:36,256] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 21:16:36,463] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6ddf7453 {}
+[2020-06-02 21:16:36,495] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 21:16:36,495] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 21:16:36,497] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:16:36,497] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas: housepy {}
+[2020-06-02 21:16:36,497] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: housepy {}
+[2020-06-02 21:16:36,514] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:16:36,532] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:16:36,545] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:16:36,547] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@5354e4bb {}
+[2020-06-02 21:16:36,563] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.029s) {}
+[2020-06-02 21:16:36,610] [DEBUG] [org.flywaydb.core.internal.command.DbSchemas] [] [main] - Skipping creation of existing schema: "housepy" {}
+[2020-06-02 21:16:36,625] [INFO] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Creating Schema History table "housepy"."flyway_schema_history" ... {}
+[2020-06-02 21:16:36,630] [DEBUG] [org.flywaydb.core.internal.parser.Parser] [] [main] - Parsing  ... {}
+[2020-06-02 21:16:36,632] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@6421af36 {}
+[2020-06-02 21:16:36,634] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 1: CREATE TABLE "housepy"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 21:16:36,635] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 13: ALTER TABLE "housepy"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 21:16:36,635] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 14: CREATE INDEX "flyway_schema_history_s_idx" ON "housepy"."flyway_schema_history" ("success") {}
+[2020-06-02 21:16:36,635] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE "housepy"."flyway_schema_history" (
+    "installed_rank" INT NOT NULL,
+    "version" VARCHAR(50),
+    "description" VARCHAR(200) NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
+    "script" VARCHAR(1000) NOT NULL,
+    "checksum" INTEGER,
+    "installed_by" VARCHAR(100) NOT NULL,
+    "installed_on" TIMESTAMP NOT NULL DEFAULT now(),
+    "execution_time" INTEGER NOT NULL,
+    "success" BOOLEAN NOT NULL
+) {}
+[2020-06-02 21:16:36,669] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:16:36,669] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: ALTER TABLE "housepy"."flyway_schema_history" ADD CONSTRAINT "flyway_schema_history_pk" PRIMARY KEY ("installed_rank") {}
+[2020-06-02 21:16:36,685] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:16:36,685] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE INDEX "flyway_schema_history_s_idx" ON "housepy"."flyway_schema_history" ("success") {}
+[2020-06-02 21:16:36,702] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:16:36,702] [DEBUG] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Created Schema History table "housepy"."flyway_schema_history" {}
+[2020-06-02 21:16:36,718] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@63fdb1aa {}
+[2020-06-02 21:16:36,749] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "housepy": << Empty Schema >> {}
+[2020-06-02 21:16:36,749] [DEBUG] [org.flywaydb.core.internal.parser.Parser] [] [main] - Parsing V1__Create_tables.sql ... {}
+[2020-06-02 21:16:36,750] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 1: CREATE TABLE housepy.Users
+(
+    uid   UUID PRIMARY KEY,
+    name  VARCHAR NOT NULL,
+    email VARCHAR NOT NULL
+) {}
+[2020-06-02 21:16:36,751] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 8: CREATE TABLE housepy.Devices
+(
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    type char(3) NOT NULL --net or raw
+) {}
+[2020-06-02 21:16:36,751] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 15: CREATE TABLE housepy.Sensors
+(
+    id char(3) PRIMARY KEY,
+    device_id BIGINT PRIMARY KEY,
+    data_type VARCHAR NOT NULL --int, string, float, bool
+) {}
+[2020-06-02 21:16:36,753] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 22: CREATE TABLE housepy.Commands
+(
+    id BIGINT PRIMARY KEY,
+    sensor_id char(3) PRIMARY KEY,
+    device_id BIGINT PRIMARY KEY,
+    value VARCHAR NOT NULL,
+    description VARCHAR NOT NULL
+) {}
+[2020-06-02 21:16:36,753] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 31: CREATE TABLE housepy.Triggers
+(
+    id BIGINT PRIMARY KEY,
+    sensor_id char(3) PRIMARY KEY,
+    device_id BIGINT PRIMARY KEY,
+    to_sensor_id char(3),
+    to_device_id BIGINT PRIMARY KEY,
+    activate_value VARCHAR NOT NULL,
+    set_value VARCHAR NOT NULL,
+    duration VARCHAR NULL
+) {}
+[2020-06-02 21:16:36,756] [DEBUG] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Starting migration of schema "housepy" to version 1 - Create tables ... {}
+[2020-06-02 21:16:36,764] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Migrating schema "housepy" to version 1 - Create tables {}
+[2020-06-02 21:16:36,767] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Users
+(
+    uid   UUID PRIMARY KEY,
+    name  VARCHAR NOT NULL,
+    email VARCHAR NOT NULL
+) {}
+[2020-06-02 21:16:36,800] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:16:36,800] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Devices
+(
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    type char(3) NOT NULL --net or raw
+) {}
+[2020-06-02 21:16:36,837] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@75162c6a {}
+[2020-06-02 21:16:36,839] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:16:36,839] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Sensors
+(
+    id char(3) PRIMARY KEY,
+    device_id BIGINT PRIMARY KEY,
+    data_type VARCHAR NOT NULL --int, string, float, bool
+) {}
+[2020-06-02 21:16:36,864] [DEBUG] [org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate] [] [main] - Rolling back transaction... {}
+[2020-06-02 21:16:36,867] [DEBUG] [org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate] [] [main] - Transaction rolled back {}
+[2020-06-02 21:16:36,867] [ERROR] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Migration of schema "housepy" to version 1 - Create tables failed! Changes successfully rolled back. {}
+[2020-06-02 21:16:36,880] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 43 of 270M {}
+[2020-06-02 21:16:36,925] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@1937f4f {}
+[2020-06-02 21:20:08,435] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - database - configuration: {}
+[2020-06-02 21:20:08,438] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - allowPoolSuspension.............false {}
+[2020-06-02 21:20:08,438] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - autoCommit......................true {}
+[2020-06-02 21:20:08,438] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - catalog.........................none {}
+[2020-06-02 21:20:08,438] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionInitSql...............none {}
+[2020-06-02 21:20:08,438] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTestQuery.............none {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - connectionTimeout...............30000 {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSource......................none {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceClassName............."org.postgresql.ds.PGSimpleDataSource" {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceJNDI..................none {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - dataSourceProperties............{user=postgres, password=<masked>, portNumber=5432, databaseName=postgres, serverName=192.168.31.142} {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - driverClassName.................none {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckProperties...........{} {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - healthCheckRegistry.............none {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - idleTimeout.....................600000 {}
+[2020-06-02 21:20:08,439] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - initializationFailTimeout.......-1 {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - isolateInternalQueries..........false {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - jdbcUrl.........................none {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - leakDetectionThreshold..........0 {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maxLifetime.....................1800000 {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - maximumPoolSize.................10 {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricRegistry..................none {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - metricsTrackerFactory...........none {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - minimumIdle.....................10 {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - password........................<masked> {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - poolName........................"database" {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - readOnly........................false {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - registerMbeans..................false {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - scheduledExecutor...............none {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - schema..........................none {}
+[2020-06-02 21:20:08,440] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - threadFactory...................internal {}
+[2020-06-02 21:20:08,441] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - transactionIsolation............default {}
+[2020-06-02 21:20:08,441] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - username........................none {}
+[2020-06-02 21:20:08,441] [DEBUG] [com.zaxxer.hikari.HikariConfig] [] [main] - validationTimeout...............5000 {}
+[2020-06-02 21:20:08,442] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Starting... {}
+[2020-06-02 21:20:08,464] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [main] - database - Start completed. {}
+[2020-06-02 21:20:08,482] [INFO] [org.flywaydb.core.internal.license.VersionPrinter] [] [main] - Flyway Community Edition 6.4.2 by Redgate {}
+[2020-06-02 21:20:08,484] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:20:08,484] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:20:08,485] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:20:08,485] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:20:08,486] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning starting at classpath root in filesystem: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/ {}
+[2020-06-02 21:20:08,486] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner] [] [main] - Scanning for resources in path: /Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration (db/migration) {}
+[2020-06-02 21:20:08,487] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:20:08,487] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:20:08,566] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database housekeeper] - database - Pool stats (total=0, active=0, idle=0, waiting=1) {}
+[2020-06-02 21:20:08,855] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@4e7f9129 {}
+[2020-06-02 21:20:08,880] [INFO] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Database: jdbc:postgresql://192.168.31.142:5432/postgres (PostgreSQL 9.6) {}
+[2020-06-02 21:20:08,880] [DEBUG] [org.flywaydb.core.internal.database.DatabaseFactory] [] [main] - Driver  : PostgreSQL JDBC Driver 42.2.12 {}
+[2020-06-02 21:20:08,881] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:20:08,881] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas: housepy {}
+[2020-06-02 21:20:08,881] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: housepy {}
+[2020-06-02 21:20:08,898] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:20:08,916] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:20:08,928] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:20:08,936] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@675ece4f {}
+[2020-06-02 21:20:08,956] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.039s) {}
+[2020-06-02 21:20:08,984] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "housepy": << Empty Schema >> {}
+[2020-06-02 21:20:08,986] [DEBUG] [org.flywaydb.core.internal.parser.Parser] [] [main] - Parsing V1__Create_tables.sql ... {}
+[2020-06-02 21:20:08,991] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 1: CREATE TABLE housepy.Users
+(
+    uid   UUID PRIMARY KEY,
+    name  VARCHAR NOT NULL,
+    email VARCHAR NOT NULL
+) {}
+[2020-06-02 21:20:08,992] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 8: CREATE TABLE housepy.Devices
+(
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    type char(3) NOT NULL --net or raw
+) {}
+[2020-06-02 21:20:08,993] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 15: CREATE TABLE housepy.Sensors
+(
+    id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    data_type VARCHAR NOT NULL, --int, string, float, bool
+    PRIMARY KEY(id, device_id)
+) {}
+[2020-06-02 21:20:08,995] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 23: CREATE TABLE housepy.Commands
+(
+    id BIGINT NOT NULL,
+    sensor_id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    value VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
+    PRIMARY KEY(id, sensor_id, device_id)
+) {}
+[2020-06-02 21:20:08,996] [DEBUG] [org.flywaydb.core.internal.sqlscript.ParserSqlScript] [] [main] - Found statement at line 33: CREATE TABLE housepy.Triggers
+(
+    id BIGINT NOT NULL,
+    sensor_id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    to_sensor_id char(3) NOT NULL,
+    to_device_id BIGINT NOT NULL,
+    activate_value VARCHAR NOT NULL,
+    set_value VARCHAR NOT NULL,
+    duration VARCHAR NULL,
+    PRIMARY KEY (id, sensor_id, device_id)
+) {}
+[2020-06-02 21:20:09,000] [DEBUG] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Starting migration of schema "housepy" to version 1 - Create tables ... {}
+[2020-06-02 21:20:09,010] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Migrating schema "housepy" to version 1 - Create tables {}
+[2020-06-02 21:20:09,015] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Users
+(
+    uid   UUID PRIMARY KEY,
+    name  VARCHAR NOT NULL,
+    email VARCHAR NOT NULL
+) {}
+[2020-06-02 21:20:09,016] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@2cd944f8 {}
+[2020-06-02 21:20:09,058] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:20:09,058] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Devices
+(
+    id   BIGINT PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    type char(3) NOT NULL --net or raw
+) {}
+[2020-06-02 21:20:09,098] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:20:09,098] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Sensors
+(
+    id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    data_type VARCHAR NOT NULL, --int, string, float, bool
+    PRIMARY KEY(id, device_id)
+) {}
+[2020-06-02 21:20:09,100] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@52565dcc {}
+[2020-06-02 21:20:09,134] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:20:09,134] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Commands
+(
+    id BIGINT NOT NULL,
+    sensor_id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    value VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
+    PRIMARY KEY(id, sensor_id, device_id)
+) {}
+[2020-06-02 21:20:09,172] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:20:09,173] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Executing SQL: CREATE TABLE housepy.Triggers
+(
+    id BIGINT NOT NULL,
+    sensor_id char(3) NOT NULL,
+    device_id BIGINT NOT NULL,
+    to_sensor_id char(3) NOT NULL,
+    to_device_id BIGINT NOT NULL,
+    activate_value VARCHAR NOT NULL,
+    set_value VARCHAR NOT NULL,
+    duration VARCHAR NULL,
+    PRIMARY KEY (id, sensor_id, device_id)
+) {}
+[2020-06-02 21:20:09,182] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@60926876 {}
+[2020-06-02 21:20:09,209] [DEBUG] [org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor] [] [main] - Update Count: 0 {}
+[2020-06-02 21:20:09,209] [DEBUG] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Successfully completed migration of schema "housepy" to version 1 - Create tables {}
+[2020-06-02 21:20:09,235] [DEBUG] [org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory] [] [main] - Schema History table "housepy"."flyway_schema_history" successfully updated to reflect changes {}
+[2020-06-02 21:20:09,265] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@712fee9d {}
+[2020-06-02 21:20:09,276] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Successfully applied 1 migration to schema "housepy" (execution time 00:00.309s) {}
+[2020-06-02 21:20:09,292] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 45 of 274M {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classpath resources at 'classpath:db/migration' ... {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Determining location urls for classpath:db/migration using ClassLoader sun.misc.Launcher$AppClassLoader@18b4aac2 ... {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning URL: file:/Users/diego/projetos/home_automation/server/target/scala-2.13/classes/db/migration {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.util.FeatureDetector] [] [main] - JBoss VFS v2 available: false {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Found resource: db/migration/V1__Create_tables.sql {}
+[2020-06-02 21:20:09,294] [DEBUG] [org.flywaydb.core.internal.scanner.classpath.ClassPathScanner] [] [main] - Scanning for classes at classpath:db/migration {}
+[2020-06-02 21:20:09,298] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - DDL Transactions Supported: true {}
+[2020-06-02 21:20:09,298] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Schemas: housepy {}
+[2020-06-02 21:20:09,298] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Default schema: housepy {}
+[2020-06-02 21:20:09,310] [DEBUG] [org.flywaydb.core.internal.callback.SqlScriptCallbackFactory] [] [main] - Scanning for SQL callbacks ... {}
+[2020-06-02 21:20:09,315] [DEBUG] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Validating migrations ... {}
+[2020-06-02 21:20:09,317] [DEBUG] [org.flywaydb.core.internal.scanner.Scanner] [] [main] - Filtering out resource: db/migration/V1__Create_tables.sql (filename: V1__Create_tables.sql) {}
+[2020-06-02 21:20:09,332] [INFO] [org.flywaydb.core.internal.command.DbValidate] [] [main] - Successfully validated 1 migration (execution time 00:00.017s) {}
+[2020-06-02 21:20:09,343] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@17b79ac4 {}
+[2020-06-02 21:20:09,357] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Current version of schema "housepy": 1 {}
+[2020-06-02 21:20:09,360] [INFO] [org.flywaydb.core.internal.command.DbMigrate] [] [main] - Schema "housepy" is up to date. No migration necessary. {}
+[2020-06-02 21:20:09,369] [DEBUG] [org.flywaydb.core.Flyway] [] [main] - Memory usage: 45 of 274M {}
+[2020-06-02 21:20:09,421] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@776f1dc3 {}
+[2020-06-02 21:20:09,492] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@4cd1a80 {}
+[2020-06-02 21:20:09,508] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-23] - Initializing AkkaSSLConfig extension... {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:20:09.507UTC}
+[2020-06-02 21:20:09,508] [DEBUG] [com.typesafe.sslconfig.akka.AkkaSSLConfig] [] [Automation-akka.actor.default-dispatcher-23] - buildHostnameVerifier: created hostname verifier: com.typesafe.sslconfig.ssl.NoopHostnameVerifier@51683869 {akkaAddress=akka://Automation@127.0.0.1:2551, sourceThread=Automation-akka.actor.default-dispatcher-3, akkaSource=AkkaSSLConfig(akka://Automation), sourceActorSystem=Automation, akkaTimestamp=00:20:09.508UTC}
+[2020-06-02 21:20:09,566] [DEBUG] [com.zaxxer.hikari.pool.HikariPool] [] [database connection adder] - database - Added connection org.postgresql.jdbc.PgConnection@a984782 {}
+[2020-06-02 21:20:09,962] [DEBUG] [br.com.diegosilva.home.actors.ReceptorActor] [] [Automation-akka.actor.default-dispatcher-23] - Iniciando escuta {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/user/receptor, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,290] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.13'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,290] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,290] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-23] - Processando mensagem IOT IOTMessage{id='s_11', sensor='hm', value='67.96'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,291] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.96'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,291] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-3] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:13,291] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.94'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:14,094] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.17'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:14,599] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op1', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:15,102] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:16,110] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:17,113] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:17,620] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='68.00'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:18,124] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:19,129] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:20,136] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:21,643] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='68.03'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:22,147] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:23,651] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='op2', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:24,155] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:24,663] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:25,166] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ld', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:25,670] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:26,173] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.94'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:26,682] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='hm', value='50.16'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:27,685] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:28,189] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_12', sensor='ps', value='0'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/29/s_12, sourceActorSystem=Automation}
+[2020-06-02 21:20:29,196] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_11', sensor='ps', value='1'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/28/s_11, sourceActorSystem=Automation}
+[2020-06-02 21:20:30,200] [INFO] [br.com.diegosilva.home.actors.DeviceActor] [] [Automation-akka.actor.default-dispatcher-5] - Processando mensagem IOT IOTMessage{id='s_10', sensor='hm', value='67.76'} registers 0 {akkaAddress=akka://Automation@127.0.0.1:2551, akkaSource=akka://Automation/system/sharding/device/27/s_10, sourceActorSystem=Automation}
+[2020-06-02 21:20:31,565] [INFO] [com.zaxxer.hikari.HikariDataSource] [] [Automation-akka.actor.default-dispatcher-35] - database - Shutdown initiated... {}

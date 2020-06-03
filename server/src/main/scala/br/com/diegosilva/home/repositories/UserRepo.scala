@@ -5,7 +5,7 @@ import slick.lifted.ProvenShape
 
 case class User(uid: String, name:String, email:String)
 
-class UserTable(tag: Tag) extends Table[User](tag, "Users") {
+class UserTable(tag: Tag) extends Table[User](tag, Some("housepy"),"Users") {
 
   def uid: Rep[String] = column[String]("uid", O.PrimaryKey)
   def name: Rep[String] = column[String]("name")

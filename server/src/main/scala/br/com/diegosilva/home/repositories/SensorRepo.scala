@@ -7,7 +7,7 @@ import scala.concurrent.duration.Duration
 
 case class Trigger(id: Int, sensorId:String, deviceId: Int, toDeviceId: Int, toSensorId: String, activateValue: Any, setValue: Any, duration: Option[Duration])
 
-class TriggerTable(tag: Tag) extends Table[Trigger](tag, "Triggers") {
+class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"),"Triggers") {
 
   import CustomMappings._
 
@@ -32,7 +32,7 @@ class TriggerTable(tag: Tag) extends Table[Trigger](tag, "Triggers") {
 
 case class Command(id: Int, sensorId:String, deviceId: Int, value: String, description: String)
 
-class CommandTable(tag: Tag) extends Table[Command](tag, "Commands") {
+class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"),"Commands") {
 
   def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -49,7 +49,7 @@ class CommandTable(tag: Tag) extends Table[Command](tag, "Commands") {
 
 case class Sensor(id: String, deviceId: Int, dataType: String, triggers: Seq[Trigger] = Seq(), commands: Seq[Command] = Seq())
 
-class SensorTable(tag: Tag) extends Table[(String, Int)](tag, "Sensors") {
+class SensorTable(tag: Tag) extends Table[(String, Int)](tag, Some("housepy"),"Sensors") {
 
   def id: Rep[String] = column[String]("id", O.PrimaryKey, O.AutoInc)
 

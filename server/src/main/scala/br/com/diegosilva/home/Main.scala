@@ -3,8 +3,9 @@ package br.com.diegosilva.home
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorSystem, Behavior, SupervisorStrategy}
 import br.com.diegosilva.home.actors.ReceptorActor.Start
-import br.com.diegosilva.home.actors.{DeviceActor, ReceptorActor, RF24WriterActor}
+import br.com.diegosilva.home.actors.{DeviceActor, RF24WriterActor, ReceptorActor}
 import br.com.diegosilva.home.api.{AutomationRoutes, AutomationServer}
+import br.com.diegosilva.home.firebase.FirebaseSdk
 import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.duration._
@@ -33,6 +34,7 @@ object Guardian {
 }
 
 object Main extends App {
+  FirebaseSdk.init
   val system = ActorSystem[Nothing](Guardian(), "Automation", ConfigFactory.load)
 }
 

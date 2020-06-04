@@ -6,7 +6,8 @@ import akka.actor.typed.scaladsl.ActorContext
 import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.model.ws.{Message, TextMessage}
-import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.{Directive1, Route}
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
@@ -14,7 +15,7 @@ import akka.util.Timeout
 import br.com.diegosilva.home.actors.WsConnectionActor._
 import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
 import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
-import br.com.diegosilva.home.data.IOTMessage
+import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
 import br.com.diegosilva.home.repositories.{Device, DeviceRepo}
 
@@ -22,7 +23,12 @@ import scala.concurrent.Future
 import scala.concurrent.duration._
 
 object AutomationRoutes {
+
+  final val Name = "http-api"
+  final val AccessTokenHeaderName = "X-Access-Token"
+
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
+
   final case class AddDevice(name: String, devType: String)
 
 }
@@ -30,8 +36,26 @@ object AutomationRoutes {
 class AutomationRoutes()(implicit context: ActorContext[_]) {
 
   implicit private val timeout: Timeout = Timeout.create(context.system.settings.config.getDuration("automation.askTimeout"))
+  implicit val executionContext = context.executionContext
   private val sharding = ClusterSharding(context.system)
   protected val db = DatabasePool(context.system).database
+
+  private def isTokenExpired(token: String): Boolean = false
+
+  private def isTokenValid(token: String): Boolean = true
+
+  private def getAuthData(token: String): Map[String, String] = {
+    Map("" -> "")
+  }
+
+  private def authenticated: Directive1[Map[String, Any]] =
+    optionalHeaderValueByName("Authorization").flatMap {
+      case Some(token) if isTokenExpired(token) =>
+        complete(StatusCodes.Unauthorized -> "Token expired.")
+      case Some(token) if isTokenValid(token) =>
+        provide(getAuthData(token))
+      case _ => complete(StatusCodes.Unauthorized)
+    }
 
   import AutomationRoutes._
   import JsonFormats._
@@ -40,7 +64,6 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   import spray.json._
 
   val routes: Route = {
-
     pathPrefix("api") {
       concat(
         get {
@@ -48,32 +71,38 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
             complete(JsObject("message" -> JsString("Hello from " + context.system.address)))
           }
         },
-        pathPrefix("device") {
+        authenticated { authData =>
           concat(
-            pathPrefix("send"){
-              post {
-                entity(as[SendMessage]) { data =>
-                  val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
-                  val reply: Future[DeviceActor.Response] =
-                    entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
-                  onSuccess(reply) {
-                    case DeviceActor.SendResponse(summary) =>
-                      complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
-                    case _ =>
-                      complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+            pathPrefix("device") {
+              concat(
+                pathPrefix("send") {
+                  post {
+                    entity(as[SendMessage]) { data =>
+                      val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
+                      val reply: Future[DeviceActor.Response] =
+                        entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
+                      onSuccess(reply) {
+                        case DeviceActor.SendResponse(summary) =>
+                          complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
+                        case _ =>
+                          complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+                      }
+                    }
+                  }
+                },
+                post {
+                  entity(as[AddDevice]) { data =>
+                    complete(db.run {
+                      DeviceRepo.add(Device(name = data.name, devType = DeviceType.withName(data.devType), owner = ""))
+                    })
                   }
                 }
-              }
+              )
             },
-            post {
-              entity(as[AddDevice]) { data =>
-                complete(db.run(DeviceRepo.add(Device(name = data.name, devType = data.devType))))
-              }
+            path("ws" / Remaining) { userName: String =>
+              handleWebSocketMessages(wsUser(userName, context))
             }
           )
-        },
-        path("ws" / Remaining) { userName: String =>
-          handleWebSocketMessages(wsUser(userName, context))
         }
       )
     }
@@ -122,9 +151,22 @@ object JsonFormats {
   import spray.json._
   import DefaultJsonProtocol._
 
+  class EnumJsonConverter[T <: scala.Enumeration](enu: T) extends RootJsonFormat[T#Value] {
+    override def write(obj: T#Value): JsValue = JsString(obj.toString)
+
+    override def read(json: JsValue): T#Value = {
+      json match {
+        case JsString(txt) => enu.withName(txt)
+        case somethingElse => throw DeserializationException(s"Expected a value from enum $enu instead of $somethingElse")
+      }
+    }
+  }
+
+  implicit val enumConverter = new EnumJsonConverter(DeviceType)
   implicit val iotMessage: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
   implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat2(AddDevice)
+  implicit val deviceFormat: RootJsonFormat[Device] = jsonFormat4(Device)
   implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
   implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)
 

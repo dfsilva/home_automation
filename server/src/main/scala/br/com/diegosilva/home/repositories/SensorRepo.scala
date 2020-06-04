@@ -1,15 +1,13 @@
 package br.com.diegosilva.home.repositories
 
-import slick.jdbc.PostgresProfile.api._
+import br.com.diegosilva.home.database.PostgresProfile.api._
 import slick.lifted.ProvenShape
 
 import scala.concurrent.duration.Duration
 
 case class Trigger(id: Int, sensorId:String, deviceId: Int, toDeviceId: Int, toSensorId: String, activateValue: Any, setValue: Any, duration: Option[Duration])
 
-class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"),"Triggers") {
-
-  import CustomMappings._
+class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"),"triggers") {
 
   def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -32,7 +30,7 @@ class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"),"Trigge
 
 case class Command(id: Int, sensorId:String, deviceId: Int, value: String, description: String)
 
-class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"),"Commands") {
+class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"),"commands") {
 
   def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
@@ -49,7 +47,7 @@ class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"),"Comman
 
 case class Sensor(id: String, deviceId: Int, dataType: String, triggers: Seq[Trigger] = Seq(), commands: Seq[Command] = Seq())
 
-class SensorTable(tag: Tag) extends Table[(String, Int)](tag, Some("housepy"),"Sensors") {
+class SensorTable(tag: Tag) extends Table[(String, Int)](tag, Some("housepy"),"sensors") {
 
   def id: Rep[String] = column[String]("id", O.PrimaryKey, O.AutoInc)
 

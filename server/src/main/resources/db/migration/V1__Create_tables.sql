@@ -1,18 +1,30 @@
-CREATE TABLE housepy.Users
+CREATE TABLE housepy.users
 (
-    uid   UUID PRIMARY KEY,
+    uid   VARCHAR PRIMARY KEY,
     name  VARCHAR NOT NULL,
     email VARCHAR NOT NULL
 );
 
-CREATE TABLE housepy.Devices
+insert into housepy.Users values('ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Diego Ferreira da Silva', 'diegosiuniube@gmail.com');
+
+CREATE TABLE housepy.auth_tokens
 (
-    id   BIGINT PRIMARY KEY,
-    name VARCHAR NOT NULL,
-    type char(3) NOT NULL --net or raw
+    user_id VARCHAR NOT NULL,
+    token   VARCHAR NOT NULL,
+    created timestamp NOT NULL,
+    expires timestamp NOT NULL,
+    PRIMARY KEY(user_id, token)
 );
 
-CREATE TABLE housepy.Sensors
+CREATE TABLE housepy.devices
+(
+    id    SERIAL PRIMARY KEY,
+    owner VARCHAR NOT NULL,
+    name  VARCHAR NOT NULL,
+    type  char(3) NOT NULL --net or raw
+);
+
+CREATE TABLE housepy.sensors
 (
     id char(3) NOT NULL,
     device_id BIGINT NOT NULL,
@@ -20,9 +32,9 @@ CREATE TABLE housepy.Sensors
     PRIMARY KEY(id, device_id)
 );
 
-CREATE TABLE housepy.Commands
+CREATE TABLE housepy.commands
 (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     sensor_id char(3) NOT NULL,
     device_id BIGINT NOT NULL,
     value VARCHAR NOT NULL,
@@ -30,9 +42,9 @@ CREATE TABLE housepy.Commands
     PRIMARY KEY(id, sensor_id, device_id)
 );
 
-CREATE TABLE housepy.Triggers
+CREATE TABLE housepy.triggers
 (
-    id BIGINT NOT NULL,
+    id SERIAL NOT NULL,
     sensor_id char(3) NOT NULL,
     device_id BIGINT NOT NULL,
     to_sensor_id char(3) NOT NULL,

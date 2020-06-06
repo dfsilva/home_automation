@@ -6,13 +6,12 @@ import slick.basic.Capability
 
 import scala.concurrent.duration.Duration
 
-
-
 trait PostgresProfile extends ExPostgresProfile
   with PgArraySupport
   with PgDate2Support
   with PgRangeSupport
   with PgHStoreSupport
+  with PgSprayJsonSupport
   with PgSearchSupport
   with PgNetSupport
   with PgLTreeSupport {
@@ -25,7 +24,7 @@ trait PostgresProfile extends ExPostgresProfile
 
   object MyAPI extends API with ArrayImplicits
     with DateTimeImplicits
-//    with JsonImplicits
+    with JsonImplicits
     with NetImplicits
     with LTreeImplicits
     with RangeImplicits

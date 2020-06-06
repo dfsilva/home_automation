@@ -29,6 +29,7 @@ libraryDependencies ++= {
     "com.google.api-client" % "google-api-client" % "1.30.9",
     "com.google.firebase" % "firebase-admin" % "6.12.2",
     "com.github.tminglei" %% "slick-pg" % "0.19.0",
+    "com.github.tminglei" %% "slick-pg_spray-json" % "0.19.0",
 //    "com.bot4s" %% "telegram-core" % "4.4.0-RC2",
     "br.com.diegosilva" % "rf_network_jni" % "1.0-SNAPSHOT"
   )

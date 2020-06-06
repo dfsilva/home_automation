@@ -45,7 +45,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   private def isTokenValid(token: String): Boolean = true
 
   private def getAuthData(token: String): Map[String, String] = {
-    Map("" -> "")
+    Map("token" -> "lkfajskd", "uid" -> "fasdfa")
   }
 
   private def authenticated: Directive1[Map[String, Any]] =

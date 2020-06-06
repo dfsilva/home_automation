@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "195098792849",
+    "firebase_url": "https://house-py.firebaseio.com",
+    "project_id": "house-py",
+    "storage_bucket": "house-py.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195098792849:android:d73c349af8ccb07b34c030",
+        "android_client_info": {
+          "package_name": "br.com.diegosilva.housepy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195098792849-cm5qojstgl80dchm7v32n9sinthdv69q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.diegosilva.housepy",
+            "certificate_hash": "a441e325ad88b7402ed0a3f5f7cc2f1109793c77"
+          }
+        },
+        {
+          "client_id": "195098792849-nb2okl70k2jkc2ssafub1lmsk61nne62.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt4NcIQ00GvIn12pUD1Uv1CP1EipypxVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195098792849-nb2okl70k2jkc2ssafub1lmsk61nne62.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

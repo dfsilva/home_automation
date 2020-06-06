@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/store/user_store.dart';
 import 'package:housepy/utils/navigator.dart';
@@ -8,28 +9,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   final UserStore userStore;
+  FirebaseAuth _auth;
   StreamSubscription<StatusLogin> _statusLoginSubscription;
+  StreamSubscription _authSubscription;
   SharedPreferences _preferences;
 
-  UserService(this.userStore) {
-    this._statusLoginSubscription = userStore.statusSubject.listen((value) {
-      if (value == StatusLogin.logado) {
-        NavigatorUtils.nav.currentState.pushReplacementNamed("home");
-      } else {
-        NavigatorUtils.nav.currentState.pushReplacementNamed("login");
-      }
+  UserService(this.userStore, this._auth) {
+//    this._statusLoginSubscription = userStore.statusSubject.listen((value) {
+//      if (value == StatusLogin.logado) {
+//        NavigatorUtils.nav.currentState.pushReplacementNamed("home");
+//      } else {
+//        NavigatorUtils.nav.currentState.pushReplacementNamed("login");
+//      }
+//    });
+
+    _authSubscription = _auth.onAuthStateChanged.listen((userData) {
+
     });
+
     SharedPreferences.getInstance().then((value) {
       _preferences = value;
     });
   }
 
-  Future<User> entrarComEmailSenha(String email, String senha) async {
-    User usuarioLogado = User(name: "Diego Ferreira", email: email);
-    _preferences.setString("usuario_logado", jsonEncode(usuarioLogado.toJson()));
-    userStore.setUsuario(usuarioLogado);
-    userStore.setStatusLogin(StatusLogin.logado);
-    return Future.value(usuarioLogado);
+  Future<AuthResult> signin(String email, String password) async {
+    return _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   Future<bool> recuperarSenha(String email) async {

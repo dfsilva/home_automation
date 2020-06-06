@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/store/device_store.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http_utils.dart' as http;
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class DeviceService {

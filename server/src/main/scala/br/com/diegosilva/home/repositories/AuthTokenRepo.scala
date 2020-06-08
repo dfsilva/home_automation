@@ -21,5 +21,13 @@ class AuthTokenTable(tag: Tag) extends Table[AuthToken](tag, Some("housepy"), "a
 }
 
 object AuthTokenRepo {
-  val users = TableQuery[AuthTokenTable]
+  val authTokens = TableQuery[AuthTokenTable]
+
+  def getByToken(token: String): DBIO[Option[AuthToken]] = {
+    authTokens.filter(_.token === token).result.headOption
+  }
+
+  def add(authToken: AuthToken): DBIO[AuthToken] = {
+    authTokens returning authTokens += authToken
+  }
 }

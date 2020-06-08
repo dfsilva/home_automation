@@ -8,8 +8,8 @@ resolvers += Resolver.mavenLocal
 
 libraryDependencies ++= {
   val akka = "com.typesafe.akka"
-  val akkaV = "2.6.5"
-  val akkaHttpV = "10.1.11"
+  val akkaV = "2.6.6"
+  val akkaHttpV = "10.1.12"
   val slickV = "3.3.2"
   Seq(
     akka %% "akka-actor-typed" % akkaV,

@@ -1,5 +1,7 @@
 package br.com.diegosilva.home.api
 
+import java.time.LocalDateTime
+
 import akka.NotUsed
 import akka.actor.typed.ActorRef
 import akka.actor.typed.scaladsl.ActorContext
@@ -17,7 +19,8 @@ import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
 import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
-import br.com.diegosilva.home.repositories.{Device, DeviceRepo}
+import br.com.diegosilva.home.repositories.{AuthToken, AuthTokenRepo, Device, DeviceRepo}
+import com.google.firebase.auth.{FirebaseAuth, FirebaseToken}
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
@@ -40,12 +43,29 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   private val sharding = ClusterSharding(context.system)
   protected val db = DatabasePool(context.system).database
 
+  private def getAuthToken(token: String): Future[AuthToken] = {
+    db.run {
+      AuthTokenRepo.getByToken(token)
+    } map { result =>
+      result match {
+        case Some(authToken) => authToken
+        case None => {
+          val ftoken: FirebaseToken = FirebaseAuth.getInstance.verifyIdToken(token)
+          db.run(AuthTokenRepo.add(AuthToken(userId = ftoken.getUid,
+            token = token,
+            created = LocalDateTime.now(),
+            expires = LocalDateTime.now().plusMinutes(30))))
+        }
+      }
+    }
+  }
+
   private def isTokenExpired(token: String): Boolean = false
 
   private def isTokenValid(token: String): Boolean = true
 
   private def getAuthData(token: String): Map[String, String] = {
-    Map("token" -> "lkfajskd", "uid" -> "fasdfa")
+
   }
 
   private def authenticated: Directive1[Map[String, Any]] =

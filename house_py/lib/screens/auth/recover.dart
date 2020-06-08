@@ -31,7 +31,7 @@ class RecoverScreenState extends State<RecoverScreen> {
   _recover() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      _userService.recuperarSenha(_email).then((result) {
+      _userService.recovery(_email).then((result) {
         showInfo("Senha enviada com sucesso!");
         Navigator.of(context).pop();
       }).catchError((error) {

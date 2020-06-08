@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:housepy/screens/auth/splash.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MultiProvider(
         providers: [
           Provider<UserService>(
-            create: (_) => UserService(UserStore()),
+            create: (_) => UserService(UserStore(), FirebaseAuth.instance),
             dispose: (ctx, userService) {
               userService.dispose();
             },

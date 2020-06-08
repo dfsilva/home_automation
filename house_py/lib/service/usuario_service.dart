@@ -1,34 +1,40 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/store/user_store.dart';
+import 'package:housepy/utils/http_utils.dart';
+import 'package:housepy/utils/message.dart';
 import 'package:housepy/utils/navigator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:housepy/utils/shared_prefs.dart';
 
 class UserService {
-  final UserStore userStore;
-  FirebaseAuth _auth;
-  StreamSubscription<StatusLogin> _statusLoginSubscription;
+  final UserStore store;
+  final FirebaseAuth _auth;
   StreamSubscription _authSubscription;
-  SharedPreferences _preferences;
 
-  UserService(this.userStore, this._auth) {
-//    this._statusLoginSubscription = userStore.statusSubject.listen((value) {
-//      if (value == StatusLogin.logado) {
-//        NavigatorUtils.nav.currentState.pushReplacementNamed("home");
-//      } else {
-//        NavigatorUtils.nav.currentState.pushReplacementNamed("login");
-//      }
-//    });
+  UserService(this.store, this._auth) {
+    subscribeAuth();
+  }
 
+  subscribeAuth() {
     _authSubscription = _auth.onAuthStateChanged.listen((userData) {
-
-    });
-
-    SharedPreferences.getInstance().then((value) {
-      _preferences = value;
+      if (userData == null) {
+        NavigatorUtils.nav.currentState.pushReplacementNamed("login");
+      } else {
+        if (store.usuario == null || store.usuario.uid == null) {
+          userData.getIdToken().then((idToken) {
+            Prefs.save(Prefs.user_token_key, idToken.token);
+            getUserByUid(userData.uid).then((user) {
+              store.setUsuario(user);
+              NavigatorUtils.nav.currentState.pushReplacementNamed("home");
+            }).catchError((error) {
+              showErrorException("Tivemos um problema ao recuperar os dados do usuário");
+              NavigatorUtils.nav.currentState.pushReplacementNamed("login");
+            });
+          });
+        }
+      }
     });
   }
 
@@ -36,37 +42,36 @@ class UserService {
     return _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
-  Future<bool> recuperarSenha(String email) async {
-    return Future.delayed(Duration(seconds: 5), () {
-      return Future.value(true);
-    });
+  Future<void> recovery(String email) async {
+    return _auth.sendPasswordResetEmail(email: email);
   }
 
-  Future<User> criarUsuario(String nome, String email, String senha) {
-    return Future.value(User(name: nome, email: email));
+  Future<User> create(User user, String password) {
+    _authSubscription?.cancel();
+    return _auth.createUserWithEmailAndPassword(email: user.email, password: password).then((authResult) async {
+      User created = user.copyWith(uid: authResult.user.uid);
+      return createApiUser(created).then((value) {
+        subscribeAuth();
+        return created;
+      });
+    });
   }
 
   Future<void> logout() {
-    _preferences.remove("usuario_logado");
-    userStore.setStatusLogin(StatusLogin.nao_logado);
+    Prefs.removeKey(Prefs.user_token_key);
+    Prefs.removeKey(Prefs.logged_user);
+    return _auth.signOut();
   }
 
-  Future<User> verificarUsuarioAutenticado() async {
-    return Future.delayed(Duration(seconds: 5), () {
-      String usuarioStr = _preferences.getString("usuario_logado");
-      if (usuarioStr != null) {
-        User usuarioLogado = User.fromJson(jsonDecode(usuarioStr));
-        userStore.setUsuario(usuarioLogado);
-        userStore.setStatusLogin(StatusLogin.logado);
-        return usuarioLogado;
-      } else {
-        userStore.setStatusLogin(StatusLogin.nao_logado);
-        return null;
-      }
-    });
+  Future<User> getUserByUid(String uid) {
+    return Api.doGet(uri: "/users/$uid").then((json) => User.fromJson(json));
+  }
+
+  Future<User> createApiUser(User user) {
+    return Api.doPost(uri: "/users/", bodyParams: user.toJson()).then((json) => User.fromJson(json));
   }
 
   void dispose() {
-    _statusLoginSubscription.cancel();
+    _authSubscription?.cancel();
   }
 }

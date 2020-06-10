@@ -1,6 +1,7 @@
 package br.com.diegosilva.home.api
 
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 import akka.NotUsed
 import akka.actor.typed.ActorRef
@@ -20,15 +21,14 @@ import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
 import br.com.diegosilva.home.repositories.{AuthToken, AuthTokenRepo, Device, DeviceRepo}
-import com.google.firebase.auth.{FirebaseAuth, FirebaseToken}
+import com.google.firebase.auth.FirebaseAuth
+import slick.dbio.DBIOAction
 
 import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.util.{Failure, Success, Try}
 
 object AutomationRoutes {
-
-  final val Name = "http-api"
-  final val AccessTokenHeaderName = "X-Access-Token"
 
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
 
@@ -44,37 +44,42 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   protected val db = DatabasePool(context.system).database
 
   private def getAuthToken(token: String): Future[AuthToken] = {
-    db.run {
-      AuthTokenRepo.getByToken(token)
-    } map { result =>
-      result match {
-        case Some(authToken) => authToken
-        case None => {
-          val ftoken: FirebaseToken = FirebaseAuth.getInstance.verifyIdToken(token)
-          db.run(AuthTokenRepo.add(AuthToken(userId = ftoken.getUid,
-            token = token,
-            created = LocalDateTime.now(),
-            expires = LocalDateTime.now().plusMinutes(30))))
+    val action = for {
+      authOptToken <- AuthTokenRepo.getByToken(token)
+      authToken <- authOptToken match {
+        case Some(authT) if authT.expires.isAfter(LocalDateTime.now()) => DBIOAction.successful(authT)
+        case Some(authT) if authT.expires.isBefore(LocalDateTime.now()) => {
+          Try(FirebaseAuth.getInstance.verifyIdToken(token)) match {
+            case Success(_) => {
+              val updated = authT.copy(expires = LocalDateTime.now.plus(30, ChronoUnit.MINUTES))
+              for (_ <- AuthTokenRepo.insertOrUpdate(updated)) yield authT
+            }
+            case Failure(ex) => DBIOAction.failed(ex)
+          }
+        }
+        case _ => {
+          Try(FirebaseAuth.getInstance.verifyIdToken(token)) match {
+            case Success(ftoken) => {
+              val authToken = AuthToken(ftoken.getUid, token, LocalDateTime.now(), LocalDateTime.now.plus(30, ChronoUnit.MINUTES))
+              for (_ <- AuthTokenRepo.insertOrUpdate(authToken)) yield authToken
+            }
+            case Failure(ex) => DBIOAction.failed(ex)
+          }
         }
       }
-    }
+    } yield authToken
+    db.run(action)
   }
 
-  private def isTokenExpired(token: String): Boolean = false
 
-  private def isTokenValid(token: String): Boolean = true
-
-  private def getAuthData(token: String): Map[String, String] = {
-
-  }
-
-  private def authenticated: Directive1[Map[String, Any]] =
+  private def authenticated: Directive1[AuthToken] =
     optionalHeaderValueByName("Authorization").flatMap {
-      case Some(token) if isTokenExpired(token) =>
-        complete(StatusCodes.Unauthorized -> "Token expired.")
-      case Some(token) if isTokenValid(token) =>
-        provide(getAuthData(token))
-      case _ => complete(StatusCodes.Unauthorized)
+      case Some(token) =>
+        onComplete(getAuthToken(token)) flatMap {
+          case Success(authToken) => provide(authToken)
+          case Failure(_) => complete(StatusCodes.Unauthorized -> "Invalid token")
+        }
+      case _ => complete(StatusCodes.Unauthorized -> "You have to be autenticated")
     }
 
   import AutomationRoutes._

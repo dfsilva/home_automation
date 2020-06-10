@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import br.com.diegosilva.home.database.PostgresProfile.api._
 import slick.lifted.ProvenShape
 
-case class AuthToken(userId: String, token: String, created: LocalDateTime, expires: LocalDateTime)
+case class AuthToken(userId: String, token: String, created: LocalDateTime, var expires: LocalDateTime)
 
 class AuthTokenTable(tag: Tag) extends Table[AuthToken](tag, Some("housepy"), "auth_tokens") {
 
@@ -30,4 +30,6 @@ object AuthTokenRepo {
   def add(authToken: AuthToken): DBIO[AuthToken] = {
     authTokens returning authTokens += authToken
   }
+
+  def insertOrUpdate(authToken: AuthToken): DBIO[Int] = authTokens.insertOrUpdate(authToken)
 }

@@ -20,7 +20,7 @@ import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
 import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
-import br.com.diegosilva.home.repositories.{AuthToken, AuthTokenRepo, Device, DeviceRepo}
+import br.com.diegosilva.home.repositories._
 import com.google.firebase.auth.FirebaseAuth
 import slick.dbio.DBIOAction
 
@@ -32,7 +32,7 @@ object AutomationRoutes {
 
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
 
-  final case class AddDevice(name: String, devType: String)
+  final case class AddDevice(name: String, devType: String, address: Int)
 
 }
 
@@ -49,7 +49,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       authToken <- authOptToken match {
         case Some(authT) if authT.expires.isAfter(LocalDateTime.now()) => DBIOAction.successful(authT)
         case Some(authT) if authT.expires.isBefore(LocalDateTime.now()) => {
-          Try(FirebaseAuth.getInstance.verifyIdToken(token)) match {
+          Try(FirebaseAuth.getInstance.verifyIdToken(token.split(" ").last)) match {
             case Success(_) => {
               val updated = authT.copy(expires = LocalDateTime.now.plus(30, ChronoUnit.MINUTES))
               for (_ <- AuthTokenRepo.insertOrUpdate(updated)) yield authT
@@ -88,6 +88,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   import akka.http.scaladsl.server.Directives._
   import spray.json._
 
+
   val routes: Route = {
     pathPrefix("api") {
       concat(
@@ -118,7 +119,33 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
                 post {
                   entity(as[AddDevice]) { data =>
                     complete(db.run {
-                      DeviceRepo.add(Device(name = data.name, devType = DeviceType.withName(data.devType), owner = ""))
+                      DeviceRepo.add(Device(name = data.name,
+                        address = data.address,
+                        devType = DeviceType.withName(data.devType),
+                        owner = authData.userId))
+                    })
+                  }
+                },
+                get {
+                  path("user" / Segment) { uid: String =>
+                    val action = for {
+                      devices <- DeviceRepo.devicesAndSensorsByUser(uid)
+                      dev <- DBIOAction.successful(devices.groupBy(_._1)
+                        .map(grouped => DeviceSensors(grouped._1, grouped._2
+                          .map(sensors => sensors._2.id))).toSeq)
+                    } yield dev
+
+                    //                    val action = DeviceRepo.devicesByUser(uid)
+
+                    //                    onComplete(db.run{
+                    //                      action
+                    //                    }){
+                    //                      case Success(value) => complete(value)
+                    //                      case Failure(ex)=> complete(StatusCodes.BadRequest, "ddfasd")
+                    //                    }
+
+                    complete(db.run {
+                      action
                     })
                   }
                 }
@@ -158,6 +185,9 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
             context.log.info("Enviando mensagem de conectado para usuario {}", userName)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
+          case _ => {
+            TextMessage.Strict("Mensagem não reconhecida")
+          }
         }
         .mapMaterializedValue({ wsHandler =>
           wsUser ! WsConnectionActor.Connect(wsHandler)
@@ -176,6 +206,8 @@ object JsonFormats {
   import spray.json._
   import DefaultJsonProtocol._
 
+  import collection.immutable._
+
   class EnumJsonConverter[T <: scala.Enumeration](enu: T) extends RootJsonFormat[T#Value] {
     override def write(obj: T#Value): JsValue = JsString(obj.toString)
 
@@ -187,12 +219,23 @@ object JsonFormats {
     }
   }
 
+
   implicit val enumConverter = new EnumJsonConverter(DeviceType)
-  implicit val iotMessage: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
+
+  implicit val iotMessageFormat: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
-  implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat2(AddDevice)
-  implicit val deviceFormat: RootJsonFormat[Device] = jsonFormat4(Device)
+  implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat3(AddDevice)
+
   implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
   implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)
+
+  implicit val deviceFormat: RootJsonFormat[Device] = jsonFormat5(Device)
+  implicit val deviceSeqFormat: RootJsonFormat[Seq[Device]] = immSeqFormat(deviceFormat)
+
+  implicit val sensorForemat: RootJsonFormat[Sensor] = jsonFormat4(Sensor)
+  implicit val sensorsSeqFormat: RootJsonFormat[Seq[Sensor]] = immSeqFormat(sensorForemat)
+
+  implicit val deviceSensorFormat: RootJsonFormat[DeviceSensors] = jsonFormat2(DeviceSensors)
+  implicit val deviceSensorsSeqFormat: RootJsonFormat[Seq[DeviceSensors]] = immSeqFormat(deviceSensorFormat)
 
 }

@@ -9,7 +9,7 @@ case class AuthToken(userId: String, token: String, created: LocalDateTime, var 
 
 class AuthTokenTable(tag: Tag) extends Table[AuthToken](tag, Some("housepy"), "auth_tokens") {
 
-  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
+  def userId: Rep[String] = column[String]("user_id")
 
   def token: Rep[String] = column[String]("token")
 
@@ -18,6 +18,8 @@ class AuthTokenTable(tag: Tag) extends Table[AuthToken](tag, Some("housepy"), "a
   def expires: Rep[LocalDateTime] = column[LocalDateTime]("expires")
 
   def * : ProvenShape[AuthToken] = (userId, token, created, expires) <> (AuthToken.tupled, AuthToken.unapply)
+
+  def pk = primaryKey("pk_auth_token", (userId, token))
 }
 
 object AuthTokenRepo {

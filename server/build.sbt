@@ -28,6 +28,7 @@ libraryDependencies ++= {
     "org.scream3r" % "jssc" % "2.8.0",
     "com.google.api-client" % "google-api-client" % "1.30.9",
     "com.google.firebase" % "firebase-admin" % "6.12.2",
+    "io.opencensus" % "opencensus-contrib-http-util" % "0.26.0",
     "com.github.tminglei" %% "slick-pg" % "0.19.0",
     "com.github.tminglei" %% "slick-pg_spray-json" % "0.19.0",
 //    "com.bot4s" %% "telegram-core" % "4.4.0-RC2",

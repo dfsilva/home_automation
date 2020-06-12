@@ -1,7 +1,7 @@
 package br.com.diegosilva.home.api
 
 import akka.actor.CoordinatedShutdown
-import akka.actor.typed.ActorSystem
+import akka.actor.typed.{ActorSystem, SpawnProtocol}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
 import akka.{Done, actor => classic}

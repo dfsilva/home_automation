@@ -18,4 +18,8 @@ class UserTable(tag: Tag) extends Table[User](tag, Some("housepy"), "users") {
 
 object UserRepo {
   val users = TableQuery[UserTable]
+
+  def load(uid: String): DBIO[Option[User]] = {
+    users.filter(_.uid === uid).result.headOption
+  }
 }

@@ -24,7 +24,7 @@ object WsConnectionActor {
 
 }
 
-class WsConnectionActor(val userName: String) {
+class WsConnectionActor(val userId: String) {
 
   private var actorRef: ActorRef[WsConnectionActor.Command] = null
 
@@ -45,7 +45,7 @@ class WsConnectionActor(val userName: String) {
         Behaviors.same
       case WsConnectionActor.Connect(actorRef) =>
         this.actorRef = actorRef
-        this.actorRef ! WsConnectionActor.Connected(message = "conectado", userName = userName)
+        this.actorRef ! WsConnectionActor.Connected(message = "conectado", userName = userId)
         Behaviors.same
       case WsConnectionActor.Disconnected => {
         devices foreach { entity =>

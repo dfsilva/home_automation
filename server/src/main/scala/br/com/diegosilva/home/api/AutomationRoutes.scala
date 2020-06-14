@@ -17,22 +17,22 @@ import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
 import br.com.diegosilva.home.actors.WsConnectionActor._
 import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
-import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
-import br.com.diegosilva.home.repositories.{AuthToken, AuthTokenRepo, Device, DeviceRepo}
+import br.com.diegosilva.home.ext.SpawnExtension
+import br.com.diegosilva.home.repositories._
 import com.google.firebase.auth.FirebaseAuth
 import slick.dbio.DBIOAction
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success, Try}
 
 object AutomationRoutes {
 
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
 
-  final case class AddDevice(name: String, devType: String)
+  final case class AddDevice(name: String, devType: String, address: Int)
 
 }
 
@@ -42,6 +42,7 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
   implicit val executionContext = context.executionContext
   private val sharding = ClusterSharding(context.system)
   protected val db = DatabasePool(context.system).database
+  protected val spawn = SpawnExtension(context.system)
 
   private def getAuthToken(token: String): Future[AuthToken] = {
     val action = for {
@@ -71,13 +72,12 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
     db.run(action)
   }
 
-
   private def authenticated: Directive1[AuthToken] =
     optionalHeaderValueByName("Authorization").flatMap {
       case Some(token) =>
-        onComplete(getAuthToken(token)) flatMap {
+        onComplete(getAuthToken(token.split(" ").last)) flatMap {
           case Success(authToken) => provide(authToken)
-          case Failure(_) => complete(StatusCodes.Unauthorized -> "Invalid token")
+          case Failure(ex) => complete(StatusCodes.Unauthorized -> s"Invalid token ${ex.getMessage}")
         }
       case _ => complete(StatusCodes.Unauthorized -> "You have to be autenticated")
     }
@@ -95,6 +95,9 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
           path("health") {
             complete(JsObject("message" -> JsString("Hello from " + context.system.address)))
           }
+        },
+        path("ws" / Remaining) { userName: String =>
+          handleWebSocketMessages(wsUser(userName, context))
         },
         authenticated { authData =>
           concat(
@@ -118,14 +121,38 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
                 post {
                   entity(as[AddDevice]) { data =>
                     complete(db.run {
-                      DeviceRepo.add(Device(name = data.name, devType = DeviceType.withName(data.devType), owner = ""))
+                      DeviceRepo.add(Device(name = data.name,
+                        address = data.address,
+                        devType = DeviceType.withName(data.devType),
+                        owner = authData.userId))
+                    })
+                  }
+                },
+                get {
+                  path("user" / Segment) { uid: String =>
+                    val action = for {
+                      devices <- DeviceRepo.devicesAndSensorsByUser(uid)
+                      dev <- DBIOAction.successful(devices.groupBy(_._1)
+                        .map(grouped => DeviceSensors(grouped._1, grouped._2
+                          .map(sensors => sensors._2.id))).toSeq)
+                    } yield dev
+                    complete(db.run {
+                      action
                     })
                   }
                 }
               )
             },
-            path("ws" / Remaining) { userName: String =>
-              handleWebSocketMessages(wsUser(userName, context))
+            pathPrefix("users") {
+              concat(
+                get {
+                  path(Segment) { uid: String =>
+                    complete(db.run {
+                      UserRepo.load(uid)
+                    })
+                  }
+                }
+              )
             }
           )
         }
@@ -133,9 +160,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
     }
   }
 
-  private def wsUser(userName: String, context: ActorContext[_]): Flow[Message, Message, NotUsed] = {
+  private def wsUser(userId: String, context: ActorContext[_]): Flow[Message, Message, NotUsed] = {
 
-    val wsUser: ActorRef[WsConnectionActor.Command] = context.spawnAnonymous(new WsConnectionActor(userName).create())
+    //    val wsUser: ActorRef[WsConnectionActor.Command] = context.spawnAnonymous(new WsConnectionActor(userId).create())
+
+    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
@@ -145,18 +174,23 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
     val source: Source[Message, NotUsed] =
       ActorSource.actorRef[WsConnectionActor.Command](completionMatcher = {
-        case Disconnected =>
+        case Disconnected => {
+          println("disconected")
+        }
       }, failureMatcher = {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
           case c: Notify => {
-            context.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userName)
+//            context.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userId)
             TextMessage.Strict(c.toJson.toString())
           }
           case c: Connected => {
-            context.log.info("Enviando mensagem de conectado para usuario {}", userName)
+//            context.log.info("Enviando mensagem de conectado para usuario {}", userId)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
+          }
+          case _ => {
+            TextMessage.Strict("Mensagem não reconhecida")
           }
         }
         .mapMaterializedValue({ wsHandler =>
@@ -171,28 +205,3 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
 
 }
 
-object JsonFormats {
-
-  import spray.json._
-  import DefaultJsonProtocol._
-
-  class EnumJsonConverter[T <: scala.Enumeration](enu: T) extends RootJsonFormat[T#Value] {
-    override def write(obj: T#Value): JsValue = JsString(obj.toString)
-
-    override def read(json: JsValue): T#Value = {
-      json match {
-        case JsString(txt) => enu.withName(txt)
-        case somethingElse => throw DeserializationException(s"Expected a value from enum $enu instead of $somethingElse")
-      }
-    }
-  }
-
-  implicit val enumConverter = new EnumJsonConverter(DeviceType)
-  implicit val iotMessage: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
-  implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
-  implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat2(AddDevice)
-  implicit val deviceFormat: RootJsonFormat[Device] = jsonFormat4(Device)
-  implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
-  implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)
-
-}

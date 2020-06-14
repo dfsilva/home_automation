@@ -30,14 +30,10 @@ class UserService extends BaseService<UserStore> {
             await Prefs.saveString(Prefs.user_token_key, idToken.token);
             getUserByUid(userData.uid).then((user) async {
               bus().send(UserLogged(user));
-              print("Entrando home.....");
-              print("Entrando home.....");
-              print("Entrando home.....");
               NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.HOME);
             }).catchError((error) async {
               showErrorException("Tivemos um problema ao recuperar os dados do usuário");
               NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
-//              await NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
             });
           });
         }
@@ -46,7 +42,9 @@ class UserService extends BaseService<UserStore> {
   }
 
   Future<AuthResult> signin(String email, String password) async {
-    return _auth.signInWithEmailAndPassword(email: email, password: password);
+    bus().send(ShowHud(text: "Entrando..."));
+    return _auth.signInWithEmailAndPassword(email: email, password: password)
+        .whenComplete(() => bus().send(HideHud()));
   }
 
   Future<void> recovery(String email) async {
@@ -54,6 +52,7 @@ class UserService extends BaseService<UserStore> {
   }
 
   Future<User> create(User user, String password) {
+    bus().send(ShowHud(text: "Criando..."));
     _authSubscription?.cancel();
     return _auth.createUserWithEmailAndPassword(email: user.email, password: password).then((authResult) async {
       User created = user.copyWith(uid: authResult.user.uid);
@@ -61,7 +60,7 @@ class UserService extends BaseService<UserStore> {
         subscribeAuth();
         return created;
       });
-    });
+    }).whenComplete(() => bus().send(HideHud()));
   }
 
   Future<void> logout() {

@@ -13,24 +13,24 @@ mixin _$ConnectionStore on _ConnectionStore, Store {
 
   @override
   bool get connected {
-    _$connectedAtom.context.enforceReadPolicy(_$connectedAtom);
-    _$connectedAtom.reportObserved();
+    _$connectedAtom.reportRead();
     return super.connected;
   }
 
   @override
   set connected(bool value) {
-    _$connectedAtom.context.conditionallyRunInAction(() {
+    _$connectedAtom.reportWrite(value, super.connected, () {
       super.connected = value;
-      _$connectedAtom.reportChanged();
-    }, _$connectedAtom, name: '${_$connectedAtom.name}_set');
+    });
   }
 
-  final _$_ConnectionStoreActionController = ActionController(name: '_ConnectionStore');
+  final _$_ConnectionStoreActionController =
+      ActionController(name: '_ConnectionStore');
 
   @override
   dynamic setConnected(bool connected) {
-    final _$actionInfo = _$_ConnectionStoreActionController.startAction();
+    final _$actionInfo = _$_ConnectionStoreActionController.startAction(
+        name: '_ConnectionStore.setConnected');
     try {
       return super.setConnected(connected);
     } finally {
@@ -40,7 +40,8 @@ mixin _$ConnectionStore on _ConnectionStore, Store {
 
   @override
   String toString() {
-    final string = 'connected: ${connected.toString()}';
-    return '{$string}';
+    return '''
+connected: ${connected}
+    ''';
   }
 }

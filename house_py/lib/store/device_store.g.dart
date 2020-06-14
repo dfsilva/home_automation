@@ -13,24 +13,23 @@ mixin _$DeviceStore on _DeviceStore, Store {
 
   @override
   ObservableMap<String, DeviceModel> get dashboardDevices {
-    _$dashboardDevicesAtom.context.enforceReadPolicy(_$dashboardDevicesAtom);
-    _$dashboardDevicesAtom.reportObserved();
+    _$dashboardDevicesAtom.reportRead();
     return super.dashboardDevices;
   }
 
   @override
   set dashboardDevices(ObservableMap<String, DeviceModel> value) {
-    _$dashboardDevicesAtom.context.conditionallyRunInAction(() {
+    _$dashboardDevicesAtom.reportWrite(value, super.dashboardDevices, () {
       super.dashboardDevices = value;
-      _$dashboardDevicesAtom.reportChanged();
-    }, _$dashboardDevicesAtom, name: '${_$dashboardDevicesAtom.name}_set');
+    });
   }
 
   final _$_DeviceStoreActionController = ActionController(name: '_DeviceStore');
 
   @override
   dynamic updateLecture(Lecture _lecture) {
-    final _$actionInfo = _$_DeviceStoreActionController.startAction();
+    final _$actionInfo = _$_DeviceStoreActionController.startAction(
+        name: '_DeviceStore.updateLecture');
     try {
       return super.updateLecture(_lecture);
     } finally {
@@ -40,7 +39,8 @@ mixin _$DeviceStore on _DeviceStore, Store {
 
   @override
   dynamic changeSensorValue(String deviceId, String sensor, dynamic value) {
-    final _$actionInfo = _$_DeviceStoreActionController.startAction();
+    final _$actionInfo = _$_DeviceStoreActionController.startAction(
+        name: '_DeviceStore.changeSensorValue');
     try {
       return super.changeSensorValue(deviceId, sensor, value);
     } finally {
@@ -50,7 +50,8 @@ mixin _$DeviceStore on _DeviceStore, Store {
 
   @override
   String toString() {
-    final string = 'dashboardDevices: ${dashboardDevices.toString()}';
-    return '{$string}';
+    return '''
+dashboardDevices: ${dashboardDevices}
+    ''';
   }
 }

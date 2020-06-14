@@ -29,3 +29,13 @@ class UserLogged {
 
 @immutable
 class UserLogout {}
+
+@immutable
+class ShowHud {
+  final String text;
+
+  ShowHud({this.text = "Carregando..."});
+}
+
+@immutable
+class HideHud {}

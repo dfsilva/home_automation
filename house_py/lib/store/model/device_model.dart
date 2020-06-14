@@ -6,7 +6,6 @@ part 'device_model.g.dart';
 class DeviceModel = _DeviceModel with _$DeviceModel;
 
 abstract class _DeviceModel with Store {
-
   @observable
   String id;
 
@@ -20,5 +19,4 @@ abstract class _DeviceModel with Store {
   ObservableList<SensorModel> sensors;
 
   _DeviceModel({this.id, this.title, this.order, this.sensors});
-
 }

@@ -1,49 +1,72 @@
 import 'dart:convert';
 
+import 'package:housepy/bus/actions.dart';
 import 'package:housepy/dto/websocket.dart';
-import 'package:housepy/service/device_service.dart';
+import 'package:housepy/service/base_service.dart';
 import 'package:housepy/store/connection_store.dart';
+import 'package:housepy/utils/http_utils.dart';
 import 'package:web_socket_channel/io.dart';
 
-class ConnectionService {
-  final DeviceService deviceService;
-  final ConnectionStore connectionStore;
-  IOWebSocketChannel channel;
+class ConnectionService extends BaseService<ConnectionStore> {
+  IOWebSocketChannel _channel;
 
-  ConnectionService(this.deviceService, this.connectionStore);
+  ConnectionService(rxBus) : super(rxBus, ConnectionStore());
 
-  Future<void> connect() {
-    if (!connectionStore.connected) {
+  Future<void> connect(String uid) {
+    if (!store().connected) {
       try {
-        channel?.sink?.close();
+        _channel?.sink?.close();
         //      channel = HtmlWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diegofff');
-        channel = IOWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diego');
-        channel.stream.listen((data) {
+        _channel = IOWebSocketChannel.connect('ws://${Api.HOST}/api/ws/$uid');
+        _channel.stream.listen((data) {
           dynamic result = json.decode(data);
           print(result);
           WebSocketMessage wsMessage = WebSocketMessage.fromJson(result);
           if (wsMessage.message is Lecture) {
-            if(connectionStore.connected){
-              deviceService.onReceiveLecture(wsMessage.message);
+            if (store().connected) {
+              bus().send(ReceiveLecture(wsMessage.message));
             }
           } else {
             if (wsMessage.message.toString().compareTo("conectado") == 0) {
-              connectionStore.setConnected(true);
-              deviceService.onConected(channel);
+              bus().send(WsConnected(_channel));
             }
           }
         }, onDone: () {
-          connectionStore.setConnected(false);
-          Future.delayed(Duration(seconds: 10), connect);
+          bus().send(WsDisconected);
+          Future.delayed(Duration(seconds: 10), () => connect(uid));
         });
       } catch (e) {
-        connectionStore.setConnected(false);
-        Future.delayed(Duration(seconds: 10), connect);
+        bus().send(WsDisconected);
+        Future.delayed(Duration(seconds: 10), () => connect(uid));
       }
     }
   }
 
+  void close() {
+    _channel?.sink?.close();
+  }
+
+  @override
   void dispose() {
-    channel?.sink?.close();
+    close();
+  }
+
+  @override
+  bool filter(event) => [WsDisconected, WsConnected, UserLogged, UserLogout].contains(event.runtimeType);
+
+  @override
+  void onReceiveMessage(msg) {
+    if (msg is WsDisconected) {
+      store().setConnected(false);
+    }
+    if (msg is WsConnected) {
+      store().setConnected(true);
+    }
+    if (msg is UserLogged) {
+      connect(msg.user.uid);
+    }
+    if (msg is UserLogout) {
+      close();
+    }
   }
 }

@@ -67,8 +67,7 @@ mixin _$UserStore on _UserStore, Store {
 
   @override
   String toString() {
-    final string =
-        'usuario: ${usuario.toString()},statusLogin: ${statusLogin.toString()}';
+    final string = 'usuario: ${usuario.toString()},statusLogin: ${statusLogin.toString()}';
     return '{$string}';
   }
 }

@@ -28,19 +28,19 @@ class SensorView extends StatelessWidget {
     if (type == SensorType.PRESENCE) {
       return PresenseView(sensor: this.sensor);
     }
-    if(type == SensorType.LIGA_DESLIGA){
+    if (type == SensorType.LIGA_DESLIGA) {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 
-    if(type == SensorType.LIGA_DESLIGA){
+    if (type == SensorType.LIGA_DESLIGA) {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 
-    if(type == "op1"){
+    if (type == "op1") {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 
-    if(type == "op2"){
+    if (type == "op2") {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 

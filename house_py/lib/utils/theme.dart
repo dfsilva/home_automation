@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
 import 'letter_spacing.dart';
 
-abstract class HousePyTheme{
+abstract class HousePyTheme {
   static ThemeData buildTheme() {
     final base = ThemeData.dark();
     return ThemeData(
@@ -27,31 +27,29 @@ abstract class HousePyTheme{
   static TextTheme _buildRallyTextTheme(TextTheme base) {
     return base
         .copyWith(
-      bodyText2: GoogleFonts.robotoCondensed(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        letterSpacing: letterSpacingOrNone(0.5),
-      ),
-      bodyText1: GoogleFonts.eczar(
-        fontSize: 40,
-        fontWeight: FontWeight.w400,
-        letterSpacing: letterSpacingOrNone(1.4),
-      ),
-      button: GoogleFonts.robotoCondensed(
-        fontWeight: FontWeight.w700,
-        letterSpacing: letterSpacingOrNone(2.8),
-      ),
-      headline5: GoogleFonts.eczar(
-        fontSize: 40,
-        fontWeight: FontWeight.w600,
-        letterSpacing: letterSpacingOrNone(1.4),
-      ),
-    )
+          bodyText2: GoogleFonts.robotoCondensed(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            letterSpacing: letterSpacingOrNone(0.5),
+          ),
+          bodyText1: GoogleFonts.eczar(
+            fontSize: 40,
+            fontWeight: FontWeight.w400,
+            letterSpacing: letterSpacingOrNone(1.4),
+          ),
+          button: GoogleFonts.robotoCondensed(
+            fontWeight: FontWeight.w700,
+            letterSpacing: letterSpacingOrNone(2.8),
+          ),
+          headline5: GoogleFonts.eczar(
+            fontSize: 40,
+            fontWeight: FontWeight.w600,
+            letterSpacing: letterSpacingOrNone(1.4),
+          ),
+        )
         .apply(
-      displayColor: Colors.white,
-      bodyColor: Colors.white,
-    );
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        );
   }
 }
-
-

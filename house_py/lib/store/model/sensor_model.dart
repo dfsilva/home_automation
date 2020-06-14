@@ -5,7 +5,6 @@ part 'sensor_model.g.dart';
 class SensorModel = _SensorModel with _$SensorModel;
 
 abstract class _SensorModel with Store {
-
   @observable
   String title;
 
@@ -26,7 +25,7 @@ abstract class _SensorModel with Store {
     if (latestValues == null) {
       latestValues = [_value].asObservable();
     } else {
-      if(latestValues.length > 20){
+      if (latestValues.length > 20) {
         latestValues.removeAt(0);
       }
       latestValues.add(_value);

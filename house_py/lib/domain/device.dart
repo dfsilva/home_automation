@@ -11,6 +11,7 @@ class Device {
   }
 
   static fromJson(Map<String, Object> json) {
-    return Device(nome: json["nome"], descricao: json["descricao"], usuario: json["usuario"], sensors: json["sensors"] as List);
+    return Device(
+        nome: json["nome"], descricao: json["descricao"], usuario: json["usuario"], sensors: json["sensors"] as List);
   }
 }

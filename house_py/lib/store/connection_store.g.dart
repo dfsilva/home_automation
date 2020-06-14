@@ -26,8 +26,7 @@ mixin _$ConnectionStore on _ConnectionStore, Store {
     }, _$connectedAtom, name: '${_$connectedAtom.name}_set');
   }
 
-  final _$_ConnectionStoreActionController =
-      ActionController(name: '_ConnectionStore');
+  final _$_ConnectionStoreActionController = ActionController(name: '_ConnectionStore');
 
   @override
   dynamic setConnected(bool connected) {

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/service/device_service.dart';
+import 'package:housepy/service/service_locator.dart';
 import 'package:housepy/store/model/device_model.dart';
 import 'package:housepy/store/model/sensor_model.dart';
-import 'package:provider/provider.dart';
 
 class OnOffView extends StatelessWidget {
   final SensorModel sensor;
   final DeviceModel device;
-  DeviceService _deviceService;
+  DeviceService _deviceService = Services.get(DeviceService);
 
-  OnOffView({Key key, this.sensor, this.device}) :super(key: key);
+  OnOffView({Key key, this.sensor, this.device}) : super(key: key);
 
   _getIcon(bool value) {
     return value
@@ -23,15 +22,12 @@ class OnOffView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    this._deviceService = Provider.of<DeviceService>(context);
-
     return InkWell(
       onTap: () {
         this._deviceService.changeValue(Lecture(id: device.id, sensor: sensor.type, value: !sensor.value));
       },
       child: Observer(
-          builder: (ctx) =>
-              Row(
+          builder: (ctx) => Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -49,11 +45,10 @@ class OnOffView extends StatelessWidget {
                     ),
                   ),
                   Switch(
-                    value: sensor.value,
-                    onChanged: (value) {
+                      value: sensor.value,
+                      onChanged: (value) {
                         this._deviceService.changeValue(Lecture(id: device.id, sensor: sensor.type, value: value));
-                    }
-                  )
+                      })
                 ],
               )),
     );

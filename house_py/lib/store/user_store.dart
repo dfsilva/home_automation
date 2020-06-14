@@ -4,9 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 part 'user_store.g.dart';
 
-enum StatusLogin{
-  carregando, logado, nao_logado
-}
+enum StatusLogin { carregando, logado, nao_logado }
 
 class UserStore = _UserStore with _$UserStore;
 
@@ -30,5 +28,3 @@ abstract class _UserStore with Store {
     statusSubject.add(this.statusLogin);
   }
 }
-
-

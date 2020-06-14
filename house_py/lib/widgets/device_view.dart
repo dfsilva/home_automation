@@ -26,11 +26,11 @@ class DeviceListView extends StatelessWidget {
         Expanded(
           child: Container(
             child: ListView.separated(
-                separatorBuilder: (_, i)=> Divider(
-                  color: HousePyColors.dividerColor,
-                  height: 1,
-                  thickness: .5,
-                ),
+                separatorBuilder: (_, i) => Divider(
+                      color: HousePyColors.dividerColor,
+                      height: 1,
+                      thickness: .5,
+                    ),
                 shrinkWrap: true,
                 itemCount: this.device.sensors.length,
                 itemBuilder: (_, i) => SensorView(

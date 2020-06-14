@@ -189,8 +189,7 @@ class Sparkline extends StatelessWidget {
       maxHeight: fallbackHeight,
       child: new CustomPaint(
         size: Size.infinite,
-        painter: new _SparklinePainter(
-            data,
+        painter: new _SparklinePainter(data,
             lineWidth: lineWidth,
             lineColor: lineColor,
             lineGradient: lineGradient,
@@ -206,33 +205,31 @@ class Sparkline extends StatelessWidget {
             gridLineAmount: gridLineAmount,
             gridLineLabelColor: gridLineLabelColor,
             gridLineWidth: gridLineWidth,
-            labelPrefix: labelPrefix
-        ),
+            labelPrefix: labelPrefix),
       ),
     );
   }
 }
 
 class _SparklinePainter extends CustomPainter {
-  _SparklinePainter(
-      this.dataPoints, {
-        @required this.lineWidth,
-        @required this.lineColor,
-        this.lineGradient,
-        @required this.sharpCorners,
-        @required this.fillMode,
-        @required this.fillColor,
-        this.fillGradient,
-        @required this.pointsMode,
-        @required this.pointSize,
-        @required this.pointColor,
-        @required this.enableGridLines,
-        this.gridLineColor,
-        this.gridLineAmount,
-        this.gridLineWidth,
-        this.gridLineLabelColor,
-        this.labelPrefix
-      })  : _max = dataPoints.reduce(math.max),
+  _SparklinePainter(this.dataPoints,
+      {@required this.lineWidth,
+      @required this.lineColor,
+      this.lineGradient,
+      @required this.sharpCorners,
+      @required this.fillMode,
+      @required this.fillColor,
+      this.fillGradient,
+      @required this.pointsMode,
+      @required this.pointSize,
+      @required this.pointColor,
+      @required this.enableGridLines,
+      this.gridLineColor,
+      this.gridLineAmount,
+      this.gridLineWidth,
+      this.gridLineLabelColor,
+      this.labelPrefix})
+      : _max = dataPoints.reduce(math.max),
         _min = dataPoints.reduce(math.min);
 
   final List<double> dataPoints;
@@ -282,10 +279,7 @@ class _SparklinePainter extends CustomPainter {
         gridLineTextPainters.add(new TextPainter(
             text: new TextSpan(
                 text: labelPrefix + gridLineText,
-                style: new TextStyle(
-                    color: gridLineLabelColor,
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.bold)),
+                style: new TextStyle(color: gridLineLabelColor, fontSize: 10.0, fontWeight: FontWeight.bold)),
             textDirection: TextDirection.ltr));
         gridLineTextPainters[i].layout();
       }
@@ -319,12 +313,10 @@ class _SparklinePainter extends CustomPainter {
       // Draw grid lines
       for (int i = 0; i < gridLineAmount; i++) {
         gridLineY = (gridLineDist * i).round().toDouble();
-        canvas.drawLine(new Offset(0.0, gridLineY),
-            new Offset(width, gridLineY), gridPaint);
+        canvas.drawLine(new Offset(0.0, gridLineY), new Offset(width, gridLineY), gridPaint);
 
         // Label grid lines
-        gridLineTextPainters[i]
-            .paint(canvas, new Offset(width + 2.0, gridLineY - 6.0));
+        gridLineTextPainters[i].paint(canvas, new Offset(width + 2.0, gridLineY - 6.0));
       }
     }
 
@@ -332,8 +324,7 @@ class _SparklinePainter extends CustomPainter {
 
     for (int i = 0; i < dataPoints.length; i++) {
       double x = i * widthNormalizer + lineWidth / 2;
-      double y =
-          height - (dataPoints[i] - _min) * heightNormalizer + lineWidth / 2;
+      double y = height - (dataPoints[i] - _min) * heightNormalizer + lineWidth / 2;
 
       if (pointsMode == PointsMode.all) {
         points.add(new Offset(x, y));

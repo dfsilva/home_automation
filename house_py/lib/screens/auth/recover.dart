@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:housepy/service/service_locator.dart';
 import 'package:housepy/service/usuario_service.dart';
 import 'package:housepy/utils/message.dart';
-import 'package:provider/provider.dart';
 
 class RecoverScreen extends StatefulWidget {
   @override
@@ -14,7 +14,6 @@ class RecoverScreenState extends State<RecoverScreen> {
 
   String _email;
   FocusNode _focusEmail;
-
 
   @override
   void initState() {
@@ -43,7 +42,7 @@ class RecoverScreenState extends State<RecoverScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _userService = Provider.of<UserService>(context);
+    _userService = Services.get(UserService);
 
     return Scaffold(
       appBar: AppBar(

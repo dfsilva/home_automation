@@ -1,13 +1,15 @@
 class Sensor {
-  final String type;
+  final String id;
+  final String dataType;
+  final String name;
 
-  Sensor({this.type});
+  Sensor({this.id, this.dataType, this.name});
 
   Map<String, Object> toJson() {
-    return {"type": this.type};
+    return {"id": this.id, "dataType": this.dataType, "name": this.name};
   }
 
-  static fromJson(Map<String, Object> json) {
-    return Sensor(type: json["type"]);
+  static Sensor fromJson(Map<String, Object> json) {
+    return Sensor(id: json["id"]?.toString()?.trim(), dataType: json["dataType"], name: json["name"]);
   }
 }

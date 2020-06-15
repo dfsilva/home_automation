@@ -9,33 +9,18 @@ part of 'sensor_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$SensorModel on _SensorModel, Store {
-  final _$titleAtom = Atom(name: '_SensorModel.title');
+  final _$sensorAtom = Atom(name: '_SensorModel.sensor');
 
   @override
-  String get title {
-    _$titleAtom.reportRead();
-    return super.title;
+  Sensor get sensor {
+    _$sensorAtom.reportRead();
+    return super.sensor;
   }
 
   @override
-  set title(String value) {
-    _$titleAtom.reportWrite(value, super.title, () {
-      super.title = value;
-    });
-  }
-
-  final _$typeAtom = Atom(name: '_SensorModel.type');
-
-  @override
-  String get type {
-    _$typeAtom.reportRead();
-    return super.type;
-  }
-
-  @override
-  set type(String value) {
-    _$typeAtom.reportWrite(value, super.type, () {
-      super.type = value;
+  set sensor(Sensor value) {
+    _$sensorAtom.reportWrite(value, super.sensor, () {
+      super.sensor = value;
     });
   }
 
@@ -85,8 +70,7 @@ mixin _$SensorModel on _SensorModel, Store {
   @override
   String toString() {
     return '''
-title: ${title},
-type: ${type},
+sensor: ${sensor},
 value: ${value},
 latestValues: ${latestValues}
     ''';

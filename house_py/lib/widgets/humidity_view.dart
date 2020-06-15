@@ -22,34 +22,38 @@ class HumidityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-        builder: (ctx) => Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _getIcon(sensor.value),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    child: Container(
-                      color: Colors.black12,
-                      height: 50,
-                      child: sensor.latestValues != null
-                          ? Sparkline(
-                              data: sensor.latestValues.map((v) => v as double).toList(), lineColor: Colors.grey)
-                          : SizedBox.shrink(),
+        builder: (ctx) => sensor.value != null
+            ? Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _getIcon(sensor.value),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      child: Container(
+                        color: Colors.black12,
+                        height: 50,
+                        child: sensor.latestValues != null
+                            ? Sparkline(
+                                data: sensor.latestValues.map((v) => v as double).toList(), lineColor: Colors.grey)
+                            : SizedBox.shrink(),
+                      ),
                     ),
                   ),
-                ),
-                Text(
-                  "${sensor.value} %",
-                  style: TextStyle(fontSize: 20),
-                ),
-                const Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey,
-                  size: 30,
-                )
-              ],
-            ));
+                  Text(
+                    "${sensor.value} %",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey,
+                    size: 30,
+                  )
+                ],
+              )
+            : Center(
+                child: Text("Carregando..."),
+              ));
   }
 }

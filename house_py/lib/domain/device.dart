@@ -1,17 +1,34 @@
-class Device {
-  final String nome;
-  final String descricao;
-  final String usuario;
-  final List<String> sensors;
+import 'package:housepy/domain/sensor.dart';
 
-  Device({this.nome, this.descricao, this.usuario, this.sensors});
+class Device {
+  final int id;
+  final String address;
+  final String name;
+  final String owner;
+  final String devType;
+  final List<Sensor> sensors;
+
+  Device({this.id, this.address, this.name, this.owner, this.devType, this.sensors});
 
   Map<String, Object> toJson() {
-    return {"nome": this.nome, "descricao": this.descricao, "usuario": this.usuario, "sensors": this.sensors};
+    return {
+      "id": this.id,
+      "address": this.address,
+      "name": this.name,
+      "owner": this.owner,
+      "devType": this.devType,
+      "sensors": sensors.map((e) => e.toJson()).toList()
+    };
   }
 
-  static fromJson(Map<String, Object> json) {
+  static Device fromJson(Map<String, Object> json) {
     return Device(
-        nome: json["nome"], descricao: json["descricao"], usuario: json["usuario"], sensors: json["sensors"] as List);
+        id: json["id"],
+        address: json["address"],
+        name: json["name"],
+        owner: json["owner"],
+        devType: json["devType"],
+        sensors:
+            json["sensors"] != null ? (json["sensors"] as List<dynamic>).map((e) => Sensor.fromJson(e)).toList() : []);
   }
 }

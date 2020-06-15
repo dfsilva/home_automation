@@ -16,7 +16,7 @@ class DeviceListView extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(device.title, style: TextStyle(fontSize: 30)),
+          child: Text(device.device.name, style: TextStyle(fontSize: 30)),
         ),
         Divider(
           color: HousePyColors.dividerColor,

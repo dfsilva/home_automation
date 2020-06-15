@@ -1,3 +1,4 @@
+import 'package:housepy/domain/sensor.dart';
 import 'package:mobx/mobx.dart';
 
 part 'sensor_model.g.dart';
@@ -5,11 +6,9 @@ part 'sensor_model.g.dart';
 class SensorModel = _SensorModel with _$SensorModel;
 
 abstract class _SensorModel with Store {
-  @observable
-  String title;
 
   @observable
-  String type;
+  Sensor sensor;
 
   @observable
   dynamic value;
@@ -17,7 +16,7 @@ abstract class _SensorModel with Store {
   @observable
   ObservableList<dynamic> latestValues;
 
-  _SensorModel({this.title, this.type, this.value, this.latestValues});
+  _SensorModel({this.sensor, this.value, this.latestValues});
 
   @action
   setValue(dynamic _value) {

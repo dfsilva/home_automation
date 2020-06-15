@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:housepy/bus/actions.dart';
 import 'package:housepy/bus/rx_bus.dart';
+import 'package:housepy/domain/device.dart';
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/service/base_service.dart';
@@ -13,23 +14,26 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class DeviceService extends BaseService<DeviceStore> {
   DeviceService(RxBus rxBus) : super(rxBus, DeviceStore());
 
-  User user;
+  User _loggedUser;
+  WebSocketChannel _wsChannel;
 
   Future<Map> changeValue(Lecture lecture) async {
     store().changeSensorValue(lecture.id, lecture.sensor, lecture.value);
-    Api.doPost(uri: "device/send", bodyParams: lecture.toJson()).catchError((error) {
+    Api.doPost(uri: "/device/send", bodyParams: lecture.toJson()).catchError((error) {
       showErrorException(error);
     });
   }
 
-  void onConected(WebSocketChannel channel) {
-    channel.sink.add(json.encode({"uids": store().dashboardDevices.keys.toList()}));
+  void loadDevices() {
+    Api.doGet(uri: "/device/user/${_loggedUser.uid}").then((devices) {
+      List<Device> myDevices =
+          (devices as List<dynamic>).map((m) => Device.fromJson({...m["device"], "sensors": m["sensors"]})).toList();
+      bus().send(SetMyDevices(myDevices));
+    });
   }
 
-  void loadDevices() {
-    Api.doGet(uri: "device/user/${user.uid}").then((devices) {
-      print(devices);
-    });
+  _registerDevices(){
+    _wsChannel?.sink?.add(json.encode({"uids": store().devices.values.map((dm) => dm.device.address).toList()}));
   }
 
   @override
@@ -42,11 +46,18 @@ class DeviceService extends BaseService<DeviceStore> {
     }
 
     if (msg is UserLogged) {
-      this.user = msg.user;
+      this._loggedUser = msg.user;
+      loadDevices();
     }
 
     if (msg is WsConnected) {
-      onConected(msg.channel);
+      this._wsChannel = msg.channel;
+      _registerDevices();
+    }
+
+    if (msg is SetMyDevices) {
+      store().setDevices(msg.devices);
+      _registerDevices();
     }
   }
 }

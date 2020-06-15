@@ -51,7 +51,7 @@ class SensorView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      child: Observer(builder: (ctx) => getViewByType(this.sensor.type)),
+      child: Observer(builder: (ctx) => getViewByType(this.sensor.sensor.id)),
     );
   }
 }

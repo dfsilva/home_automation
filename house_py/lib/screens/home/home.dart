@@ -37,8 +37,8 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         body: Observer(builder: (ctx) {
-          List<DeviceModel> _devices = _deviceService.store().dashboardDevices.values.toList();
-          _devices.sort((d1, d2) => d1.order.compareTo(d2.order));
+          List<DeviceModel> _devices = _deviceService.store().devices.values.toList();
+//          _devices.sort((d1, d2) => d1.order.compareTo(d2.order));
           return PageView.builder(
               controller: PageController(viewportFraction: 0.9),
               itemCount: _devices.length,
@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
                       color: HousePyColors.cardBackground,
                       borderRadius: BorderRadius.all(Radius.circular(4.0)),
                     ),
-                    child: DeviceListView(key: ValueKey(_devices[i].id), device: _devices[i]),
+                    child: DeviceListView(key: ValueKey(_devices[i].device.id), device: _devices[i]),
                   ),
                 );
               });

@@ -8,7 +8,7 @@ class Api {
   static const String HOST = "192.168.31.45:8080";
   static const String _URL = "http://$HOST/api";
 
-  static Future<Map<String, dynamic>> doPost(
+  static Future<dynamic> doPost(
       {String url = _URL, String uri, Map<String, dynamic> bodyParams = const {}}) async {
     String currentToken = await _getUserToken();
 
@@ -23,7 +23,7 @@ class Api {
     });
   }
 
-  static Future<Map<String, dynamic>> doGet(
+  static Future<dynamic> doGet(
       {String url = _URL, String uri, Map<String, dynamic> params = const {}}) async {
     String currentToken = await _getUserToken();
     String paramsStr = params.isNotEmpty

@@ -1,74 +1,45 @@
+import 'package:housepy/domain/device.dart';
 import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/store/model/device_model.dart';
 import 'package:housepy/store/model/sensor_model.dart';
-import 'package:housepy/utils/constants.dart';
 import 'package:mobx/mobx.dart';
 
 part 'device_store.g.dart';
 
 class DeviceStore = _DeviceStore with _$DeviceStore;
 
+enum DevicesStatus{
+  loading, loaded
+}
+
 abstract class _DeviceStore with Store {
   @observable
-  ObservableMap<String, DeviceModel> dashboardDevices = {
-    "s_10": DeviceModel(
-        id: "s_10",
-        order: 2,
-        title: "Quarto Casal",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false),
-          SensorModel(title: "Humidificador", type: SensorType.LIGA_DESLIGA, value: false)
-        ].asObservable()),
-    "s_11": DeviceModel(
-        id: "s_11",
-        order: 1,
-        title: "Sala",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false),
-          SensorModel(title: "Portao Entrada", type: "op1", value: false),
-          SensorModel(title: "Portao Saída", type: "op2", value: false)
-        ].asObservable()),
-    "s_12": DeviceModel(
-        id: "s_12",
-        order: 3,
-        title: "Quarto Luísa",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
-        ].asObservable()),
-    "s_13": DeviceModel(
-        id: "s_13",
-        order: 4,
-        title: "Escritório",
-        sensors: [
-          SensorModel(type: SensorType.TEMPERATURE, value: 0.0),
-          SensorModel(type: SensorType.HUMIDITY, value: 0.0),
-          SensorModel(type: SensorType.SMOKE, value: 0.0),
-          SensorModel(type: SensorType.PRESENCE, value: false)
-        ].asObservable()),
-  }.asObservable();
+  ObservableMap<String, DeviceModel> devices = Map<String, DeviceModel>().asObservable();
+
+  @observable
+  DevicesStatus status = DevicesStatus.loading;
+
+  @action
+  setDevices(List<Device> devices){
+    Iterable<DeviceModel> devicesModel = devices.map((d) => DeviceModel(device: d, sensors: d.sensors.map((s) => SensorModel(sensor: s)).toList().asObservable())).toList();
+    Map<String, DeviceModel> mapDevices = Map<String, DeviceModel>.fromIterable(devicesModel, key: (element) => element.device.address, value: (element) => element);
+    this.devices = mapDevices.asObservable();
+    this.status = DevicesStatus.loaded;
+  }
 
   @action
   updateLecture(Lecture _lecture) {
-    dashboardDevices[_lecture.id].sensors.forEach((sensor) {
-      if (sensor.type == _lecture.sensor) {
+    devices[_lecture.id].sensors.forEach((sensor) {
+      if (sensor.sensor.id == _lecture.sensor) {
         sensor.setValue(_lecture.value);
       }
     });
   }
 
   @action
-  changeSensorValue(String deviceId, String sensor, dynamic value) {
-    dashboardDevices[deviceId].sensors.forEach((s) {
-      if (s.type == sensor) {
+  changeSensorValue(String address, String sensor, dynamic value) {
+    devices[address].sensors.forEach((s) {
+      if (s.sensor.id == sensor) {
         s.setValue(value);
       }
     });

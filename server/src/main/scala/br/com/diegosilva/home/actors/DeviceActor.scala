@@ -7,7 +7,9 @@ import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityType
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.DeviceActor._
 import br.com.diegosilva.home.actors.RF24WriterActor.TopicMessage
-import br.com.diegosilva.home.data.{IOTMessage, InterfaceType}
+import br.com.diegosilva.home.data.{IOTMessage, InterfaceType, Lecture}
+
+import scala.util.{Failure, Success}
 
 object DeviceActor {
 
@@ -52,8 +54,14 @@ class DeviceActor(context: ActorContext[Command], val entityId: String) extends 
     msg match {
       case Processar(message) => {
         context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
-        registers.foreach { actorRef =>
-          actorRef ! WsConnectionActor.Notify(message)
+        Lecture.fromIotMessage(message) match {
+          case Success(lecture) => {
+            context.log.info("Enviando mensagem para os usuarios registrados {} {}", lecture, registers.size)
+            registers.foreach { actorRef =>
+              actorRef ! WsConnectionActor.Notify(lecture)
+            }
+          }
+          case Failure(exception) => context.log.error("Falha ao processar a mensagem {} {}", message, exception.getMessage)
         }
         Behaviors.same
       }

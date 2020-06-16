@@ -88,7 +88,6 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
     }
 
   import AutomationRoutes._
-  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
   import akka.http.scaladsl.server.Directives._
   import spray.json._
 
@@ -128,7 +127,8 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
                       DeviceRepo.add(Device(name = data.name,
                         address = data.address,
                         devType = DeviceType.withName(data.devType),
-                        owner = authData.userId))
+                        owner = authData.userId,
+                        order = 10))
                     })
                   }
                 },
@@ -165,10 +165,7 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
     }
   }
 
-
   private def wsUser(userId: String): Flow[Message, Message, NotUsed] = {
-
-    //    val wsUser: ActorRef[WsConnectionActor.Command] = context.spawnAnonymous(new WsConnectionActor(userId).create())
 
     //    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
 

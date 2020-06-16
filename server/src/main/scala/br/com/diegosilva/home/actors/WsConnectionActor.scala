@@ -4,7 +4,7 @@ import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorRef, Behavior}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, EntityRef}
 import br.com.diegosilva.home.CborSerializable
-import br.com.diegosilva.home.data.IOTMessage
+import br.com.diegosilva.home.data.{IOTMessage, Lecture}
 
 object WsConnectionActor {
 
@@ -18,7 +18,7 @@ object WsConnectionActor {
 
   case class Fail(ex: Throwable) extends Command
 
-  final case class Notify(message: IOTMessage) extends Command
+  final case class Notify(message: Lecture) extends Command
 
   final case class Register(uids: List[String]) extends Command
 

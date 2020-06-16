@@ -5,19 +5,15 @@ import slick.lifted.ProvenShape
 
 import scala.concurrent.duration.Duration
 
-case class Trigger(id: Int, sensorId: String, deviceId: Int, toDeviceId: Int, toSensorId: String, activateValue: Any, setValue: Any, duration: Option[Duration])
+case class Trigger(id: Int, sensorId: Int, toSensorId: Int, activateValue: Any, setValue: Any, duration: Option[Duration])
 
 class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"), "triggers") {
 
-  def id: Rep[Int] = column[Int]("id", O.AutoInc)
+  def id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
 
-  def sensorId: Rep[String] = column[String]("sensor_id")
+  def sensorId: Rep[Int] = column[Int]("sensor_id")
 
-  def deviceId: Rep[Int] = column[Int]("device_id")
-
-  def toDeviceId: Rep[Int] = column[Int]("to_device_id")
-
-  def toSensorId: Rep[String] = column[String]("to_sensor_id")
+  def toSensorId: Rep[Int] = column[Int]("to_sensor_id")
 
   def activateValue: Rep[Any] = column[Any]("activate_value")
 
@@ -25,45 +21,45 @@ class TriggerTable(tag: Tag) extends Table[Trigger](tag, Some("housepy"), "trigg
 
   def duration: Rep[Option[Duration]] = column[Option[Duration]]("duration")
 
-  def * : ProvenShape[Trigger] = (id, sensorId, deviceId, toDeviceId, toSensorId, activateValue, setValue, duration) <> (Trigger.tupled, Trigger.unapply)
-
-  def pk = primaryKey("pk_trigger", (id, sensorId, deviceId))
+  def * : ProvenShape[Trigger] = (id, sensorId, toSensorId, activateValue, setValue, duration) <> (Trigger.tupled, Trigger.unapply)
 }
 
-case class Command(id: Int, sensorId: String, deviceId: Int, value: String, description: String)
+case class Command(id: Int, sensorId: Int, value: String, description: String)
 
 class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"), "commands") {
 
-  def id: Rep[Int] = column[Int]("id", O.AutoInc)
+  def id: Rep[Int] = column[Int]("id", O.AutoInc, O.PrimaryKey)
 
-  def sensorId: Rep[String] = column[String]("sensor_id")
-
-  def deviceId: Rep[Int] = column[Int]("device_id")
+  def sensorId: Rep[Int] = column[Int]("sensor_id")
 
   def value: Rep[String] = column[String]("value")
 
   def description: Rep[String] = column[String]("description")
 
-  def * : ProvenShape[Command] = (id, sensorId, deviceId, value, description) <> (Command.tupled, Command.unapply)
+  def * : ProvenShape[Command] = (id, sensorId, value, description) <> (Command.tupled, Command.unapply)
 
-  def pk = primaryKey("pk_command", (id, sensorId, deviceId))
 }
 
-case class Sensor(id: String, deviceId: Int, dataType: String, name: String)
+case class Sensor(id: Int, sensorType: String, deviceAddress: String, dataType: String, name: String, order: Int)
 
 class SensorTable(tag: Tag) extends Table[Sensor](tag, Some("housepy"), "sensors") {
 
-  def id: Rep[String] = column[String]("id", O.AutoInc)
+  def id: Rep[Int] = column[Int]("id")
 
-  def deviceId: Rep[Int] = column[Int]("device_id")
+  def sensorType: Rep[String] = column[String]("type")
+
+  def deviceAddress: Rep[String] = column[String]("device_address")
 
   def dataType: Rep[String] = column[String]("data_type")
 
   def name: Rep[String] = column[String]("name")
 
-  def * : ProvenShape[Sensor] = (id, deviceId, dataType, name) <> (Sensor.tupled, Sensor.unapply)
+  def order: Rep[Int] = column[Int]("position")
 
-  def pk = primaryKey("pk_sensor", (id, deviceId))
+  def * : ProvenShape[Sensor] = (id, sensorType, deviceAddress, dataType, name, order) <> (Sensor.tupled, Sensor.unapply)
+
+  def pk = primaryKey("pk_sensor", (id, sensorType, deviceAddress))
+
 }
 
 object SensorRepo {
@@ -72,12 +68,12 @@ object SensorRepo {
   val commands = TableQuery[CommandTable]
   val triggers = TableQuery[TriggerTable]
 
-  def sensorsWithAll(deviceId: Int): DBIO[Seq[(Sensor, Command, Trigger)]] = {
-    ((for {
-      s <- sensors.filter(_.deviceId === deviceId)
-      c <- commands if (s.deviceId === c.deviceId && s.id === c.sensorId)
-      t <- triggers if (s.deviceId === t.deviceId && s.id === t.sensorId)
-    } yield (s, c, t)).result)
+  def sensorsWithAll(address: String): DBIO[Seq[(Sensor, Command, Trigger)]] = {
+    (for {
+      s <- sensors.filter(_.deviceAddress === address)
+      c <- commands if s.id === c.sensorId
+      t <- triggers if s.id === t.sensorId
+    } yield (s, c, t)).result
   }
 
 }

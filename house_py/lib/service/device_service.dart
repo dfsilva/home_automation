@@ -32,8 +32,9 @@ class DeviceService extends BaseService<DeviceStore> {
     });
   }
 
-  _registerDevices(){
-    _wsChannel?.sink?.add(json.encode({"uids": store().devices.values.map((dm) => dm.device.address).toList()}));
+  _registerDevices() {
+    if (store().devices.isNotEmpty)
+      _wsChannel?.sink?.add(json.encode({"uids": store().devices.values.map((dm) => dm.device.address).toList()}));
   }
 
   @override

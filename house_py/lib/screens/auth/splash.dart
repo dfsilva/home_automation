@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:housepy/service/service_locator.dart';
+import 'package:housepy/service/usuario_service.dart';
 
-class Splash extends StatefulWidget {
-  @override
-  _SplashState createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
+class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-//    UsuarioService usuarioService = Provider.of<UsuarioService>(context);
-//    usuarioService.verificarUsuarioAutenticado();
+    Services.get<UserService>(UserService).subscribeAuth();
     return Scaffold(
       body: Center(
-        child: Text("HomePy", style: TextStyle(fontSize: 20)),
+        child: Text("HousePy", style: TextStyle(fontSize: 20)),
       ),
     );
   }
 }
+

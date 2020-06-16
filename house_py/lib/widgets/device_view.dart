@@ -16,7 +16,7 @@ class DeviceListView extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(device.title, style: TextStyle(fontSize: 30)),
+          child: Text(device.device.name, style: TextStyle(fontSize: 30)),
         ),
         Divider(
           color: HousePyColors.dividerColor,
@@ -26,11 +26,11 @@ class DeviceListView extends StatelessWidget {
         Expanded(
           child: Container(
             child: ListView.separated(
-                separatorBuilder: (_, i)=> Divider(
-                  color: HousePyColors.dividerColor,
-                  height: 1,
-                  thickness: .5,
-                ),
+                separatorBuilder: (_, i) => Divider(
+                      color: HousePyColors.dividerColor,
+                      height: 1,
+                      thickness: .5,
+                    ),
                 shrinkWrap: true,
                 itemCount: this.device.sensors.length,
                 itemBuilder: (_, i) => SensorView(

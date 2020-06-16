@@ -1,36 +1,39 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:housepy/bus/actions.dart';
 import 'package:housepy/domain/user.dart';
+import 'package:housepy/routes.dart';
+import 'package:housepy/screens/home/home.dart';
+import 'package:housepy/service/base_service.dart';
 import 'package:housepy/store/user_store.dart';
 import 'package:housepy/utils/http_utils.dart';
 import 'package:housepy/utils/message.dart';
 import 'package:housepy/utils/navigator.dart';
 import 'package:housepy/utils/shared_prefs.dart';
 
-class UserService {
-  final UserStore store;
+class UserService extends BaseService<UserStore> {
   final FirebaseAuth _auth;
   StreamSubscription _authSubscription;
 
-  UserService(this.store, this._auth) {
-    subscribeAuth();
-  }
+  UserService(rxBus, this._auth) : super(rxBus, UserStore());
 
-  subscribeAuth() {
-    _authSubscription = _auth.onAuthStateChanged.listen((userData) {
+  subscribeAuth() async {
+    _authSubscription = _auth.onAuthStateChanged.listen((userData) async {
       if (userData == null) {
-        NavigatorUtils.nav.currentState.pushReplacementNamed("login");
+        bus().send(UserLogout);
+        NavigatorUtils.nav.currentState.pushReplacementNamed("/login");
       } else {
-        if (store.usuario == null || store.usuario.uid == null) {
-          userData.getIdToken().then((idToken) {
-            Prefs.save(Prefs.user_token_key, idToken.token);
-            getUserByUid(userData.uid).then((user) {
-              store.setUsuario(user);
-              NavigatorUtils.nav.currentState.pushReplacementNamed("home");
-            }).catchError((error) {
+        if (store().usuario == null || store().usuario.uid == null) {
+          userData.getIdToken().then((idToken) async {
+            await Prefs.saveString(Prefs.user_token_key, idToken.token);
+            getUserByUid(userData.uid).then((user) async {
+              bus().send(UserLogged(user));
+              NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.HOME);
+            }).catchError((error) async {
               showErrorException("Tivemos um problema ao recuperar os dados do usuário");
-              NavigatorUtils.nav.currentState.pushReplacementNamed("login");
+              NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
             });
           });
         }
@@ -39,7 +42,9 @@ class UserService {
   }
 
   Future<AuthResult> signin(String email, String password) async {
-    return _auth.signInWithEmailAndPassword(email: email, password: password);
+    bus().send(ShowHud(text: "Entrando..."));
+    return _auth.signInWithEmailAndPassword(email: email, password: password)
+        .whenComplete(() => bus().send(HideHud()));
   }
 
   Future<void> recovery(String email) async {
@@ -47,6 +52,7 @@ class UserService {
   }
 
   Future<User> create(User user, String password) {
+    bus().send(ShowHud(text: "Criando..."));
     _authSubscription?.cancel();
     return _auth.createUserWithEmailAndPassword(email: user.email, password: password).then((authResult) async {
       User created = user.copyWith(uid: authResult.user.uid);
@@ -54,12 +60,10 @@ class UserService {
         subscribeAuth();
         return created;
       });
-    });
+    }).whenComplete(() => bus().send(HideHud()));
   }
 
   Future<void> logout() {
-    Prefs.removeKey(Prefs.user_token_key);
-    Prefs.removeKey(Prefs.logged_user);
     return _auth.signOut();
   }
 
@@ -73,5 +77,17 @@ class UserService {
 
   void dispose() {
     _authSubscription?.cancel();
+  }
+
+  @override
+  void onReceiveMessage(msg) {
+    if (msg is UserLogged) {
+      store().setUsuario(msg.user);
+    }
+    if (msg is UserLogout) {
+      Prefs.removeKey(Prefs.user_token_key);
+      Prefs.removeKey(Prefs.logged_user);
+      store().setUsuario(null);
+    }
   }
 }

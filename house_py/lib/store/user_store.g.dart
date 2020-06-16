@@ -13,41 +13,38 @@ mixin _$UserStore on _UserStore, Store {
 
   @override
   User get usuario {
-    _$usuarioAtom.context.enforceReadPolicy(_$usuarioAtom);
-    _$usuarioAtom.reportObserved();
+    _$usuarioAtom.reportRead();
     return super.usuario;
   }
 
   @override
   set usuario(User value) {
-    _$usuarioAtom.context.conditionallyRunInAction(() {
+    _$usuarioAtom.reportWrite(value, super.usuario, () {
       super.usuario = value;
-      _$usuarioAtom.reportChanged();
-    }, _$usuarioAtom, name: '${_$usuarioAtom.name}_set');
+    });
   }
 
   final _$statusLoginAtom = Atom(name: '_UserStore.statusLogin');
 
   @override
   StatusLogin get statusLogin {
-    _$statusLoginAtom.context.enforceReadPolicy(_$statusLoginAtom);
-    _$statusLoginAtom.reportObserved();
+    _$statusLoginAtom.reportRead();
     return super.statusLogin;
   }
 
   @override
   set statusLogin(StatusLogin value) {
-    _$statusLoginAtom.context.conditionallyRunInAction(() {
+    _$statusLoginAtom.reportWrite(value, super.statusLogin, () {
       super.statusLogin = value;
-      _$statusLoginAtom.reportChanged();
-    }, _$statusLoginAtom, name: '${_$statusLoginAtom.name}_set');
+    });
   }
 
   final _$_UserStoreActionController = ActionController(name: '_UserStore');
 
   @override
   dynamic setUsuario(User _usuario) {
-    final _$actionInfo = _$_UserStoreActionController.startAction();
+    final _$actionInfo =
+        _$_UserStoreActionController.startAction(name: '_UserStore.setUsuario');
     try {
       return super.setUsuario(_usuario);
     } finally {
@@ -57,7 +54,8 @@ mixin _$UserStore on _UserStore, Store {
 
   @override
   dynamic setStatusLogin(StatusLogin status) {
-    final _$actionInfo = _$_UserStoreActionController.startAction();
+    final _$actionInfo = _$_UserStoreActionController.startAction(
+        name: '_UserStore.setStatusLogin');
     try {
       return super.setStatusLogin(status);
     } finally {
@@ -67,8 +65,9 @@ mixin _$UserStore on _UserStore, Store {
 
   @override
   String toString() {
-    final string =
-        'usuario: ${usuario.toString()},statusLogin: ${statusLogin.toString()}';
-    return '{$string}';
+    return '''
+usuario: ${usuario},
+statusLogin: ${statusLogin}
+    ''';
   }
 }

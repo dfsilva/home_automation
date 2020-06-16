@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:housepy/service/service_locator.dart';
 import 'package:housepy/service/usuario_service.dart';
 import 'package:housepy/utils/message.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,48 +10,36 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  UserService _usuarioService;
+  final UserService _usuarioService = Services.get<UserService>(UserService);
 
   bool _showPassword = false;
-
   String _email;
   String _senha;
-
-  @override
-  initState() {
-    super.initState();
-  }
 
   _login() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      try {
-        _usuarioService.signin(_email, _senha).then((usuario) {
-          if (usuario == null) {
-            showError("Usuário não cadastrado");
-          }
-        }).catchError((error) {
-          print("Errooooooo!!!!!");
-          showError("Erro ao fazer login");
-        });
-      } catch (e) {
+      _usuarioService.signin(_email, _senha).then((usuario) {
+        if (usuario == null) {
+          showError("Usuário não cadastrado");
+        }
+      }).catchError((error) {
+        print("Errooooooo!!!!!");
         showError("Erro ao fazer login");
-      }
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _usuarioService = Provider.of<UserService>(this.context);
-
     return Scaffold(
       body: Column(
         children: <Widget>[
           Expanded(
             flex: 1,
             child: Container(
-              color: Colors.green,
-            ),
+//              color: Colors.green,
+                ),
           ),
           Expanded(
             flex: 2,

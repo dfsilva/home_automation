@@ -1,36 +1,40 @@
 import 'dart:async';
-import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:housepy/utils/shared_prefs.dart';
-import 'package:http/http.dart' as http;
 
 class Api {
-  static const String _URL = "http://192.168.31.45:8080/api/";
+  static const String HOST = "192.168.31.45:8080";
+  static const String _URL = "http://$HOST/api";
+  static Dio _dio = new Dio();
 
-  static Future<Map<String, dynamic>> doPost(
-      {String url = _URL, String uri, Map<String, dynamic> bodyParams = const {}}) async {
-    return http.post(url + uri,
-        body: json.encode(bodyParams),
-        headers: {"Content-Type": "application/json", "Authorization": "Token ${_getUserToken()}"}).then((response) {
+  static Future<dynamic> doPost({String url = _URL, String uri, Map<String, dynamic> bodyParams = const {}}) async {
+    String currentToken = await _getUserToken();
+
+    return _dio
+        .post(url + uri,
+            data: bodyParams,
+            options: Options(headers: {"Content-Type": "application/json", "Authorization": "Token $currentToken"}))
+        .then((response) {
       if (response.statusCode == 200) {
-        return json.decode(response.body);
+        return response.data;
       } else {
-        throw Exception(response.reasonPhrase);
+        throw Exception(response.statusMessage);
       }
     });
   }
 
-  static Future<Map<String, dynamic>> doGet(
-      {String url = _URL, String uri, Map<String, dynamic> params = const {}}) async {
-    return http.get(
-        url +
-            uri +
-            params.entries.fold("?", (previousValue, element) => "$previousValue=${element.key}=${element.value}&"),
-        headers: {"Content-Type": "application/json", "Authorization": "Token ${_getUserToken()}"}).then((response) {
+  static Future<dynamic> doGet({String url = _URL, String uri, Map<String, dynamic> params = const {}}) async {
+    String currentToken = await _getUserToken();
+    return _dio
+        .get(url + uri,
+            queryParameters: params,
+            options: Options(headers: {"Content-Type": "application/json", "Authorization": "Token $currentToken"}))
+        .then((response) {
       if (response.statusCode == 200) {
-        return json.decode(response.body);
+        return response.data;
       } else {
-        throw Exception(response.reasonPhrase);
+        throw Exception(response.statusMessage);
       }
     });
   }

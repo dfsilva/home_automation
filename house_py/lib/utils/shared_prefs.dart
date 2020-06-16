@@ -13,9 +13,9 @@ class Prefs {
   static const String logged_user = "LOGGED_USER";
   static const String user_token_key = "LOGGED_USER_TOKEN";
 
-  static void save(String key, dynamic value) async {
+  static Future<bool> saveJson(String key, dynamic value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, json.encode(value, toEncodable: myEncode));
+    return prefs.setString(key, json.encode(value, toEncodable: myEncode));
   }
 
   static Future<dynamic> getJson(String key) async {
@@ -25,6 +25,11 @@ class Prefs {
     } else {
       return null;
     }
+  }
+
+  static Future<bool> saveString(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setString(key, value);
   }
 
   static Future<dynamic> getString(String key) async {
@@ -40,6 +45,4 @@ class Prefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(key);
   }
-
-
 }

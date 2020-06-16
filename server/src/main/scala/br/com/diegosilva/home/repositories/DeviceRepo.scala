@@ -5,15 +5,15 @@ import br.com.diegosilva.home.database.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import collection._
 
-case class Device(id: Option[Int] = None, address: Int, name: String, devType: DeviceType.Value, owner: String)
+case class Device(id: Option[Int] = None, address: String, name: String, devType: DeviceType.Value, owner: String)
 
-case class DeviceSensors(device: Device, sensors: Seq[String])
+case class DeviceSensors(device: Device, sensors: Seq[Sensor])
 
 class DeviceTable(tag: Tag) extends Table[Device](tag, Some("housepy"), "devices") {
 
   def id: Rep[Int] = column[Int]("id", O.PrimaryKey, O.AutoInc)
 
-  def address: Rep[Int] = column[Int]("address")
+  def address: Rep[String] = column[String]("address")
 
   def name: Rep[String] = column[String]("name")
 

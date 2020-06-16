@@ -1,14 +1,13 @@
 package br.com.diegosilva.home.api
 
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import br.com.diegosilva.home.actors.WsConnectionActor.{Notify, Register}
 import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
-import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
+import br.com.diegosilva.home.data.{DeviceType, IOTMessage, Lecture}
 import br.com.diegosilva.home.repositories.{Device, DeviceSensors, Sensor, User}
+import spray.json._
 
-object JsonFormats {
-
-  import spray.json._
-  import DefaultJsonProtocol._
+trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
 
   import collection.immutable._
 
@@ -23,10 +22,12 @@ object JsonFormats {
     }
   }
 
-
   implicit val enumConverter = new EnumJsonConverter(DeviceType)
 
   implicit val iotMessageFormat: RootJsonFormat[IOTMessage] = jsonFormat3(IOTMessage.apply)
+
+  implicit val lectureFormat: RootJsonFormat[Lecture] = jsonFormat4(Lecture.apply)
+
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
   implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat3(AddDevice)
 
@@ -36,8 +37,9 @@ object JsonFormats {
   implicit val deviceFormat: RootJsonFormat[Device] = jsonFormat5(Device)
   implicit val deviceSeqFormat: RootJsonFormat[Seq[Device]] = immSeqFormat(deviceFormat)
 
-  implicit val sensorForemat: RootJsonFormat[Sensor] = jsonFormat4(Sensor)
+  implicit val sensorForemat: RootJsonFormat[Sensor] = jsonFormat6(Sensor)
   implicit val sensorsSeqFormat: RootJsonFormat[Seq[Sensor]] = immSeqFormat(sensorForemat)
+  implicit val deviceSensorsImmSeqFormat: RootJsonFormat[scala.collection.Seq[Sensor]] = seqFormat(sensorForemat)
 
   implicit val deviceSensorFormat: RootJsonFormat[DeviceSensors] = jsonFormat2(DeviceSensors)
   implicit val deviceSensorsSeqFormat: RootJsonFormat[Seq[DeviceSensors]] = immSeqFormat(deviceSensorFormat)

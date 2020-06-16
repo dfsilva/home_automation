@@ -7,7 +7,9 @@ import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityType
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.DeviceActor._
 import br.com.diegosilva.home.actors.RF24WriterActor.TopicMessage
-import br.com.diegosilva.home.data.{IOTMessage, InterfaceType}
+import br.com.diegosilva.home.data.{IOTMessage, InterfaceType, Lecture}
+
+import scala.util.{Failure, Success}
 
 object DeviceActor {
 
@@ -40,8 +42,9 @@ object DeviceActor {
 
 class DeviceActor(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
-  private var registers: List[ActorRef[WsConnectionActor.Command]] = List()
+  private var registers: Set[ActorRef[WsConnectionActor.Command]] = Set()
   private val interface = InterfaceType.withName(context.system.settings.config.getString("serial.interface"))
+
   private val topic = interface match {
     case InterfaceType.RF24 => context.spawn(Topic[TopicMessage](Topics.RF24TOPIC), "RF24TOPIC")
     case InterfaceType.RXTX => context.spawn(Topic[TopicMessage](Topics.RXTXTOPIC), "RXTXTOPIC")
@@ -51,13 +54,19 @@ class DeviceActor(context: ActorContext[Command], val entityId: String) extends 
     msg match {
       case Processar(message) => {
         context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
-        registers.foreach { actorRef =>
-          actorRef ! WsConnectionActor.Notify(message)
+        Lecture.fromIotMessage(message) match {
+          case Success(lecture) => {
+            context.log.info("Enviando mensagem para os usuarios registrados {} {}", lecture, registers.size)
+            registers.foreach { actorRef =>
+              actorRef ! WsConnectionActor.Notify(lecture)
+            }
+          }
+          case Failure(exception) => context.log.error("Falha ao processar a mensagem {} {}", message, exception.getMessage)
         }
         Behaviors.same
       }
       case Register(actorRef) => {
-        registers = registers :+ actorRef
+        registers += actorRef
         Behaviors.same
       }
       case UnRegister(actorRef) => {

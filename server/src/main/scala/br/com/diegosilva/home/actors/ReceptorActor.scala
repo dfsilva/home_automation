@@ -28,20 +28,21 @@ object ReceptorActor {
 
 class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
 
+  private val sharding = ClusterSharding(context.system)
   private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var cancellable: Cancellable = null
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Start() =>
-        context.log.debug("Iniciando escuta")
+        context.log.debug("Iniciando listener para receber mensagens")
         startReceive()
         Behaviors.same
     }
   }
 
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {
-    case restart: PreRestart => {
+    case PreRestart => {
       context.log.debug("Reiniciando de recebimento de leituras")
       this.serialInterface = SerialPortFactory.get(context.system.settings.config)
       retry(5.seconds, new ReceptorActor.Start)
@@ -54,15 +55,10 @@ class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Com
       val iotMessage = IOTMessage.decode(toProcess)
       iotMessage match {
         case Some(iotMessage) =>
-          getDevice(iotMessage.id) ! DeviceActor.Processar(iotMessage)
+          sharding.entityRefFor(DeviceActor.EntityKey, iotMessage.id) ! DeviceActor.Processar(iotMessage)
         case _ =>
       }
     })
-  }
-
-  private def getDevice(id: String): EntityRef[DeviceActor.Command] = {
-    val sharding = ClusterSharding(context.system)
-    sharding.entityRefFor(DeviceActor.EntityKey, id)
   }
 
   private def retry(duration: FiniteDuration, cmd: ReceptorActor.Command): Unit = {

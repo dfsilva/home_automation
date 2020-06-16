@@ -4,8 +4,8 @@ import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 import akka.NotUsed
-import akka.actor.typed.ActorRef
-import akka.actor.typed.scaladsl.ActorContext
+import akka.actor.typed.scaladsl.AskPattern._
+import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.cluster.sharding.typed.scaladsl.ClusterSharding
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.model.ws.{Message, TextMessage}
@@ -15,8 +15,9 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
+import br.com.diegosilva.home.actors.WsConnCreatorActor.Created
 import br.com.diegosilva.home.actors.WsConnectionActor._
-import br.com.diegosilva.home.actors.{DeviceActor, WsConnectionActor}
+import br.com.diegosilva.home.actors.{DeviceActor, WsConnCreatorActor, WsConnectionActor}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
 import br.com.diegosilva.home.ext.SpawnExtension
@@ -32,17 +33,21 @@ object AutomationRoutes {
 
   final case class SendMessage(id: String = "", sensor: String = "", value: String = "")
 
-  final case class AddDevice(name: String, devType: String, address: Int)
+  final case class AddDevice(name: String, devType: String, address: String)
 
 }
 
-class AutomationRoutes()(implicit context: ActorContext[_]) {
+class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCreatorActor.Command]) extends JsonFormats {
 
-  implicit private val timeout: Timeout = Timeout.create(context.system.settings.config.getDuration("automation.askTimeout"))
-  implicit val executionContext = context.executionContext
-  private val sharding = ClusterSharding(context.system)
-  protected val db = DatabasePool(context.system).database
-  protected val spawn = SpawnExtension(context.system)
+  lazy val log = system.log
+
+  implicit val timeout: Timeout = Timeout.create(system.settings.config.getDuration("automation.askTimeout"))
+  implicit val scheduler = system.scheduler
+  implicit val executionContext = system.executionContext
+
+  private val sharding = ClusterSharding(system)
+  protected val db = DatabasePool(system).database
+  protected val spawn = SpawnExtension(system)
 
   private def getAuthToken(token: String): Future[AuthToken] = {
     val action = for {
@@ -83,8 +88,6 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
     }
 
   import AutomationRoutes._
-  import JsonFormats._
-  import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
   import akka.http.scaladsl.server.Directives._
   import spray.json._
 
@@ -93,11 +96,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       concat(
         get {
           path("health") {
-            complete(JsObject("message" -> JsString("Hello from " + context.system.address)))
+            complete(JsObject("message" -> JsString("Olá de " + system.address)))
           }
         },
         path("ws" / Remaining) { userName: String =>
-          handleWebSocketMessages(wsUser(userName, context))
+          handleWebSocketMessages(wsUser(userName))
         },
         authenticated { authData =>
           concat(
@@ -124,7 +127,8 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
                       DeviceRepo.add(Device(name = data.name,
                         address = data.address,
                         devType = DeviceType.withName(data.devType),
-                        owner = authData.userId))
+                        owner = authData.userId,
+                        order = 10))
                     })
                   }
                 },
@@ -134,8 +138,9 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
                       devices <- DeviceRepo.devicesAndSensorsByUser(uid)
                       dev <- DBIOAction.successful(devices.groupBy(_._1)
                         .map(grouped => DeviceSensors(grouped._1, grouped._2
-                          .map(sensors => sensors._2.id))).toSeq)
+                          .map(sensors => sensors._2))).toSeq)
                     } yield dev
+
                     complete(db.run {
                       action
                     })
@@ -160,11 +165,12 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
     }
   }
 
-  private def wsUser(userId: String, context: ActorContext[_]): Flow[Message, Message, NotUsed] = {
+  private def wsUser(userId: String): Flow[Message, Message, NotUsed] = {
 
-    //    val wsUser: ActorRef[WsConnectionActor.Command] = context.spawnAnonymous(new WsConnectionActor(userId).create())
+    //    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
 
-    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
+    val wsConCreated: Created = Await.result(wsConCreator.ask(replyTo => WsConnCreatorActor.CreateWsCon(userId, replyTo)), 2.seconds)
+    val wsUser = wsConCreated.userActor
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
@@ -182,11 +188,11 @@ class AutomationRoutes()(implicit context: ActorContext[_]) {
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
           case c: Notify => {
-//            context.log.info("Enviando mensagem {} para {}", c.toJson.toString(), userId)
+            log.info("Enviando mensagem {} para {}", c.toJson.toString(), userId)
             TextMessage.Strict(c.toJson.toString())
           }
           case c: Connected => {
-//            context.log.info("Enviando mensagem de conectado para usuario {}", userId)
+            log.info("Enviando mensagem de conectado para usuario {}", userId)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
           case _ => {

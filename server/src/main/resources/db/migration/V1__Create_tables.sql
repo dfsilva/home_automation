@@ -18,62 +18,66 @@ CREATE TABLE housepy.auth_tokens
 
 CREATE TABLE housepy.devices
 (
-    id      SERIAL PRIMARY KEY,
-    address BIGINT NOT NULL,
-    owner   VARCHAR NOT NULL,
-    name    VARCHAR NOT NULL,
-    type    char(3) NOT NULL --net or raw
+    address   VARCHAR PRIMARY KEY,
+    owner     VARCHAR NOT NULL,
+    name      VARCHAR NOT NULL,
+    type      CHAR(3) NOT NULL, --net or raw
+    position  SMALLINT NOT NULL
 );
 
-insert into housepy.devices values (1, 10,'ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Quarto Casal', 'raw');
-insert into housepy.devices values (2, 11,'ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Sala', 'raw');
-insert into housepy.devices values (3, 12,'ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Quarto Luísa', 'raw');
-insert into housepy.devices values (4, 02,'ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Escritório', 'net');
+insert into housepy.devices values ('s_11','ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Sala', 'raw', 0);
+insert into housepy.devices values ('s_10','ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Quarto Casal', 'raw', 1);
+insert into housepy.devices values ('s_12','ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Quarto Luísa', 'raw', 2);
+insert into housepy.devices values ('02','ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Escritório', 'net', 3);
 
 CREATE TABLE housepy.sensors
 (
-    id char(3) NOT NULL,
-    device_id BIGINT NOT NULL,
-    data_type VARCHAR NOT NULL, --int, string, float, bool
-    name    VARCHAR NOT NULL,
-    PRIMARY KEY(id, device_id)
+    id             BIGINT NOT NULL,
+    type           CHAR(2) NOT NULL,
+    device_address VARCHAR NOT NULL,
+    data_type      VARCHAR NOT NULL, --int, string, float, bool
+    name           VARCHAR NOT NULL,
+    position       SMALLINT NOT NULL,
+    PRIMARY KEY(id, type, device_address)
 );
 
-insert into housepy.sensors values ('TMP', 1,'float', 'Temperatura');
-insert into housepy.sensors values ('HUM', 1,'float', 'Humidade');
-insert into housepy.sensors values ('PIR', 1,'bool', 'Presença');
-insert into housepy.sensors values ('SMK', 1,'int', 'FUMAÇA');
+insert into housepy.sensors values (1, 'tp', 's_10','float', 'Temperatura', 0);
+insert into housepy.sensors values (2, 'hm', 's_10','float', 'Humidade', 1);
+insert into housepy.sensors values (3, 'ps', 's_10','bool', 'Presença', 2);
+insert into housepy.sensors values (4, 'sm', 's_10','int', 'Fumaça', 3);
+insert into housepy.sensors values (5, 'ld', 's_10','bool', 'Humidificador', 4);
 
-insert into housepy.sensors values ('TMP', 2,'float', 'Temperatura');
-insert into housepy.sensors values ('HUM', 2,'float', 'Humidade');
-insert into housepy.sensors values ('PIR', 2,'bool', 'Presença');
-insert into housepy.sensors values ('SMK', 2,'int', 'FUMAÇA');
+insert into housepy.sensors values (1, 'tp', 's_11','float', 'Temperatura', 0);
+insert into housepy.sensors values (2, 'hm', 's_11','float', 'Humidade', 1);
+insert into housepy.sensors values (3, 'ps', 's_11','bool', 'Presença', 2);
+insert into housepy.sensors values (4, 'sm', 's_11','int', 'FUMAÇA', 3);
+insert into housepy.sensors values (5, 'ld', 's_11','bool', 'Portão de Entrada', 4);
+insert into housepy.sensors values (6, 'ld', 's_11','bool', 'Portão de Saída', 5);
 
-insert into housepy.sensors values ('TMP', 3,'float', 'Temperatura');
-insert into housepy.sensors values ('HUM', 3,'float', 'Humidade');
-insert into housepy.sensors values ('PIR', 3,'bool', 'Presença');
-insert into housepy.sensors values ('SMK', 3,'int', 'FUMAÇA');
+insert into housepy.sensors values (1, 'tp', 's_12','float', 'Temperatura', 0);
+insert into housepy.sensors values (2, 'hm', 's_12','float', 'Humidade', 1);
+insert into housepy.sensors values (3, 'ps', 's_12','bool', 'Presença', 2);
+insert into housepy.sensors values (4, 'sm', 's_12','int', 'FUMAÇA', 3);
+
+insert into housepy.sensors values (1, 'tp', '02','float', 'Temperatura', 0);
+insert into housepy.sensors values (2, 'hm', '02','float', 'Humidade', 1);
+insert into housepy.sensors values (3, 'ps', '02','bool', 'Presença', 2);
 
 
 CREATE TABLE housepy.commands
 (
-    id SERIAL NOT NULL,
-    sensor_id char(3) NOT NULL,
-    device_id BIGINT NOT NULL,
+    id SERIAL PRIMARY KEY,
+    sensor_id BIGINT NOT NULL,
     value VARCHAR NOT NULL,
-    description VARCHAR NOT NULL,
-    PRIMARY KEY(id, sensor_id, device_id)
+    description VARCHAR NOT NULL
 );
 
 CREATE TABLE housepy.triggers
 (
     id SERIAL NOT NULL,
-    sensor_id char(3) NOT NULL,
-    device_id BIGINT NOT NULL,
-    to_sensor_id char(3) NOT NULL,
-    to_device_id BIGINT NOT NULL,
+    sensor_id BIGINT NOT NULL,
+    to_sensor_id BIGINT NOT NULL,
     activate_value VARCHAR NOT NULL,
     set_value VARCHAR NOT NULL,
-    duration VARCHAR NULL,
-    PRIMARY KEY (id, sensor_id, device_id)
+    duration VARCHAR NULL
 );

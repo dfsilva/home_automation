@@ -19,39 +19,39 @@ class SensorView extends StatelessWidget {
     if (type == SensorType.TEMPERATURE) {
       return TemperatureView(sensor: this.sensor);
     }
+
     if (type == SensorType.HUMIDITY) {
       return HumidityView(sensor: this.sensor);
     }
+
     if (type == SensorType.SMOKE) {
       return SmokeView(sensor: this.sensor);
     }
+
     if (type == SensorType.PRESENCE) {
       return PresenseView(sensor: this.sensor);
     }
-    if (type == SensorType.LIGA_DESLIGA) {
-      return OnOffView(sensor: this.sensor, device: this.device);
-    }
 
     if (type == SensorType.LIGA_DESLIGA) {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 
-    if (type == "op1") {
+    if (type == SensorType.LIGA_DESLIGA) {
       return OnOffView(sensor: this.sensor, device: this.device);
     }
 
-    if (type == "op2") {
-      return OnOffView(sensor: this.sensor, device: this.device);
+    if (sensor?.value != null) {
+      return Column(children: [Text(sensor.value.toString())]);
+    } else {
+      return SizedBox.shrink();
     }
-
-    return Column(children: [Text(sensor.value.toString())]);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
-      child: Observer(builder: (ctx) => getViewByType(this.sensor.sensor.id)),
+      child: Observer(builder: (ctx) => getViewByType(this.sensor.sensor.sensorType)),
     );
   }
 }

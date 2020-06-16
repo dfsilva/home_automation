@@ -27,13 +27,13 @@ mixin _$DeviceModel on _DeviceModel, Store {
   final _$sensorsAtom = Atom(name: '_DeviceModel.sensors');
 
   @override
-  ObservableList<SensorModel> get sensors {
+  ObservableMap<int, SensorModel> get sensors {
     _$sensorsAtom.reportRead();
     return super.sensors;
   }
 
   @override
-  set sensors(ObservableList<SensorModel> value) {
+  set sensors(ObservableMap<int, SensorModel> value) {
     _$sensorsAtom.reportWrite(value, super.sensors, () {
       super.sensors = value;
     });

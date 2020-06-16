@@ -26,7 +26,7 @@ class OnOffView extends StatelessWidget {
       onTap: () {
         this
             ._deviceService
-            .changeValue(Lecture(id: device.device.address, sensor: sensor.sensor.id, value: !sensor.value));
+            .changeValue(Lecture(address: device.device.address, sensorId: sensor.sensor.id, value: (!sensor.value).toString()));
       },
       child: Observer(
           builder: (ctx) => sensor.value != null
@@ -52,7 +52,7 @@ class OnOffView extends StatelessWidget {
                         onChanged: (value) {
                           this
                               ._deviceService
-                              .changeValue(Lecture(id: device.device.address, sensor: sensor.sensor.id, value: value));
+                              .changeValue(Lecture(address: device.device.address, sensorId: sensor.sensor.id, value: value.toString()));
                         })
                   ],
                 )

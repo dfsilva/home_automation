@@ -18,7 +18,7 @@ class DeviceService extends BaseService<DeviceStore> {
   WebSocketChannel _wsChannel;
 
   Future<Map> changeValue(Lecture lecture) async {
-    store().changeSensorValue(lecture.id, lecture.sensor, lecture.value);
+    store().changeSensorValue(lecture.address, lecture.sensorId, lecture.value);
     Api.doPost(uri: "/device/send", bodyParams: lecture.toJson()).catchError((error) {
       showErrorException(error);
     });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housepy/store/model/device_model.dart';
+import 'package:housepy/store/model/sensor_model.dart';
 import 'package:housepy/utils/colors.dart';
 import 'package:housepy/widgets/sensor_view.dart';
 
@@ -10,6 +11,9 @@ class DeviceListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    List<SensorModel> _sensors = this.device.sensors.values.toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -32,9 +36,9 @@ class DeviceListView extends StatelessWidget {
                       thickness: .5,
                     ),
                 shrinkWrap: true,
-                itemCount: this.device.sensors.length,
+                itemCount: _sensors.length,
                 itemBuilder: (_, i) => SensorView(
-                      sensor: this.device.sensors[i],
+                      sensor: _sensors[i],
                       device: this.device,
                     )),
           ),

@@ -64,11 +64,11 @@ mixin _$DeviceStore on _DeviceStore, Store {
   }
 
   @override
-  dynamic changeSensorValue(String address, String sensor, dynamic value) {
+  dynamic changeSensorValue(String address, int sensorId, dynamic value) {
     final _$actionInfo = _$_DeviceStoreActionController.startAction(
         name: '_DeviceStore.changeSensorValue');
     try {
-      return super.changeSensorValue(address, sensor, value);
+      return super.changeSensorValue(address, sensorId, value);
     } finally {
       _$_DeviceStoreActionController.endAction(_$actionInfo);
     }

@@ -1,47 +1,28 @@
-import 'package:housepy/utils/constants.dart';
-
 class Lecture {
-  final String id;
-  final String sensor;
-  final dynamic value;
+  final String address;
+  final int sensorId;
+  final String sensorType;
+  final String value;
 
-  Lecture({this.id, this.sensor, this.value});
+  Lecture({this.address, this.sensorId, this.sensorType, this.value});
 
   static fromJson(Map<String, Object> json) {
-    return Lecture(id: json["id"], sensor: json["sensor"], value: getValueBySensor(json["sensor"], json["value"]));
+    return Lecture(
+        address: json["address"], sensorId: json["sensorId"], sensorType: json["sensorType"], value: json["value"]);
   }
 
   Map<String, Object> toJson() {
-    return {"id": this.id, "sensor": this.sensor, "value": this.value.toString()};
-  }
-
-  static getValueBySensor(String sensor, String value) {
-    if (SensorType.PRESENCE == sensor) {
-      return value == "1" ? true : false;
-    }
-
-    if (SensorType.TEMPERATURE == sensor) {
-      return double.parse(value);
-    }
-
-    if (SensorType.HUMIDITY == sensor) {
-      return double.parse(value);
-    }
-
-    if (SensorType.SMOKE == sensor) {
-      return double.parse(value);
-    }
-
-    if (SensorType.LIGA_DESLIGA == sensor || "op1" == sensor || "op2" == sensor) {
-      return value == "1" ? true : false;
-    }
-
-    return value;
+    return {
+      "address": this.address,
+      "sensorId": this.sensorId,
+      "sensorType": this.sensorType,
+      "value": this.value.toString()
+    };
   }
 
   @override
   String toString() {
-    return 'Lecture{id: $id, sensor: $sensor, value: $value}';
+    return 'Lecture{address: $address, sensorId: $sensorId, sensorType: $sensorType, value: $value}';
   }
 }
 

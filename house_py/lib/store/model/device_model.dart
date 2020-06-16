@@ -11,7 +11,7 @@ abstract class _DeviceModel with Store {
   Device device;
 
   @observable
-  ObservableList<SensorModel> sensors;
+  ObservableMap<int, SensorModel> sensors;
 
   _DeviceModel({this.device, this.sensors});
 }

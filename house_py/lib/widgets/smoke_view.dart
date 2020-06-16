@@ -10,7 +10,7 @@ class SmokeView extends StatelessWidget {
 
   const SmokeView({Key key, this.sensor}) : super(key: key);
 
-  _getIcon(double temp) {
+  _getIcon(int temp) {
     if (temp > 400) {
       return Icon(FontAwesomeIcons.smog, color: Colors.red);
     } else {

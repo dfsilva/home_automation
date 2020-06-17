@@ -1,20 +1,20 @@
 class Lecture {
   final String address;
-  final int sensorId;
+  final int sensorNumber;
   final String sensorType;
   final String value;
 
-  Lecture({this.address, this.sensorId, this.sensorType, this.value});
+  Lecture({this.address, this.sensorNumber, this.sensorType, this.value});
 
   static fromJson(Map<String, Object> json) {
     return Lecture(
-        address: json["address"], sensorId: json["sensorId"], sensorType: json["sensorType"], value: json["value"]);
+        address: json["address"], sensorNumber: json["sensorNumber"], sensorType: json["sensorType"], value: json["value"]);
   }
 
   Map<String, Object> toJson() {
     return {
       "address": this.address,
-      "sensorId": this.sensorId,
+      "sensorNumber": this.sensorNumber,
       "sensorType": this.sensorType,
       "value": this.value.toString()
     };
@@ -22,7 +22,11 @@ class Lecture {
 
   @override
   String toString() {
-    return 'Lecture{address: $address, sensorId: $sensorId, sensorType: $sensorType, value: $value}';
+    return 'Lecture{address: $address, sensorNumber: $sensorNumber, sensorType: $sensorType, value: $value}';
+  }
+
+  String getSensorKey(){
+    return "$sensorType$sensorNumber";
   }
 }
 

@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Observer(builder: (ctx) {
           List<DeviceModel> _devices = _deviceService.store().devices.values.toList();
-          _devices.sort((d1, d2) => d1.device.order.compareTo(d2.device.order));
+          _devices.sort((d1, d2) => d1.device.position.compareTo(d2.device.position));
           return PageView.builder(
               controller: PageController(viewportFraction: 0.9),
               itemCount: _devices.length,

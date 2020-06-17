@@ -128,7 +128,7 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
                         address = data.address,
                         devType = DeviceType.withName(data.devType),
                         owner = authData.userId,
-                        order = 10))
+                        position = 10))
                     })
                   }
                 },

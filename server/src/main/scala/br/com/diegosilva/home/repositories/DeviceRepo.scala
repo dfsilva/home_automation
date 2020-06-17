@@ -5,7 +5,7 @@ import br.com.diegosilva.home.database.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import collection._
 
-case class Device(address: String, name: String, devType: DeviceType.Value, owner: String, order: Int)
+case class Device(address: String, name: String, devType: DeviceType.Value, owner: String, position: Int)
 
 case class DeviceSensors(device: Device, sensors: Seq[Sensor])
 
@@ -19,9 +19,9 @@ class DeviceTable(tag: Tag) extends Table[Device](tag, Some("housepy"), "devices
 
   def owner: Rep[String] = column[String]("owner")
 
-  def order: Rep[Int] = column[Int]("position")
+  def position: Rep[Int] = column[Int]("position")
 
-  def * : ProvenShape[Device] = (address, name, devType, owner, order) <> (Device.tupled, Device.unapply)
+  def * : ProvenShape[Device] = (address, name, devType, owner, position) <> (Device.tupled, Device.unapply)
 
 }
 

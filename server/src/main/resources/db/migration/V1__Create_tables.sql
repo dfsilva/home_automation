@@ -32,36 +32,36 @@ insert into housepy.devices values ('02','ChCTNNSLXVRXghsiBxZLAmB4Adq2', 'Escrit
 
 CREATE TABLE housepy.sensors
 (
-    id             BIGINT NOT NULL,
+    number         BIGINT NOT NULL,
     type           CHAR(2) NOT NULL,
     device_address VARCHAR NOT NULL,
     data_type      VARCHAR NOT NULL, --int, string, float, bool
     name           VARCHAR NOT NULL,
     position       SMALLINT NOT NULL,
-    PRIMARY KEY(id, type, device_address)
+    PRIMARY KEY(number, type, device_address)
 );
 
 insert into housepy.sensors values (1, 'tp', 's_10','float', 'Temperatura', 0);
-insert into housepy.sensors values (2, 'hm', 's_10','float', 'Humidade', 1);
-insert into housepy.sensors values (3, 'ps', 's_10','bool', 'Presença', 2);
-insert into housepy.sensors values (4, 'sm', 's_10','int', 'Fumaça', 3);
-insert into housepy.sensors values (5, 'ld', 's_10','bool', 'Humidificador', 4);
+insert into housepy.sensors values (1, 'hm', 's_10','float', 'Humidade', 1);
+insert into housepy.sensors values (1, 'ps', 's_10','bool', 'Presença', 2);
+insert into housepy.sensors values (1, 'sm', 's_10','int', 'Fumaça', 3);
+insert into housepy.sensors values (1, 'ld', 's_10','bool', 'Humidificador', 4);
 
 insert into housepy.sensors values (1, 'tp', 's_11','float', 'Temperatura', 0);
-insert into housepy.sensors values (2, 'hm', 's_11','float', 'Humidade', 1);
-insert into housepy.sensors values (3, 'ps', 's_11','bool', 'Presença', 2);
-insert into housepy.sensors values (4, 'sm', 's_11','int', 'FUMAÇA', 3);
-insert into housepy.sensors values (5, 'ld', 's_11','bool', 'Portão de Entrada', 4);
-insert into housepy.sensors values (6, 'ld', 's_11','bool', 'Portão de Saída', 5);
+insert into housepy.sensors values (1, 'hm', 's_11','float', 'Humidade', 1);
+insert into housepy.sensors values (1, 'ps', 's_11','bool', 'Presença', 2);
+insert into housepy.sensors values (1, 'sm', 's_11','int', 'FUMAÇA', 3);
+insert into housepy.sensors values (1, 'ld', 's_11','bool', 'Portão de Entrada', 4);
+insert into housepy.sensors values (2, 'ld', 's_11','bool', 'Portão de Saída', 5);
 
 insert into housepy.sensors values (1, 'tp', 's_12','float', 'Temperatura', 0);
-insert into housepy.sensors values (2, 'hm', 's_12','float', 'Humidade', 1);
-insert into housepy.sensors values (3, 'ps', 's_12','bool', 'Presença', 2);
-insert into housepy.sensors values (4, 'sm', 's_12','int', 'FUMAÇA', 3);
+insert into housepy.sensors values (1, 'hm', 's_12','float', 'Humidade', 1);
+insert into housepy.sensors values (1, 'ps', 's_12','bool', 'Presença', 2);
+insert into housepy.sensors values (1, 'sm', 's_12','int', 'FUMAÇA', 3);
 
 insert into housepy.sensors values (1, 'tp', '02','float', 'Temperatura', 0);
-insert into housepy.sensors values (2, 'hm', '02','float', 'Humidade', 1);
-insert into housepy.sensors values (3, 'ps', '02','bool', 'Presença', 2);
+insert into housepy.sensors values (1, 'hm', '02','float', 'Humidade', 1);
+insert into housepy.sensors values (1, 'ps', '02','bool', 'Presença', 2);
 
 
 CREATE TABLE housepy.commands

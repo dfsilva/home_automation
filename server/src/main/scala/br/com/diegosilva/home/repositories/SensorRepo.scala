@@ -40,11 +40,11 @@ class CommandTable(tag: Tag) extends Table[Command](tag, Some("housepy"), "comma
 
 }
 
-case class Sensor(id: Int, sensorType: String, deviceAddress: String, dataType: String, name: String, order: Int)
+case class Sensor(number: Int, sensorType: String, deviceAddress: String, dataType: String, name: String, position: Int)
 
 class SensorTable(tag: Tag) extends Table[Sensor](tag, Some("housepy"), "sensors") {
 
-  def id: Rep[Int] = column[Int]("id")
+  def number: Rep[Int] = column[Int]("number")
 
   def sensorType: Rep[String] = column[String]("type")
 
@@ -54,11 +54,11 @@ class SensorTable(tag: Tag) extends Table[Sensor](tag, Some("housepy"), "sensors
 
   def name: Rep[String] = column[String]("name")
 
-  def order: Rep[Int] = column[Int]("position")
+  def position: Rep[Int] = column[Int]("position")
 
-  def * : ProvenShape[Sensor] = (id, sensorType, deviceAddress, dataType, name, order) <> (Sensor.tupled, Sensor.unapply)
+  def * : ProvenShape[Sensor] = (number, sensorType, deviceAddress, dataType, name, position) <> (Sensor.tupled, Sensor.unapply)
 
-  def pk = primaryKey("pk_sensor", (id, sensorType, deviceAddress))
+  def pk = primaryKey("pk_sensor", (number, sensorType, deviceAddress))
 
 }
 
@@ -71,8 +71,8 @@ object SensorRepo {
   def sensorsWithAll(address: String): DBIO[Seq[(Sensor, Command, Trigger)]] = {
     (for {
       s <- sensors.filter(_.deviceAddress === address)
-      c <- commands if s.id === c.sensorId
-      t <- triggers if s.id === t.sensorId
+      c <- commands if s.number === c.sensorId
+      t <- triggers if s.number === t.sensorId
     } yield (s, c, t)).result
   }
 

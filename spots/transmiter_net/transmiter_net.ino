@@ -29,7 +29,7 @@ const byte GLED_PIN = 4;
 const byte RLED_PIN = 5;
 const byte BLED_PIN = 6;
 
-const char *MY_ID = "s_13";
+const char *MY_ID = "02";
 
 int send_now = 0;
 
@@ -122,7 +122,7 @@ bool sendHum()
 {
   last_hum = sensor.readHumidity();
   char msgHum[30] = "";
-  sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n", MY_ID, (int)last_hum, (int)(last_hum * 100) % 100);
+  sprintf(msgHum, "id:%s,sen:hm1,val:%d.%02d\n", MY_ID, (int)last_hum, (int)(last_hum * 100) % 100);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgHum, sizeof(msgHum));
   updateSentLed(sent);
@@ -133,7 +133,7 @@ bool sendTemp()
 {
   last_temp = sensor.readTemperature();
   char msgTemp[30] = "";
-  sprintf(msgTemp, "id:%s,sen:tp,val:%d.%02d\n", MY_ID, (int)last_temp, (int)(last_temp * 100) % 100);
+  sprintf(msgTemp, "id:%s,sen:tp1,val:%d.%02d\n", MY_ID, (int)last_temp, (int)(last_temp * 100) % 100);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
   updateSentLed(sent);
@@ -144,7 +144,7 @@ bool sendPresence()
 {
   last_pir = digitalRead(PIR_PIN);
   char msgTemp[30] = "";
-  sprintf(msgTemp, "id:%s,sen:ps,val:%d\n", MY_ID, last_pir);
+  sprintf(msgTemp, "id:%s,sen:ps1,val:%d\n", MY_ID, last_pir);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgTemp, sizeof(msgTemp));
   updateSentLed(sent);
@@ -155,7 +155,7 @@ bool sendSmoke()
 {
   last_smoke = analogRead(SMOKE_PIN);
   char msgSmk[30] = "";
-  sprintf(msgSmk, "id:%s,sen:sm,val:%d\n", MY_ID, last_smoke);
+  sprintf(msgSmk, "id:%s,sen:sm1,val:%d\n", MY_ID, last_smoke);
   RF24NetworkHeader header2(other_node);
   bool sent = network.write(header2, &msgSmk, sizeof(msgSmk));
   updateSentLed(sent);

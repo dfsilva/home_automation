@@ -6,10 +6,10 @@ class Device {
   final String name;
   final String owner;
   final String devType;
-  final int order;
+  final int position;
   final List<Sensor> sensors;
 
-  Device({this.id, this.address, this.name, this.owner, this.devType, this.order, this.sensors});
+  Device({this.id, this.address, this.name, this.owner, this.devType, this.position, this.sensors});
 
   Map<String, Object> toJson() {
     return {
@@ -18,7 +18,7 @@ class Device {
       "name": this.name,
       "owner": this.owner,
       "devType": this.devType,
-      "order": this.order,
+      "position": this.position,
       "sensors": sensors.map((e) => e.toJson()).toList()
     };
   }
@@ -30,7 +30,7 @@ class Device {
         name: json["name"],
         owner: json["owner"],
         devType: json["devType"],
-        order: json["order"],
+        position: json["position"],
         sensors:
             json["sensors"] != null ? (json["sensors"] as List<dynamic>).map((e) => Sensor.fromJson(e)).toList() : []);
   }

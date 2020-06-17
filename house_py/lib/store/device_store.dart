@@ -23,8 +23,8 @@ abstract class _DeviceStore with Store {
     Iterable<DeviceModel> devicesModel = devices.map((device) {
       return DeviceModel(
           device: device,
-          sensors: Map<int, SensorModel>.fromIterable(device.sensors.map((sensor) => SensorModel(sensor)),
-              key: (element) => element.sensor.id, value: (element) => element).asObservable());
+          sensors: Map<String, SensorModel>.fromIterable(device.sensors.map((sensor) => SensorModel(sensor)),
+              key: (element) => element.sensor.getKey(), value: (element) => element).asObservable());
     });
 
     Map<String, DeviceModel> mapDevices = Map<String, DeviceModel>.fromIterable(devicesModel,
@@ -36,12 +36,12 @@ abstract class _DeviceStore with Store {
 
   @action
   updateLecture(Lecture _lecture) {
-    SensorModel sm = devices[_lecture.address]?.sensors[_lecture.sensorId];
+    SensorModel sm = devices[_lecture.address]?.sensors[_lecture.getSensorKey()];
     sm?.setValue(valueByType(sm?.sensor?.dataType, _lecture.value));
   }
 
   @action
-  changeSensorValue(String address, int sensorId, dynamic value) {
-    devices[address].sensors[sensorId]?.setValue(value);
+  changeSensorValue(String address, String sensorKey, dynamic value) {
+    devices[address].sensors[sensorKey]?.setValue(value);
   }
 }

@@ -22,7 +22,7 @@ int last_smoke = 0;
 const byte PIR_PIN = 3;
 const int SMOKE_PIN = A0;
 
-const char *MY_ID = "s_12";
+const char *MY_ID = "s_11";
 
 int send_now = 0;
 

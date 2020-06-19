@@ -32,11 +32,11 @@ class ConnectionService extends BaseService<ConnectionStore> {
             }
           }
         }, onDone: () {
-          bus().send(WsDisconected);
+          bus().send(WsDisconected());
           Future.delayed(Duration(seconds: 10), () => connect(uid));
         });
       } catch (e) {
-        bus().send(WsDisconected);
+        bus().send(WsDisconected());
         Future.delayed(Duration(seconds: 10), () => connect(uid));
       }
     }

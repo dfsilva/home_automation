@@ -4,7 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:housepy/utils/shared_prefs.dart';
 
 class Api {
-  static const String HOST = "192.168.31.45:8080";
+  //static const String HOST = "192.168.31.45:8080";
+  static const String HOST = "dfsilva.sytes.net:8180";
   static const String _URL = "http://$HOST/api";
   static Dio _dio = new Dio();
 

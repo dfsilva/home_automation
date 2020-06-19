@@ -34,6 +34,7 @@ abstract class _DeviceStore with Store {
     this.status = DevicesStatus.loaded;
   }
 
+
   @action
   updateLecture(Lecture _lecture) {
     SensorModel sm = devices[_lecture.address]?.sensors[_lecture.getSensorKey()];

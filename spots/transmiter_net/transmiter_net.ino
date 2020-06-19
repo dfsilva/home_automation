@@ -7,7 +7,7 @@ RF24 radio(9, 10);
 
 RF24Network network(radio);
 
-const uint16_t this_node = 02;
+const uint16_t this_node = 01;
 const uint16_t other_node = 00;
 
 int last_pipe = 0;
@@ -29,7 +29,7 @@ const byte GLED_PIN = 4;
 const byte RLED_PIN = 5;
 const byte BLED_PIN = 6;
 
-const char *MY_ID = "02";
+const char *MY_ID = "01";
 
 int send_now = 0;
 

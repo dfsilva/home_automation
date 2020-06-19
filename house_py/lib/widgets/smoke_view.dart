@@ -35,7 +35,7 @@ class SmokeView extends StatelessWidget {
                         height: 50,
                         child: sensor.latestValues != null
                             ? Sparkline(
-                                data: sensor.latestValues.map((v) => v as double).toList(), lineColor: Colors.grey)
+                                data: sensor.latestValues.map((v) => (v as int).toDouble()).toList(), lineColor: Colors.grey)
                             : SizedBox.shrink(),
                       ),
                     ),

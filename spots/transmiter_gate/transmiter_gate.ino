@@ -13,6 +13,7 @@ unsigned long last_send = 0;
 
 int last_open_1 = 0;
 const byte OPEN_1 = 4;
+
 int last_open_2 = 0;
 const byte OPEN_2 = 5;
 
@@ -69,7 +70,7 @@ void readWifi(){
         String type_Str = type;
         
         if(id_Str.equals("s_11")){
-          if(type_Str.equals("op1")){
+          if(type_Str.equals("ld1")){
               String val_str = val;
               if(val_str.equals("true\n")){
                 last_open_1 = 1;
@@ -82,7 +83,7 @@ void readWifi(){
               }
           }
 
-          if(type_Str.equals("op2")){
+          if(type_Str.equals("ld2")){
               String val_str = val;
               if(val_str.equals("true\n")){
                 last_open_2 = 1;
@@ -100,14 +101,14 @@ void readWifi(){
 
 void sendOpen1(){        
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_11,sen:op1,val:%d\n", last_open_1);
+    sprintf(msgTemp,"id:s_11,sen:ld1,val:%d\n", last_open_1);
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
 }
 
 void sendOpen2(){        
     char msgTemp[30] = "";
-    sprintf(msgTemp,"id:s_11,sen:op2,val:%d\n", last_open_2);
+    sprintf(msgTemp,"id:s_11,sen:ld2,val:%d\n", last_open_2);
     Serial.print(msgTemp); 
     radio.write(&msgTemp,strlen(msgTemp));
 }

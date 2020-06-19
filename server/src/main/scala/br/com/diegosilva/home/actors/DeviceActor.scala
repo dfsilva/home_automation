@@ -6,8 +6,8 @@ import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.cluster.sharding.typed.scaladsl.{ClusterSharding, Entity, EntityTypeKey}
 import br.com.diegosilva.home.CborSerializable
 import br.com.diegosilva.home.actors.DeviceActor._
-import br.com.diegosilva.home.actors.RF24WriterActor.TopicMessage
 import br.com.diegosilva.home.data.{IOTMessage, InterfaceType, Lecture}
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.util.{Failure, Success}
 
@@ -22,10 +22,6 @@ object DeviceActor {
   final case class Send(message: IOTMessage, times: Int, replyTo: ActorRef[Response]) extends Command
 
   final case class SendResponse(message: String) extends Response
-
-  final case class Register(actorRef: ActorRef[WsConnectionActor.Command]) extends Command
-
-  final case class UnRegister(actorRef: ActorRef[WsConnectionActor.Command]) extends Command
 
   val EntityKey: EntityTypeKey[Command] = EntityTypeKey[Command]("device")
 
@@ -42,41 +38,29 @@ object DeviceActor {
 
 class DeviceActor(context: ActorContext[Command], val entityId: String) extends AbstractBehavior[Command](context) {
 
-  private var registers: Set[ActorRef[WsConnectionActor.Command]] = Set()
-  private val interface = InterfaceType.withName(context.system.settings.config.getString("serial.interface"))
+  private val log: Logger = LoggerFactory.getLogger(DeviceActor.getClass)
 
-  private val topic = interface match {
-    case InterfaceType.RF24 => context.spawn(Topic[TopicMessage](Topics.RF24TOPIC), "RF24TOPIC")
-    case InterfaceType.RXTX => context.spawn(Topic[TopicMessage](Topics.RXTXTOPIC), "RXTXTOPIC")
+  private val interface = InterfaceType.withName(context.system.settings.config.getString("serial.interface"))
+  private val writerTopic = interface match {
+    case InterfaceType.RF24 => context.spawn(Topic[SerialWriterSingletonActor.TopicMessage](Topics.RF24TOPIC), "RF24TOPIC")
+    case InterfaceType.RXTX => context.spawn(Topic[SerialWriterSingletonActor.TopicMessage](Topics.RXTXTOPIC), "RXTXTOPIC")
   }
+  private val deviceTopic = context.spawn(Topic[WsUserActor.Notify](s"notify_$entityId"), s"notify_$entityId")
 
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Processar(message) => {
-        context.log.info("Processando mensagem IOT {} registers {}", message, registers.size)
         Lecture.fromIotMessage(message) match {
           case Success(lecture) => {
-            context.log.info("Enviando mensagem para os usuarios registrados {} {}", lecture, registers.size)
-            registers.foreach { actorRef =>
-              actorRef ! WsConnectionActor.Notify(lecture)
-            }
+            log.info("Enviando mensagem para o topico {} ", lecture)
+            deviceTopic ! Topic.Publish(WsUserActor.Notify(lecture))
           }
-          case Failure(exception) => context.log.error("Falha ao processar a mensagem {} {}", message, exception.getMessage)
-        }
-        Behaviors.same
-      }
-      case Register(actorRef) => {
-        registers += actorRef
-        Behaviors.same
-      }
-      case UnRegister(actorRef) => {
-        registers = registers filter { value =>
-          value.path != actorRef.path
+          case Failure(_) => ()
         }
         Behaviors.same
       }
       case Send(message, times, replyTo) => {
-        topic ! Topic.Publish(RF24WriterActor.TopicMessage(message))
+        writerTopic ! Topic.Publish(SerialWriterSingletonActor.TopicMessage(message))
         //        if (cancellable != null)
         //          cancellable.cancel()
         //        context.log.info("Escrevendo mensagem na serial {}", message.encode)
@@ -90,7 +74,7 @@ class DeviceActor(context: ActorContext[Command], val entityId: String) extends 
 
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {
     case restart: PreRestart => {
-      context.log.debug("Reiniciando de recebimento de leituras")
+      log.debug("Reiniciando de recebimento de leituras")
       //      this.serialInterface = SerialPortFactory.get(context.system.settings.config)
       Behaviors.same
     }

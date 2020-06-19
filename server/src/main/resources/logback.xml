@@ -14,7 +14,11 @@
 
     <logger name="com.datastax.driver.core.Connection" level="ERROR"/>
     <logger name="com.codahale.metrics" level="ERROR"/>
-    <logger name="akka" level="ERROR"/>
+    <logger name="com.zaxxer.hikari" level="ERROR"/>
+    <logger name="org.flywaydb" level="ERROR"/>
+    <logger name="akka.actor.typed.pubsub" level="ERROR"/>
+    <logger name="akka.cluster" level="ERROR"/>
+    <logger name="br.com.diegosilva" level="TRACE"/>
 
     <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
         <queueSize>8192</queueSize>
@@ -28,7 +32,7 @@
         <appender-ref ref="STDOUT"/>
     </appender>
 
-    <root level="TRACE">
+    <root level="ERROR">
         <appender-ref ref="ASYNCFILE"/>
         <appender-ref ref="ASYNCSTDOUT"/>
     </root>

@@ -4,13 +4,15 @@ import br.com.diegosilva.rfnative.RfNative
 
 class Rf24SerialInterface(node: Int) extends SerialInterface {
 
-  private val rfNative: RfNative = new RfNative()
-  rfNative.start(node)
+  private var rfNative: RfNative = null
 
   override def onReceive(listener: String => Unit): Unit = {
-    rfNative.setReceiListener((_, msg) => {
-      listener(msg)
-    })
+    if (rfNative == null) {
+      new RfNative((instance, msg) => {
+        rfNative = instance
+        listener(msg)
+      }).start(node);
+    }
   }
 
   override def send(node: Int, value: String): Boolean = {

@@ -4,8 +4,6 @@ import br.com.diegosilva.home.data.InterfaceType
 import br.com.diegosilva.home.serial.{Rf24SerialInterface, RxTxSerialInterface, SerialInterface}
 import com.typesafe.config.Config
 
-
-
 object SerialPortFactory {
 
   private var _instance: SerialInterface = null

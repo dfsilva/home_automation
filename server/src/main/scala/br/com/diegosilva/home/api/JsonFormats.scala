@@ -1,7 +1,7 @@
 package br.com.diegosilva.home.api
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
-import br.com.diegosilva.home.actors.WsConnectionActor.{Notify, Register}
+import br.com.diegosilva.home.actors.WsUserActor.{Notify, Register}
 import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage, Lecture}
 import br.com.diegosilva.home.repositories.{Device, DeviceSensors, Sensor, User}

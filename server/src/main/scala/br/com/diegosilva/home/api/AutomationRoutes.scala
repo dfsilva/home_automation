@@ -15,14 +15,14 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.typed.scaladsl.{ActorSink, ActorSource}
 import akka.util.Timeout
-import br.com.diegosilva.home.actors.WsConnCreatorActor.Created
-import br.com.diegosilva.home.actors.WsConnectionActor._
-import br.com.diegosilva.home.actors.{DeviceActor, WsConnCreatorActor, WsConnectionActor}
+import br.com.diegosilva.home.actors.WsUserActor._
+import br.com.diegosilva.home.actors.WsUserFactoryActor.Created
+import br.com.diegosilva.home.actors.{DeviceActor, WsUserActor, WsUserFactoryActor}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage}
 import br.com.diegosilva.home.database.DatabasePool
-import br.com.diegosilva.home.ext.SpawnExtension
 import br.com.diegosilva.home.repositories._
 import com.google.firebase.auth.FirebaseAuth
+import org.slf4j.{Logger, LoggerFactory}
 import slick.dbio.DBIOAction
 
 import scala.concurrent.duration._
@@ -37,9 +37,7 @@ object AutomationRoutes {
 
 }
 
-class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCreatorActor.Command]) extends JsonFormats {
-
-  lazy val log = system.log
+class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFactoryActor.Command]) extends JsonFormats {
 
   implicit val timeout: Timeout = Timeout.create(system.settings.config.getDuration("automation.askTimeout"))
   implicit val scheduler = system.scheduler
@@ -47,7 +45,8 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
 
   private val sharding = ClusterSharding(system)
   protected val db = DatabasePool(system).database
-  protected val spawn = SpawnExtension(system)
+
+  private val log: Logger = LoggerFactory.getLogger(AutomationRoutes.getClass)
 
   private def getAuthToken(token: String): Future[AuthToken] = {
     val action = for {
@@ -100,6 +99,7 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
           }
         },
         path("ws" / Remaining) { userName: String =>
+          log.info("criando o websocket")
           handleWebSocketMessages(wsUser(userName))
         },
         authenticated { authData =>
@@ -169,30 +169,36 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
 
     //    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
 
-    val wsConCreated: Created = Await.result(wsConCreator.ask(replyTo => WsConnCreatorActor.CreateWsCon(userId, replyTo)), 2.seconds)
+    log.info("Criando websocket")
+
+    val wsConCreated: Created = Await.result(wsConCreator.ask(replyTo => WsUserFactoryActor.CreateWsCon(userId, replyTo)), 2.seconds)
     val wsUser = wsConCreated.userActor
 
     val sink: Sink[Message, NotUsed] =
       Flow[Message].collect {
-        case TextMessage.Strict(string) => registerFormat.read(string.parseJson)
+        case TextMessage.Strict(string) => {
+          log.info("Recebido mensagem de texto {}", string)
+          val registerMsg = registerFormat.read(string.parseJson)
+          registerMsg
+        }
       }
-        .to(ActorSink.actorRef[WsConnectionActor.Command](ref = wsUser, onCompleteMessage = Disconnected, onFailureMessage = Fail))
+        .to(ActorSink.actorRef[WsUserActor.Command](ref = wsUser, onCompleteMessage = Disconnected, onFailureMessage = Fail))
 
     val source: Source[Message, NotUsed] =
-      ActorSource.actorRef[WsConnectionActor.Command](completionMatcher = {
+      ActorSource.actorRef[WsUserActor.Command](completionMatcher = {
         case Disconnected => {
-          println("disconected")
+          log.error("Disconected")
         }
       }, failureMatcher = {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
           case c: Notify => {
-            log.info("Enviando mensagem {} para {}", c.toJson.toString(), userId)
+            log.error("Enviando mensagem {} para {}", c.toJson.toString(), userId)
             TextMessage.Strict(c.toJson.toString())
           }
           case c: Connected => {
-            log.info("Enviando mensagem de conectado para usuario {}", userId)
+            log.error("Enviando mensagem de conectado para usuario {}", userId)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
           case _ => {
@@ -200,7 +206,8 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsConnCrea
           }
         }
         .mapMaterializedValue({ wsHandler =>
-          wsUser ! WsConnectionActor.Connect(wsHandler)
+          log.info("Conectando")
+          wsUser ! WsUserActor.Connect(wsHandler)
           NotUsed
         })
         .keepAlive(maxIdle = 10.seconds, () => TextMessage.Strict("{\"message\": \"keep-alive\"}"))

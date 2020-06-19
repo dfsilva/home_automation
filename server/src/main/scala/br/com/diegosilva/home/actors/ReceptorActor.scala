@@ -9,6 +9,7 @@ import br.com.diegosilva.home.actors.ReceptorActor.{Command, Start}
 import br.com.diegosilva.home.data.IOTMessage
 import br.com.diegosilva.home.factory.SerialPortFactory
 import br.com.diegosilva.home.serial.SerialInterface
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.concurrent.duration._
 
@@ -28,6 +29,8 @@ object ReceptorActor {
 
 class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
 
+  private val log: Logger = LoggerFactory.getLogger(DeviceActor.getClass)
+
   private val sharding = ClusterSharding(context.system)
   private var serialInterface: SerialInterface = SerialPortFactory.get(context.system.settings.config)
   private var cancellable: Cancellable = null
@@ -35,7 +38,7 @@ class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Com
   override def onMessage(msg: Command): Behavior[Command] = {
     msg match {
       case Start() =>
-        context.log.debug("Iniciando listener para receber mensagens")
+        log.debug("Iniciando listener para receber mensagens")
         startReceive()
         Behaviors.same
     }
@@ -43,7 +46,7 @@ class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Com
 
   override def onSignal: PartialFunction[Signal, Behavior[Command]] = {
     case PreRestart => {
-      context.log.debug("Reiniciando de recebimento de leituras")
+      log.debug("Reiniciando de recebimento de leituras")
       this.serialInterface = SerialPortFactory.get(context.system.settings.config)
       retry(5.seconds, new ReceptorActor.Start)
       Behaviors.same
@@ -55,7 +58,8 @@ class ReceptorActor(context: ActorContext[Command]) extends AbstractBehavior[Com
       val iotMessage = IOTMessage.decode(toProcess)
       iotMessage match {
         case Some(iotMessage) =>
-          sharding.entityRefFor(DeviceActor.EntityKey, iotMessage.id) ! DeviceActor.Processar(iotMessage)
+          val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, iotMessage.id)
+          entityRef ! DeviceActor.Processar(iotMessage)
         case _ =>
       }
     })

@@ -55,12 +55,10 @@ class DeviceService extends BaseService<DeviceStore> {
 
     if (msg is WsConnected) {
       this._wsChannel = msg.channel;
-      _registerDevices();
     }
 
     if (msg is SetMyDevices) {
       store().setDevices(msg.devices);
-      _registerDevices();
     }
   }
 }

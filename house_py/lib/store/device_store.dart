@@ -37,8 +37,10 @@ abstract class _DeviceStore with Store {
 
   @action
   updateLecture(Lecture _lecture) {
-    SensorModel sm = devices[_lecture.address]?.sensors[_lecture.getSensorKey()];
-    sm?.setValue(valueByType(sm?.sensor?.dataType, _lecture.value));
+    if(devices[_lecture.address]?.sensors != null){
+      SensorModel sm = devices[_lecture.address]?.sensors[_lecture.getSensorKey()];
+      sm?.setValue(valueByType(sm?.sensor?.dataType, _lecture.value));
+    }
   }
 
   @action

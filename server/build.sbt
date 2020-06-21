@@ -19,6 +19,7 @@ libraryDependencies ++= {
     akka %% "akka-serialization-jackson" % akkaV,
     akka %% "akka-http" % akkaHttpV,
     akka %% "akka-http-spray-json" % akkaHttpV,
+    "ch.megard" %% "akka-http-cors" % "1.0.0",
     "org.flywaydb" % "flyway-core" % "6.4.2",
     akka %% "akka-slf4j" % akkaV,
     "com.typesafe.slick" %% "slick" % slickV,

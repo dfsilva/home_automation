@@ -88,6 +88,7 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFact
 
   import AutomationRoutes._
   import akka.http.scaladsl.server.Directives._
+  import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
   import spray.json._
 
   val routes: Route = {
@@ -102,74 +103,73 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFact
           log.info("criando o websocket")
           handleWebSocketMessages(wsUser(userName))
         },
-        authenticated { authData =>
-          concat(
-            pathPrefix("device") {
-              concat(
-                pathPrefix("send") {
-                  post {
-                    entity(as[SendMessage]) { data =>
-                      val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
-                      val reply: Future[DeviceActor.Response] =
-                        entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
-                      onSuccess(reply) {
-                        case DeviceActor.SendResponse(summary) =>
-                          complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
-                        case _ =>
-                          complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+        cors() {
+          authenticated { authData =>
+            concat(
+              pathPrefix("device") {
+                concat(
+                  pathPrefix("send") {
+                    post {
+                      entity(as[SendMessage]) { data =>
+                        val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
+                        val reply: Future[DeviceActor.Response] =
+                          entityRef.ask(DeviceActor.Send(IOTMessage(id = data.id, sensor = data.sensor, value = data.value), 0, _))
+                        onSuccess(reply) {
+                          case DeviceActor.SendResponse(summary) =>
+                            complete(StatusCodes.OK -> JsObject("message" -> JsString(summary)))
+                          case _ =>
+                            complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
+                        }
                       }
                     }
-                  }
-                },
-                post {
-                  entity(as[AddDevice]) { data =>
-                    complete(db.run {
-                      DeviceRepo.add(Device(name = data.name,
-                        address = data.address,
-                        devType = DeviceType.withName(data.devType),
-                        owner = authData.userId,
-                        position = 10))
-                    })
-                  }
-                },
-                get {
-                  path("user" / Segment) { uid: String =>
-                    val action = for {
-                      devices <- DeviceRepo.devicesAndSensorsByUser(uid)
-                      dev <- DBIOAction.successful(devices.groupBy(_._1)
-                        .map(grouped => DeviceSensors(grouped._1, grouped._2
-                          .map(sensors => sensors._2))).toSeq)
-                    } yield dev
+                  },
+                  post {
+                    entity(as[AddDevice]) { data =>
+                      complete(db.run {
+                        DeviceRepo.add(Device(name = data.name,
+                          address = data.address,
+                          devType = DeviceType.withName(data.devType),
+                          owner = authData.userId,
+                          position = 10))
+                      })
+                    }
+                  },
+                  get {
+                    path("user" / Segment) { uid: String =>
+                      val action = for {
+                        devices <- DeviceRepo.devicesAndSensorsByUser(uid)
+                        dev <- DBIOAction.successful(devices.groupBy(_._1)
+                          .map(grouped => DeviceSensors(grouped._1, grouped._2
+                            .map(sensors => sensors._2))).toSeq)
+                      } yield dev
 
-                    complete(db.run {
-                      action
-                    })
+                      complete(db.run {
+                        action
+                      })
+                    }
                   }
-                }
-              )
-            },
-            pathPrefix("users") {
-              concat(
-                get {
-                  path(Segment) { uid: String =>
-                    complete(db.run {
-                      UserRepo.load(uid)
-                    })
+                )
+              },
+              pathPrefix("users") {
+                concat(
+                  get {
+                    path(Segment) { uid: String =>
+                      complete(db.run {
+                        UserRepo.load(uid)
+                      })
+                    }
                   }
-                }
-              )
-            }
-          )
+                )
+              }
+            )
+          }
+
         }
       )
     }
   }
 
   private def wsUser(userId: String): Flow[Message, Message, NotUsed] = {
-
-    //    val wsUser: ActorRef[WsConnectionActor.Command] = Await.result(spawn.spawn(new WsConnectionActor(userId).create(), userId), 2.seconds)
-
-    log.info("Criando websocket")
 
     val wsConCreated: Created = Await.result(wsConCreator.ask(replyTo => WsUserFactoryActor.CreateWsCon(userId, replyTo)), 2.seconds)
     val wsUser = wsConCreated.userActor
@@ -187,26 +187,27 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFact
     val source: Source[Message, NotUsed] =
       ActorSource.actorRef[WsUserActor.Command](completionMatcher = {
         case Disconnected => {
-          log.error("Disconected")
+          log.debug("Disconected")
         }
       }, failureMatcher = {
         case Fail(ex) => ex
       }, bufferSize = 8, overflowStrategy = OverflowStrategy.fail)
         .map {
           case c: Notify => {
-            log.error("Enviando mensagem {} para {}", c.toJson.toString(), userId)
+            log.debug("Enviando mensagem {} para {}", c.toJson.toString(), userId)
             TextMessage.Strict(c.toJson.toString())
           }
           case c: Connected => {
-            log.error("Enviando mensagem de conectado para usuario {}", userId)
+            log.debug("Enviando mensagem de conectado para usuario {}", userId)
             TextMessage.Strict(JsObject("message" -> JsString(c.message)).toString())
           }
           case _ => {
+            log.error("Mensagem nao reconhecida {}", userId)
             TextMessage.Strict("Mensagem não reconhecida")
           }
         }
         .mapMaterializedValue({ wsHandler =>
-          log.info("Conectando")
+          log.debug("Conectando")
           wsUser ! WsUserActor.Connect(wsHandler)
           NotUsed
         })

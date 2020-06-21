@@ -5,10 +5,12 @@ import 'package:housepy/dto/websocket.dart';
 import 'package:housepy/service/base_service.dart';
 import 'package:housepy/store/connection_store.dart';
 import 'package:housepy/utils/http_utils.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/html.dart';
+//import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectionService extends BaseService<ConnectionStore> {
-  IOWebSocketChannel _channel;
+  WebSocketChannel _channel;
 
   ConnectionService(rxBus) : super(rxBus, ConnectionStore());
 
@@ -16,8 +18,8 @@ class ConnectionService extends BaseService<ConnectionStore> {
     if (!store().connected) {
       try {
         _channel?.sink?.close();
-        //      channel = HtmlWebSocketChannel.connect('ws://dfsilva.sytes.net:8180/api/ws/diegofff');
-        _channel = IOWebSocketChannel.connect('ws://${Api.HOST}/api/ws/$uid');
+              _channel = HtmlWebSocketChannel.connect('ws://${Api.HOST}/api/ws/$uid');
+//        _channel = IOWebSocketChannel.connect('ws://${Api.HOST}/api/ws/$uid');
         _channel.stream.listen((data) {
           dynamic result = json.decode(data);
           print(result);

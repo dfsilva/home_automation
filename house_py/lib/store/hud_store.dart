@@ -13,7 +13,7 @@ abstract class _HudStore with Store {
   @action
   showHud(String text) {
     this.loading = true;
-    this.text = text;
+    this.text = text ?? "Carregando...";
   }
 
   @action

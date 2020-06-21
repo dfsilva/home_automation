@@ -18,9 +18,27 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
+
+<script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-analytics.js"></script>
+
+<script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAJ_B5mop6AaWjjlljCnvrH3lsZsretfaE",
+      authDomain: "house-py.firebaseapp.com",
+      databaseURL: "https://house-py.firebaseio.com",
+      projectId: "house-py",
+      storageBucket: "house-py.appspot.com",
+      messagingSenderId: "195098792849",
+      appId: "1:195098792849:web:d4443af77d064b7734c030",
+      measurementId: "G-0BPFTMXY82"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {

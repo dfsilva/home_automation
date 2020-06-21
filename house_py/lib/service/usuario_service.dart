@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:housepy/bus/actions.dart';
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/routes.dart';
-import 'package:housepy/screens/home/home.dart';
 import 'package:housepy/service/base_service.dart';
 import 'package:housepy/store/user_store.dart';
 import 'package:housepy/utils/http_utils.dart';
@@ -22,8 +20,8 @@ class UserService extends BaseService<UserStore> {
   subscribeAuth() async {
     _authSubscription = _auth.onAuthStateChanged.listen((userData) async {
       if (userData == null) {
-        bus().send(UserLogout);
-        NavigatorUtils.nav.currentState.pushReplacementNamed("/login");
+        bus().send(UserLogout());
+        NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
       } else {
         if (store().usuario == null || store().usuario.uid == null) {
           userData.getIdToken().then((idToken) async {
@@ -31,9 +29,9 @@ class UserService extends BaseService<UserStore> {
             getUserByUid(userData.uid).then((user) async {
               bus().send(UserLogged(user));
               NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.HOME);
-            }).catchError((error) async {
+            }).catchError((error) {
               showErrorException("Tivemos um problema ao recuperar os dados do usuário");
-              NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
+              bus().send(UserLogout());
             });
           });
         }
@@ -43,8 +41,7 @@ class UserService extends BaseService<UserStore> {
 
   Future<AuthResult> signin(String email, String password) async {
     bus().send(ShowHud(text: "Entrando..."));
-    return _auth.signInWithEmailAndPassword(email: email, password: password)
-        .whenComplete(() => bus().send(HideHud()));
+    return _auth.signInWithEmailAndPassword(email: email, password: password).whenComplete(() => bus().send(HideHud()));
   }
 
   Future<void> recovery(String email) async {

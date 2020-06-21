@@ -8,10 +8,16 @@ import 'package:housepy/store/model/device_model.dart';
 import 'package:housepy/utils/colors.dart';
 import 'package:housepy/widgets/device_view.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final ConnectionService _connectionService = Services.get<ConnectionService>(ConnectionService);
   final DeviceService _deviceService = Services.get<DeviceService>(DeviceService);
+  final PageController _pageController = PageController(viewportFraction: 0.9);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class HomeScreen extends StatelessWidget {
           List<DeviceModel> _devices = _deviceService.store().devices.values.toList();
           _devices.sort((d1, d2) => d1.device.position.compareTo(d2.device.position));
           return PageView.builder(
-              controller: PageController(viewportFraction: 0.9),
+              controller: _pageController,
               itemCount: _devices.length,
               itemBuilder: (_, i) {
                 return Padding(

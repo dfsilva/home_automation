@@ -115,28 +115,28 @@ void readWifi(){
 void sendHum(){
     last_hum = sensor.readHumidity();
     char msgHum[30];
-    sprintf(msgHum, "id:%s,sen:hm,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
+    sprintf(msgHum, "id:%s,sen:hm1,val:%d.%02d\n",MY_ID,(int)last_hum,(int)(last_hum*100)%100);
     radio.write(&msgHum,sizeof(msgHum));
 }
 
 void sendTemp(){
     last_temp = sensor.readTemperature();
     char msgTemp[30];
-    sprintf(msgTemp,"id:%s,sen:tp,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
+    sprintf(msgTemp,"id:%s,sen:tp1,val:%d.%02d\n",MY_ID,(int)last_temp,(int)(last_temp*100)%100);
     radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendPresence(){
     last_pir = digitalRead(PIR_PIN);
     char msgTemp[30];
-    sprintf(msgTemp,"id:%s,sen:ps,val:%d\n",MY_ID,last_pir);
+    sprintf(msgTemp,"id:%s,sen:ps1,val:%d\n",MY_ID,last_pir);
     radio.write(&msgTemp,sizeof(msgTemp));
 }
 
 void sendSmoke(){
     last_smoke = analogRead(SMOKE_PIN);
     char msgTemp[30];
-    sprintf(msgTemp,"id:%s,sen:sm,val:%d\n",MY_ID, last_smoke);
+    sprintf(msgTemp,"id:%s,sen:sm1,val:%d\n",MY_ID, last_smoke);
     radio.write(&msgTemp,sizeof(msgTemp));
 }
 

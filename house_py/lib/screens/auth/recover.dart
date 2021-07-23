@@ -81,7 +81,7 @@ class RecoverScreenState extends State<RecoverScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30, left: 10, right: 10, bottom: 5),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text("Recuperar senha"),
                     onPressed: () {
                       _recover();

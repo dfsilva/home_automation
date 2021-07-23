@@ -278,8 +278,7 @@ class _SparklinePainter extends CustomPainter {
 
         gridLineTextPainters.add(new TextPainter(
             text: new TextSpan(
-                text: labelPrefix + gridLineText,
-                style: new TextStyle(color: gridLineLabelColor, fontSize: 10.0, fontWeight: FontWeight.bold)),
+                text: labelPrefix + gridLineText, style: new TextStyle(color: gridLineLabelColor, fontSize: 10.0, fontWeight: FontWeight.bold)),
             textDirection: TextDirection.ltr));
         gridLineTextPainters[i].layout();
       }
@@ -302,7 +301,7 @@ class _SparklinePainter extends CustomPainter {
     }
 
     if (enableGridLines) {
-      width = size.width - gridLineTextPainters[0].text.text.length * 6;
+      width = size.width - gridLineTextPainters[0].size.width * 6;
       Paint gridPaint = new Paint()
         ..color = gridLineColor
         ..strokeWidth = gridLineWidth;

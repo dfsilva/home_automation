@@ -20,8 +20,5 @@ abstract class BaseService<S> {
 
   void onReceiveMessage(dynamic msg);
 
-  /**
-   * Dispose all your streams
-   */
   void dispose();
 }

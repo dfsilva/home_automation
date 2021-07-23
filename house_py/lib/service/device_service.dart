@@ -19,21 +19,20 @@ class DeviceService extends BaseService<DeviceStore> {
 
   Future<Map> changeValue(Lecture lecture) async {
     store().changeSensorValue(lecture.address, lecture.getSensorKey(), lecture.value);
-    Api.doPost(uri: "/device/send", bodyParams: lecture.toJson()).catchError((error) {
+    return Api.doPost(uri: "/device/send", bodyParams: lecture.toJson()).catchError((error) {
       showErrorException(error);
     });
   }
 
   void loadDevices() {
     Api.doGet(uri: "/device/user/${_loggedUser.uid}").then((devices) {
-      List<Device> myDevices =
-          (devices as List<dynamic>).map((m) => Device.fromJson({...m["device"], "sensors": m["sensors"]})).toList();
+      List<Device> myDevices = (devices as List<dynamic>).map((m) => Device.fromJson({...m["device"], "sensors": m["sensors"]})).toList();
       bus().send(SetMyDevices(myDevices));
     });
   }
 
   _registerDevices() {
-    if (store().devices.isNotEmpty && _wsChannel != null){
+    if (store().devices.isNotEmpty && _wsChannel != null) {
       _wsChannel?.sink?.add(json.encode({"uids": store().devices.values.map((dm) => dm.device.address).toList()}));
       _wsChannel?.sink?.add(json.encode({"uids": store().devices.values.map((dm) => dm.device.address).toList()}));
     }

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fauth;
 import 'package:housepy/bus/actions.dart';
 import 'package:housepy/domain/user.dart';
 import 'package:housepy/routes.dart';
@@ -12,20 +12,20 @@ import 'package:housepy/utils/navigator.dart';
 import 'package:housepy/utils/shared_prefs.dart';
 
 class UserService extends BaseService<UserStore> {
-  final FirebaseAuth _auth;
+  final fauth.FirebaseAuth _auth;
   StreamSubscription _authSubscription;
 
   UserService(rxBus, this._auth) : super(rxBus, UserStore());
 
   subscribeAuth() async {
-    _authSubscription = _auth.onAuthStateChanged.listen((userData) async {
+    _authSubscription = _auth.authStateChanges().listen((userData) async {
       if (userData == null) {
         bus().send(UserLogout());
         NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.LOGIN);
       } else {
         if (store().usuario == null || store().usuario.uid == null) {
           userData.getIdToken().then((idToken) async {
-            await Prefs.saveString(Prefs.user_token_key, idToken.token);
+            await Prefs.saveString(Prefs.user_token_key, idToken);
             getUserByUid(userData.uid).then((user) async {
               bus().send(UserLogged(user));
               NavigatorUtils.nav.currentState.pushReplacementNamed(Routes.HOME);
@@ -39,7 +39,7 @@ class UserService extends BaseService<UserStore> {
     });
   }
 
-  Future<AuthResult> signin(String email, String password) async {
+  Future<fauth.UserCredential> signin(String email, String password) async {
     bus().send(ShowHud(text: "Entrando..."));
     return _auth.signInWithEmailAndPassword(email: email, password: password).whenComplete(() => bus().send(HideHud()));
   }

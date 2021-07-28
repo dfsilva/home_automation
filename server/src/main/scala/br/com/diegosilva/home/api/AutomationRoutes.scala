@@ -35,6 +35,8 @@ object AutomationRoutes {
 
   final case class AddDevice(name: String, devType: String, address: String)
 
+  final case class ReceiveMessage(id: String = "", sensor: String = "", value: String = "")
+
 }
 
 class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFactoryActor.Command]) extends JsonFormats {
@@ -120,6 +122,15 @@ class AutomationRoutes(system: ActorSystem[_], wsConCreator: ActorRef[WsUserFact
                           case _ =>
                             complete(StatusCodes.BadRequest, JsObject("message" -> JsString("Erro ao enviar mensagem para dispositivo.")))
                         }
+                      }
+                    }
+                  },
+                   pathPrefix("receive") {
+                    post {
+                      entity(as[ReceiveMessage]) { data =>
+                         val entityRef = sharding.entityRefFor(DeviceActor.EntityKey, data.id)
+                         entityRef ! DeviceActor.Processar(IOTMessage(id = data.id, sensor = data.sensor, value = data.value))
+                         complete(StatusCodes.OK -> "ok")
                       }
                     }
                   },

@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:housepy/bus/rx_bus.dart';
 import 'package:housepy/parent.dart';
@@ -34,20 +35,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Future<FirebaseApp> _firebaseApp = Firebase.initializeApp();
+
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'HousePy',
-        debugShowCheckedModeBanner: false,
-        navigatorObservers: [BotToastNavigatorObserver()],
-        navigatorKey: NavigatorUtils.nav,
-        theme: HousePyTheme.buildTheme(),
-        routes: {
-          Routes.SPLASH: (context) => Splash(),
-          Routes.HOME: (context) => HomeScreen(),
-          Routes.LOGIN: (context) => LoginScreen(),
-          Routes.RECOVER: (context) => RecoverScreen(),
-        },
-        builder: (ctx, widget) => BotToastInit()(ctx, ParentWidget(widget)),
-        initialRoute: Routes.SPLASH,
-      );
+  Widget build(BuildContext context) => FutureBuilder(
+      future: _firebaseApp,
+      builder: (ctx, AsyncSnapshot<FirebaseApp> snp) {
+        if (snp.connectionState == ConnectionState.done && snp.hasData) {
+          if (snp.hasError) {
+            return Center(child: Padding(padding: EdgeInsets.all(10.0), child: Text("Erro ao carregar o aplicativo")));
+          }
+
+          return MaterialApp(
+            title: 'HousePy',
+            debugShowCheckedModeBanner: false,
+            navigatorObservers: [BotToastNavigatorObserver()],
+            navigatorKey: NavigatorUtils.nav,
+            theme: HousePyTheme.buildTheme(),
+            routes: {
+              Routes.SPLASH: (context) => Splash(),
+              Routes.HOME: (context) => HomeScreen(),
+              Routes.LOGIN: (context) => LoginScreen(),
+              Routes.RECOVER: (context) => RecoverScreen(),
+            },
+            builder: (ctx, widget) => BotToastInit()(ctx, ParentWidget(widget)),
+            initialRoute: Routes.SPLASH,
+          );
+        }
+
+        return Center(child: Icon(Icons.schedule));
+      });
 }

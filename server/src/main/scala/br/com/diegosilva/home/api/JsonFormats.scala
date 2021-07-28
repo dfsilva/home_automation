@@ -2,7 +2,7 @@ package br.com.diegosilva.home.api
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import br.com.diegosilva.home.actors.WsUserActor.{Notify, Register}
-import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage}
+import br.com.diegosilva.home.api.AutomationRoutes.{AddDevice, SendMessage, ReceiveMessage}
 import br.com.diegosilva.home.data.{DeviceType, IOTMessage, Lecture}
 import br.com.diegosilva.home.repositories.{Device, DeviceSensors, Sensor, User}
 import spray.json._
@@ -30,6 +30,7 @@ trait JsonFormats extends SprayJsonSupport with DefaultJsonProtocol {
 
   implicit val sendMessageFormat: RootJsonFormat[SendMessage] = jsonFormat3(SendMessage)
   implicit val addDeviceFormat: RootJsonFormat[AddDevice] = jsonFormat3(AddDevice)
+  implicit val receivemessageFormat: RootJsonFormat[ReceiveMessage] = jsonFormat3(ReceiveMessage.apply)
 
   implicit val registerFormat: RootJsonFormat[Register] = jsonFormat1(Register)
   implicit val notifyFormat: RootJsonFormat[Notify] = jsonFormat1(Notify)

@@ -5,8 +5,8 @@ import 'package:housepy/service/base_service.dart';
 import 'package:housepy/store/connection_store.dart';
 import 'package:housepy/utils/http_utils.dart';
 import 'package:housepy/ws/web_socket_connection_base.dart'
-    if (dart.library.io) 'package:nats_message_processor_client/ws/io_web_socket_connection.dart'
-    if (dart.library.html) 'package:nats_message_processor_client/ws/html_web_socket_connection.dart';
+    if (dart.library.io) 'package:housepy/ws/io_web_socket_connection.dart'
+    if (dart.library.html) 'package:housepy/ws/html_web_socket_connection.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ConnectionService extends BaseService<ConnectionStore> {

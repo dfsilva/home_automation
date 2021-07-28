@@ -17,7 +17,7 @@
     <logger name="com.zaxxer.hikari" level="ERROR"/>
     <logger name="org.flywaydb" level="ERROR"/>
     <logger name="akka.actor.typed.pubsub" level="ERROR"/>
-    <logger name="akka.cluster" level="ERROR"/>
+    <logger name="akka.cluster" level="TRACE"/>
     <logger name="br.com.diegosilva" level="TRACE"/>
 
     <appender name="ASYNCFILE" class="ch.qos.logback.classic.AsyncAppender">
